@@ -1,26 +1,64 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import { Container } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Task, useTasks } from "./useTasks";
+import { CurrentTask } from "./components/CurrentTask";
+import { NewTask } from "./components/NewTask";
 
 function App() {
+  const { tasks, currentTask, addTask, editTask } = useTasks();
+
+  const [elapsedTime, setElapsedTime] = useState<number>(
+    currentTask ? Date.now() - currentTask.startTime : 0
+  );
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setElapsedTime(currentTask ? Date.now() - currentTask.startTime : 0);
+    }, 500);
+
+    return () => {
+      clearInterval(interval);
+    };
+  });
+
+  const handleStopClick = () => {
+    if (!currentTask) {
+      console.log("Current task not visible");
+      return;
+    }
+
+    const editedTask: Task = {
+      ...currentTask,
+      stopTime: Date.now(),
+    };
+
+    editTask(editedTask);
+
+    console.log(">> tasks", tasks);
+    console.log(">> currentTask", currentTask);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container maxWidth="sm">
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            {currentTask ? (
+              <CurrentTask
+                currentTask={currentTask}
+                elapsedTime={elapsedTime}
+                onStopClick={handleStopClick}
+              />
+            ) : <NewTask onAddClick={() => undefined} tasks={Object.values(tasks)} />}
+          </Toolbar>
+        </AppBar>
+      </Box>
+    </Container>
   );
 }
+
 
 export default App;
