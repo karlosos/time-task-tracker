@@ -6,6 +6,7 @@ export interface Task {
   text: string;
   startTime: number;
   stopTime?: number;
+  logged: boolean;
 }
 
 export type TasksList = {
@@ -19,12 +20,14 @@ export const useTasks = () => {
       text: "DX1-3213: Doing something",
       startTime: 1653236911845,
       stopTime: undefined,
+      logged: false,
     },
     "2": {
       id: "2",
       text: "DX1-1111: Different task",
       startTime: 1653236911845,
       stopTime: 1653237028845,
+      logged: false,
     },
   });
 
@@ -34,13 +37,31 @@ export const useTasks = () => {
 
   const addTask = (text: string, startTime: number) => {
     const id = generateId();
+
+    // Update currentTask with stopTime
+    let previousTasks;
+    if (currentTask) {
+      previousTasks = {
+        ...tasks,
+        [currentTask.id]: {
+          ...currentTask,
+          stopTime: Date.now()
+        }
+      }
+    } else {
+      previousTasks = {
+        ...tasks,
+      }
+    }
+
     setTasks({
-      ...tasks,
+      ...previousTasks,
       [id]: {
         id: id,
         text: text,
         startTime: startTime,
         stopTime: undefined,
+        logged: false,
       },
     });
   };

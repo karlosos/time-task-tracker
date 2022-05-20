@@ -6,24 +6,31 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 export const NewTask = ({
   tasks,
-  onAddClick,
+  addNewTask,
 }: {
   tasks: Task[];
-  onAddClick: () => void;
+  addNewTask: (text: string, startTime: number) => void;
 }) => {
   const [text, setText] = useState<string>("");
+
+  const handleAddClick = () => {
+    addNewTask(text, Date.now())
+  }
 
   return (
     <>
       <Autocomplete
-        sx={{ width: "300px" }}
+        sx={{ width: "300px", backgroundColor: 'white' }}
+        freeSolo
         disableClearable
         options={tasks.map((option) => option.text)}
+        value={text}
+        defaultValue={text}
+        onChange={(_, value) => value && setText(value)}
         renderInput={(params) => (
           <TextField
             {...params}
             variant="standard" 
-            label="New task"
             InputProps={{
               ...params.InputProps,
               type: "search",
@@ -32,7 +39,7 @@ export const NewTask = ({
         )}
       />
       <IconButton
-        onClick={onAddClick}
+        onClick={handleAddClick}
         size="large"
         edge="start"
         color="inherit"

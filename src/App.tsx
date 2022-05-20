@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Task, useTasks } from "./useTasks";
 import { CurrentTask } from "./components/CurrentTask";
 import { NewTask } from "./components/NewTask";
+import { TaskRow } from "./components/TaskRow";
 
 function App() {
   const { tasks, currentTask, addTask, editTask } = useTasks();
@@ -52,13 +53,22 @@ function App() {
                 elapsedTime={elapsedTime}
                 onStopClick={handleStopClick}
               />
-            ) : <NewTask onAddClick={() => undefined} tasks={Object.values(tasks)} />}
+            ) : (
+              <NewTask addNewTask={addTask} tasks={Object.values(tasks)} />
+            )}
           </Toolbar>
         </AppBar>
+      </Box>
+      <Box sx={{ flexGrow: 1 }}>
+        {Object.values(tasks)
+          .filter((task) => task.stopTime)
+          .sort((a, b) => b.stopTime! - a.stopTime!)
+          .map((task) => (
+            <TaskRow task={task} addNewTask={addTask} editTask={editTask} />
+          ))}
       </Box>
     </Container>
   );
 }
-
 
 export default App;
