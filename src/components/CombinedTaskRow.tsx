@@ -3,29 +3,27 @@ import { Task } from "../useTasks";
 import { formatElapsedTime } from "../utils";
 import { PlayCircle } from "@mui/icons-material";
 
-export const TaskRow = ({
-  task,
+export const CombinedTaskRow = ({
+  combinedTask,
   addNewTask,
-  editTask,
 }: {
-  task: Task;
+  combinedTask: {text: string, elapsedTime: number};
   addNewTask: (text: string, startTime: number) => void;
-  editTask: (task: Task) => void;
 }) => {
   const handleAddTaskClick = () => {
-    addNewTask(task.text, Date.now());
+    addNewTask(combinedTask.text, Date.now());
   }
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    editTask({
-      ...task,
-      logged: e.target.checked,
-    })
+    // editTask({
+    //   ...task,
+    //   logged: e.target.checked,
+    // })
   }
 
   return (
     <div
-      key={task.id}
+      key={combinedTask.text}
       style={{
         display: "flex",
         flexDirection: "row",
@@ -34,18 +32,18 @@ export const TaskRow = ({
       }}
     >
       <div
-        title={task.text}
+        title={combinedTask.text}
         style={{
           width: '300px',
           maxWidth: '300px',
         }}
       >
-        {task.text}
+        {combinedTask.text}
       </div>
       <div
         style={{ flexGrow: 1 }}
       >
-        {formatElapsedTime(task.stopTime! - task.startTime)}
+        {formatElapsedTime(combinedTask.elapsedTime)}
       </div>
       <IconButton
         size="large"
@@ -57,7 +55,7 @@ export const TaskRow = ({
       >
         <PlayCircle />
       </IconButton>
-      <Checkbox checked={task.logged} onChange={handleCheckboxChange} />
+      {/* <Checkbox checked={combinedTask.logged} onChange={handleCheckboxChange} /> */}
     </div>
   );
 };

@@ -1,8 +1,7 @@
-import { IconButton, TextField } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { Task } from "../useTasks";
 import AddIcon from "@mui/icons-material/AddCircle";
 import { useState } from "react";
-import Autocomplete from "@mui/material/Autocomplete";
 
 export const NewTask = ({
   tasks,
@@ -14,30 +13,22 @@ export const NewTask = ({
   const [text, setText] = useState<string>("");
 
   const handleAddClick = () => {
-    addNewTask(text, Date.now())
-  }
+    addNewTask(text, Date.now());
+  };
 
   return (
     <>
-      <Autocomplete
-        sx={{ width: "300px", backgroundColor: 'white' }}
-        freeSolo
-        disableClearable
-        options={tasks.map((option) => option.text)}
-        value={text}
-        defaultValue={text}
-        onChange={(_, value) => value && setText(value)}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            variant="standard" 
-            InputProps={{
-              ...params.InputProps,
-              type: "search",
-            }}
-          />
-        )}
-      />
+      <div
+        style={{
+          flexGrow: 1,
+        }}
+      >
+        <input
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          style={{ width: "300px", maxWidth: "300px" }}
+        />
+      </div>
       <IconButton
         onClick={handleAddClick}
         size="large"

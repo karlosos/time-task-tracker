@@ -14,26 +14,15 @@ export const CurrentTask = ({
 }) => {
   return (
     <>
-      <Typography
+      <div
         title={currentTask.text}
-        variant="h6"
-        component="div"
-        sx={{
-          maxWidth: "300px",
-          textOverflow: "ellipsis",
-          overflow: "hidden",
-          whiteSpace: "nowrap",
-        }}
+        style={{ width: "300px", maxWidth: "300px" }}
       >
         {currentTask.text}
-      </Typography>
-      <Typography
-        variant="h6"
-        component="div"
-        sx={{ marginLeft: "20px", flexGrow: 1 }}
-      >
+      </div>
+      <div style={{flexGrow: 1}}>
         {formatElapsedTime(elapsedTime)}
-      </Typography>
+      </div>
       <IconButton
         onClick={onStopClick}
         size="large"
