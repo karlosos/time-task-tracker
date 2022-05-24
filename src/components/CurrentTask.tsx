@@ -1,17 +1,34 @@
-import { IconButton, Typography } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { Task } from "../useTasks";
 import StopIcon from "@mui/icons-material/StopCircle";
 import { formatElapsedTime } from "../utils";
+import { useState, useEffect, useRef } from "react";
 
 export const CurrentTask = ({
   currentTask,
-  elapsedTime,
   onStopClick,
 }: {
   currentTask: Task;
-  elapsedTime: number;
   onStopClick: () => void;
 }) => {
+  const [elapsedTime, setElapsedTime] = useState<number>(currentTask ? Date.now() - currentTask.startTime : 0);
+
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+
+  useEffect(() => {
+    setElapsedTime(currentTask ? Date.now() - currentTask.startTime : 0);
+  }, [currentTask])
+
+  useEffect(() => {
+    timeoutRef.current = setTimeout(() => {
+      setElapsedTime(currentTask ? Date.now() - currentTask.startTime : 0);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutRef.current);
+    };
+  });
+
   return (
     <>
       <div

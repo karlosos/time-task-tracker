@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import { Container } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Task, useTasks } from "./useTasks";
 import { CurrentTask } from "./components/CurrentTask";
 import { NewTask } from "./components/NewTask";
@@ -11,9 +11,6 @@ function App() {
   const { tasks, currentTask, addTask, editTask } = useTasks();
   const [isCollapsedMode, setIsCollapsedMode] = useState(false);
 
-  const [elapsedTime, setElapsedTime] = useState<number>(
-    currentTask ? Date.now() - currentTask.startTime : 0
-  );
 
   const tasksToRender = Object.values(tasks)
     .filter((task) => task.stopTime)
@@ -34,15 +31,6 @@ function App() {
     return acc;
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setElapsedTime(currentTask ? Date.now() - currentTask.startTime : 0);
-    }, 500);
-
-    return () => {
-      clearInterval(interval);
-    };
-  });
 
   const handleStopClick = () => {
     if (!currentTask) {
@@ -82,7 +70,6 @@ function App() {
         {currentTask ? (
           <CurrentTask
             currentTask={currentTask}
-            elapsedTime={elapsedTime}
             onStopClick={handleStopClick}
           />
         ) : (
