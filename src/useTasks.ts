@@ -67,6 +67,7 @@ export const useTasks = () => {
   };
 
   const editTask = (task: Task) => {
+    console.log('>> editTask', task.id)
     setTasks({
       ...tasks,
       [task.id]: {
@@ -75,10 +76,23 @@ export const useTasks = () => {
     });
   };
 
+  const toggleLogged = (taskIds: string[]) => {
+    // TODO: not working as expected
+    taskIds.forEach(id => {
+    console.log('>> toggleLogged', id)
+      const task = {
+        ...tasks[id],
+        logged: !tasks[id].logged,
+      };
+      editTask(task);
+    });
+  }
+
   return {
     tasks,
     currentTask,
     addTask,
     editTask,
+    toggleLogged,
   };
 };

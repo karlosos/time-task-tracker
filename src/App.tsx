@@ -8,7 +8,7 @@ import { TaskRow } from "./components/TaskRow";
 import { CombinedTaskRow } from "./components/CombinedTaskRow";
 
 function App() {
-  const { tasks, currentTask, addTask, editTask } = useTasks();
+  const { tasks, currentTask, addTask, editTask, toggleLogged } = useTasks();
   const [isCollapsedMode, setIsCollapsedMode] = useState(false);
 
 
@@ -21,10 +21,14 @@ function App() {
     const diff = curr.stopTime! - curr.startTime;
     if (found) {
       found.elapsedTime = found.elapsedTime + diff;
+      found.ids.push(curr.id);
+      found.logged.push(curr.logged);
     } else {
       acc.push({
         text: curr.text,
+        ids: [curr.id],
         elapsedTime: diff,
+        logged: [curr.logged],
       });
     }
 
@@ -48,7 +52,7 @@ function App() {
   const renderTasks = () => {
     if (isCollapsedMode) {
       return combinedTasks.map((combinedTask) => (
-          <CombinedTaskRow combinedTask={combinedTask} addNewTask={addTask} />
+          <CombinedTaskRow combinedTask={combinedTask} addNewTask={addTask} toggleLogged={toggleLogged} />
         ))
     } else {
       return tasksToRender.map((task) => (
@@ -73,7 +77,7 @@ function App() {
             onStopClick={handleStopClick}
           />
         ) : (
-          <NewTask addNewTask={addTask} tasks={Object.values(tasks)} />
+          <NewTask addNewTask={addTask} />
         )}
       </Box>
       <hr />

@@ -1,13 +1,10 @@
 import { IconButton } from "@mui/material";
-import { Task } from "../useTasks";
 import AddIcon from "@mui/icons-material/AddCircle";
 import { useState } from "react";
 
 export const NewTask = ({
-  tasks,
   addNewTask,
 }: {
-  tasks: Task[];
   addNewTask: (text: string, startTime: number) => void;
 }) => {
   const [text, setText] = useState<string>("");

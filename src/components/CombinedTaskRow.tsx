@@ -1,24 +1,34 @@
 import { Checkbox, IconButton } from "@mui/material";
-import { Task } from "../useTasks";
 import { formatElapsedTime } from "../utils";
 import { PlayCircle } from "@mui/icons-material";
 
 export const CombinedTaskRow = ({
   combinedTask,
   addNewTask,
+  toggleLogged,
 }: {
-  combinedTask: {text: string, elapsedTime: number};
+  combinedTask: {text: string, ids: string[], elapsedTime: number, logged: boolean[]};
   addNewTask: (text: string, startTime: number) => void;
+  toggleLogged: (taskIds: string[]) => void;
 }) => {
   const handleAddTaskClick = () => {
     addNewTask(combinedTask.text, Date.now());
   }
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // editTask({
-    //   ...task,
-    //   logged: e.target.checked,
-    // })
+    console.log('> clicked ids', combinedTask.ids);
+    toggleLogged(combinedTask.ids)
+  }
+
+  let checkboxState = true;
+  let checkboxIsIndeterminate = false;
+
+  if (combinedTask.logged.every(a => a === true)) {
+    checkboxState = true;
+  } else if (combinedTask.logged.every(a => a === false)) {
+    checkboxState = false;
+  } else {
+    checkboxIsIndeterminate = true;
   }
 
   return (
@@ -55,7 +65,7 @@ export const CombinedTaskRow = ({
       >
         <PlayCircle />
       </IconButton>
-      {/* <Checkbox checked={combinedTask.logged} onChange={handleCheckboxChange} /> */}
+      <Checkbox checked={checkboxState} indeterminate={checkboxIsIndeterminate} disabled={checkboxIsIndeterminate} onChange={handleCheckboxChange} />
     </div>
   );
 };
