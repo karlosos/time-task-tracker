@@ -77,15 +77,16 @@ export const useTasks = () => {
   };
 
   const toggleLogged = (taskIds: string[]) => {
-    // TODO: not working as expected
-    taskIds.forEach(id => {
-    console.log('>> toggleLogged', id)
-      const task = {
-        ...tasks[id],
-        logged: !tasks[id].logged,
-      };
-      editTask(task);
-    });
+    console.log('>>toggleLogged', taskIds)
+    const newTasks: TasksList = {};
+    Object.values(tasks).forEach(task => {
+      if (taskIds.includes(task.id)) {
+        task.logged = !task.logged;
+      }
+      newTasks[task.id] = task;
+    })
+
+    setTasks(newTasks);
   }
 
   return {
