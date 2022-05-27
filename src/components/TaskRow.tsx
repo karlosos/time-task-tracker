@@ -1,5 +1,5 @@
 import { Checkbox, IconButton } from "@mui/material";
-import { Task } from "../useTasks";
+import { Task } from "../hooks/useTasks";
 import { formatElapsedTime } from "../utils";
 import { PlayCircle } from "@mui/icons-material";
 

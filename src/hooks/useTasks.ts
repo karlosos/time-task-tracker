@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { generateId } from "./utils";
+import { generateId } from "../utils";
 
 export interface Task {
   id: string;
@@ -27,6 +27,13 @@ export const useTasks = () => {
       text: "DX1-1111: Different task",
       startTime: 1653236911845,
       stopTime: 1653237028845,
+      logged: false,
+    },
+    "3": {
+      id: "3",
+      text: "DX1-1111: Different task",
+      startTime: 1653672520415,
+      stopTime: 1653672530415,
       logged: false,
     },
   });

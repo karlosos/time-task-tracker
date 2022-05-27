@@ -1,5 +1,5 @@
 import { IconButton } from "@mui/material";
-import { Task } from "../useTasks";
+import { Task } from "../hooks/useTasks";
 import StopIcon from "@mui/icons-material/StopCircle";
 import { formatElapsedTime } from "../utils";
 import { useState, useEffect, useRef } from "react";

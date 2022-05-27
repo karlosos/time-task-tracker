@@ -1,23 +1,36 @@
 import Box from "@mui/material/Box";
 import { Container } from "@mui/material";
 import { useState } from "react";
-import { Task, useTasks } from "./useTasks";
+import { Task, useTasks } from "./hooks/useTasks";
 import { CurrentTask } from "./components/CurrentTask";
 import { NewTask } from "./components/NewTask";
 import { TaskRow } from "./components/TaskRow";
 import { CombinedTaskRow } from "./components/CombinedTaskRow";
 
+const dayMonthYearString = (datetime: number) => {
+  console.log(">> dayMonthYearString", datetime);
+  const dateObj = new Date(datetime);
+
+  return dateObj.toISOString().slice(0, 10);
+};
+
 function App() {
   const { tasks, currentTask, addTask, editTask, toggleLogged } = useTasks();
   const [isCollapsedMode, setIsCollapsedMode] = useState(false);
 
+  console.log(">> tasks", tasks);
 
   const tasksToRender = Object.values(tasks)
     .filter((task) => task.stopTime)
     .sort((a, b) => b.stopTime! - a.stopTime!);
 
   const combinedTasks = tasksToRender.reduce<any[]>((acc, curr) => {
-    const found = acc.find((el) => el.text === curr.text);
+    const found = acc.find((el) => {
+      const sameName = el.text === curr.text;
+      const sameDay = el.date === dayMonthYearString(curr.stopTime!);
+      return (sameName && sameDay);
+    });
+
     const diff = curr.stopTime! - curr.startTime;
     if (found) {
       found.elapsedTime = found.elapsedTime + diff;
@@ -28,13 +41,13 @@ function App() {
         text: curr.text,
         ids: [curr.id],
         elapsedTime: diff,
+        date: dayMonthYearString(curr.stopTime!),
         logged: [curr.logged],
       });
     }
 
     return acc;
   }, []);
-
 
   const handleStopClick = () => {
     if (!currentTask) {
@@ -52,14 +65,18 @@ function App() {
   const renderTasks = () => {
     if (isCollapsedMode) {
       return combinedTasks.map((combinedTask) => (
-          <CombinedTaskRow combinedTask={combinedTask} addNewTask={addTask} toggleLogged={toggleLogged} />
-        ))
+        <CombinedTaskRow
+          combinedTask={combinedTask}
+          addNewTask={addTask}
+          toggleLogged={toggleLogged}
+        />
+      ));
     } else {
       return tasksToRender.map((task) => (
-          <TaskRow task={task} addNewTask={addTask} editTask={editTask} />
-        ))
+        <TaskRow task={task} addNewTask={addTask} editTask={editTask} />
+      ));
     }
-  }
+  };
 
   return (
     <Container maxWidth="sm">
@@ -84,9 +101,7 @@ function App() {
       <button onClick={() => setIsCollapsedMode((state) => !state)}>
         {isCollapsedMode ? "Extend tasks" : "Collapse tasks"}
       </button>
-      <Box sx={{ flexGrow: 1 }}>
-        {renderTasks()}
-      </Box>
+      <Box sx={{ flexGrow: 1 }}>{renderTasks()}</Box>
     </Container>
   );
 }
