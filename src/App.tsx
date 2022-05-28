@@ -24,7 +24,9 @@ function App() {
     .filter((task) => task.stopTime)
     .sort((a, b) => b.stopTime! - a.stopTime!);
 
-  const combinedTasks = tasksToRender.reduce<any[]>((acc, curr) => {
+  const combinedTasks = [...tasksToRender]
+    .sort((a: any, b: any) => a.startTime - b.startTime)
+    .reduce<any[]>((acc, curr) => {
     const found = acc.find((el) => {
       const sameName = el.text === curr.text;
       const sameDay = el.date === dayMonthYearString(curr.stopTime!);
@@ -47,7 +49,8 @@ function App() {
     }
 
     return acc;
-  }, []);
+  }, [])
+  .reverse()
 
   const handleStopClick = () => {
     if (!currentTask) {
@@ -65,22 +68,29 @@ function App() {
   const renderTasks = () => {
     if (isCollapsedMode) {
       const groupedByDate = combinedTasks.reduce<any>((acc, curr) => {
+        if (!acc[curr.date]) {
+          acc[curr.date] = []
+        }
         acc[curr.date] = [...acc[curr.date], curr];
+
+        return acc
       }, {});
 
-      Object.values(groupedByDate).map((dateList: any) => {
-        const jsx = (
-          <>
+      console.log('>> groupedByDate', groupedByDate)
+
+      return Object.values(groupedByDate).map((dateList: any) => {
+        const jsx = <>
             {dateList[0].date}
-            {dateList.map((combinedTask: any) => (
+            {dateList
+            .map((combinedTask: any) => (
               <CombinedTaskRow
                 combinedTask={combinedTask}
                 addNewTask={addTask}
                 toggleLogged={toggleLogged}
               />
             ))}
-          </>
-        );
+          </>;
+
         return jsx
       });
     } else {
