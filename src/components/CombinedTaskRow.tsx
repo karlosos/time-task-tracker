@@ -7,7 +7,7 @@ export const CombinedTaskRow = ({
   addNewTask,
   toggleLogged,
 }: {
-  combinedTask: {text: string, ids: string[], elapsedTime: number, logged: boolean[]};
+  combinedTask: {text: string, ids: string[], elapsedTime: number, logged: boolean[], date: string};
   addNewTask: (text: string, startTime: number) => void;
   toggleLogged: (taskIds: string[]) => void;
 }) => {

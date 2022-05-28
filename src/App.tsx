@@ -28,7 +28,7 @@ function App() {
     const found = acc.find((el) => {
       const sameName = el.text === curr.text;
       const sameDay = el.date === dayMonthYearString(curr.stopTime!);
-      return (sameName && sameDay);
+      return sameName && sameDay;
     });
 
     const diff = curr.stopTime! - curr.startTime;
@@ -64,13 +64,25 @@ function App() {
 
   const renderTasks = () => {
     if (isCollapsedMode) {
-      return combinedTasks.map((combinedTask) => (
-        <CombinedTaskRow
-          combinedTask={combinedTask}
-          addNewTask={addTask}
-          toggleLogged={toggleLogged}
-        />
-      ));
+      const groupedByDate = combinedTasks.reduce<any>((acc, curr) => {
+        acc[curr.date] = [...acc[curr.date], curr];
+      }, {});
+
+      Object.values(groupedByDate).map((dateList: any) => {
+        const jsx = (
+          <>
+            {dateList[0].date}
+            {dateList.map((combinedTask: any) => (
+              <CombinedTaskRow
+                combinedTask={combinedTask}
+                addNewTask={addTask}
+                toggleLogged={toggleLogged}
+              />
+            ))}
+          </>
+        );
+        return jsx
+      });
     } else {
       return tasksToRender.map((task) => (
         <TaskRow task={task} addNewTask={addTask} editTask={editTask} />
