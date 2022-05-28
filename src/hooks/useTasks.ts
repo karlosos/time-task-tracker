@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { generateId } from "../utils";
+import { formatDayMonthYear, generateId } from "../utils";
 
 export interface Task {
   id: string;
@@ -14,7 +14,7 @@ export type TasksList = {
 };
 
 export const useTasks = () => {
-  const [tasks, setTasks] = useState<TasksList>({
+  const [_tasks, setTasks] = useState<TasksList>({
     "1": {
       id: "1",
       text: "DX1-3213: Doing something",
@@ -38,27 +38,36 @@ export const useTasks = () => {
     },
   });
 
-  const currentTask = Object.values(tasks).find(
-    (task) => !task.stopTime 
-  );
+  const tasks = Object.values(_tasks)
+    .filter((task) => task.stopTime)
+    .sort((a, b) => b.stopTime! - a.stopTime!)
+
+  const tasksByDate = [...tasks].reduce(groupTasksByDate, {});
+
+  const currentTask = Object.values(_tasks).find((task) => !task.stopTime);
+
+  const combinedTasks = [...tasks]
+    .sort((a: any, b: any) => a.startTime - b.startTime)
+    .reduce(groupTasksByName, [])
+    .reverse()
+    .reduce(groupCombinedTasksByDate, {})
 
   const addTask = (text: string, startTime: number) => {
     const id = generateId();
 
-    // Update currentTask with stopTime
     let previousTasks;
     if (currentTask) {
       previousTasks = {
-        ...tasks,
+        ..._tasks,
         [currentTask.id]: {
           ...currentTask,
-          stopTime: Date.now()
-        }
-      }
+          stopTime: Date.now(),
+        },
+      };
     } else {
       previousTasks = {
-        ...tasks,
-      }
+        ..._tasks,
+      };
     }
 
     setTasks({
@@ -74,9 +83,8 @@ export const useTasks = () => {
   };
 
   const editTask = (task: Task) => {
-    console.log('>> editTask', task.id)
     setTasks({
-      ...tasks,
+      ..._tasks,
       [task.id]: {
         ...task,
       },
@@ -84,23 +92,70 @@ export const useTasks = () => {
   };
 
   const toggleLogged = (taskIds: string[]) => {
-    console.log('>>toggleLogged', taskIds)
     const newTasks: TasksList = {};
-    Object.values(tasks).forEach(task => {
+    Object.values(_tasks).forEach((task) => {
       if (taskIds.includes(task.id)) {
         task.logged = !task.logged;
       }
       newTasks[task.id] = task;
-    })
+    });
 
     setTasks(newTasks);
-  }
+  };
 
   return {
     tasks,
+    tasksByDate,
+    combinedTasks,
     currentTask,
     addTask,
     editTask,
     toggleLogged,
   };
+};
+
+const groupTasksByName = (grouped: any[], current: Task) => {
+  const found = grouped.find((el) => {
+    const sameName = el.text === current.text;
+    const sameDay = el.date === formatDayMonthYear(current.stopTime!);
+    return sameName && sameDay;
+  });
+
+  const diff = current.stopTime! - current.startTime;
+  if (found) {
+    found.elapsedTime = found.elapsedTime + diff;
+    found.ids.push(current.id);
+    found.logged.push(current.logged);
+  } else {
+    grouped.push({
+      text: current.text,
+      ids: [current.id],
+      elapsedTime: diff,
+      date: formatDayMonthYear(current.stopTime!),
+      logged: [current.logged],
+    });
+  }
+
+  return grouped;
+};
+
+const groupCombinedTasksByDate = (grouped: any, current: any) => {
+  if (!grouped[current.date]) {
+    grouped[current.date] = [];
+  }
+  grouped[current.date] = [...grouped[current.date], current];
+
+  return grouped;
+};
+
+
+const groupTasksByDate = (grouped: any, current: any) => {
+  const currentDate = formatDayMonthYear(current.stopTime!);
+
+  if (!grouped[currentDate]) {
+    grouped[currentDate] = [];
+  }
+  grouped[currentDate] = [...grouped[currentDate], current];
+
+  return grouped;
 };
