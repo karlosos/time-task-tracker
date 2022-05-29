@@ -2,7 +2,7 @@ import { Checkbox } from "@mui/material";
 import { formatElapsedTime } from "../../utils";
 import { PlayCircle } from "@mui/icons-material";
 import { useAppDispatch } from "../../hooks";
-import { timeEntriesLoggedStatusChanged, TimeEntry, timeEntryAdded } from "../../timeEntriesSlice";
+import { timeEntriesLoggedStatusChanged, TimeEntry, timeEntryAdded } from "../../store/timeEntries/slice";
 import { ElapsedTime, IconButtonStyled, TimeEntryRowStyled, TimeEntryText } from "./TimeEntriesList.style";
 
 export const TimeEntryRow = ({

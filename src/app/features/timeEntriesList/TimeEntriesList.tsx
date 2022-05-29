@@ -4,7 +4,7 @@ import {
   selectCombinedTimeEntries,
   selectTimeEntriesByDate,
   TimeEntry,
-} from "../../timeEntriesSlice";
+} from "../../store/timeEntries";
 import { CombinedTimeEntryRow } from "./CombinedTimeEntryRow";
 import { DateLabel, TimeEntriesDateSublist, TimeEntriesListStyled } from "./TimeEntriesList.style";
 import { TimeEntryRow } from "./TimeEntryRow";

@@ -5,7 +5,7 @@ import { useAppDispatch } from "../../hooks";
 import {
   timeEntriesLoggedStatusChanged,
   timeEntryAdded,
-} from "../../timeEntriesSlice";
+} from "../../store/timeEntries/slice";
 import { ElapsedTime, IconButtonStyled, TimeEntryRowStyled, TimeEntryText } from "./TimeEntriesList.style";
 
 export const CombinedTimeEntryRow = ({

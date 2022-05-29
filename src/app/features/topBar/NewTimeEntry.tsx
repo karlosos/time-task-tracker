@@ -1,7 +1,7 @@
 import AddIcon from "@mui/icons-material/AddCircle";
 import { useState } from "react";
 import { useAppDispatch } from "../../hooks";
-import { timeEntryAdded } from "../../timeEntriesSlice";
+import { timeEntryAdded } from "../../store/timeEntries/slice";
 import { IconButtonStyled, NewTimeEntryInput, NewTimeEntryInputWrapper } from "./TopBar.style";
 
 export const NewTimeEntry = () => {

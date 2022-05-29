@@ -7,7 +7,7 @@
 Use redux toolkit for storing data. Create selectors for combined time entries etc. Use memoization (reselect).
 
 - [x] Connect dummy redux store
-- [ ] Port existing useTasks into redux
+- [x] Port existing useTasks into redux
 - [ ] Test existing functionality given some mocked store
 
 ## To Do ✅

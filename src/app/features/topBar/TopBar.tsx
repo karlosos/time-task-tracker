@@ -1,5 +1,5 @@
 import { useAppSelector } from "../../hooks";
-import { selectCurrentTimeEntry } from "../../timeEntriesSlice";
+import { selectCurrentTimeEntry } from "../../store/timeEntries";
 import { CurrentTimeEntry } from "./CurrentTimeEntry";
 import { NewTimeEntry } from "./NewTimeEntry";
 import { TopBarStyled } from "./TopBar.style";

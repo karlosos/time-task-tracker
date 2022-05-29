@@ -2,7 +2,7 @@ import StopIcon from "@mui/icons-material/StopCircle";
 import { formatElapsedTime } from "../../utils";
 import { useState, useEffect, useRef } from "react";
 import { useAppDispatch } from "../../hooks";
-import { TimeEntry, timeEntryStopped } from "../../timeEntriesSlice";
+import { TimeEntry, timeEntryStopped } from "../../store/timeEntries/slice";
 import { CurrentTimeEntryText, ElapsedTime, IconButtonStyled } from "./TopBar.style";
 
 export const CurrentTimeEntry = ({
