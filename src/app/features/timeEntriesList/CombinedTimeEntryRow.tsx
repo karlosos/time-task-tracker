@@ -1,8 +1,12 @@
-import { Checkbox, IconButton } from "@mui/material";
-import { formatElapsedTime } from "../utils";
+import { Checkbox } from "@mui/material";
+import { formatElapsedTime } from "../../utils";
 import { PlayCircle } from "@mui/icons-material";
-import { useAppDispatch } from "../hooks/storeHooks";
-import { timeEntriesLoggedStatusChanged, timeEntryAdded } from "../timeEntriesSlice";
+import { useAppDispatch } from "../../hooks";
+import {
+  timeEntriesLoggedStatusChanged,
+  timeEntryAdded,
+} from "../../timeEntriesSlice";
+import { ElapsedTime, IconButtonStyled, TimeEntryRowStyled, TimeEntryText } from "./TimeEntriesList.style";
 
 export const CombinedTimeEntryRow = ({
   combinedTimeEntry,
@@ -39,43 +43,27 @@ export const CombinedTimeEntryRow = ({
   }
 
   return (
-    <div
-      key={combinedTimeEntry.text}
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        height: "60px",
-      }}
-    >
-      <div
-        title={combinedTimeEntry.text}
-        style={{
-          width: "300px",
-          maxWidth: "300px",
-        }}
-      >
+    <TimeEntryRowStyled>
+      <TimeEntryText title={combinedTimeEntry.text}>
         {combinedTimeEntry.text}
-      </div>
-      <div style={{ flexGrow: 1 }}>
+      </TimeEntryText>
+      <ElapsedTime>
         {formatElapsedTime(combinedTimeEntry.elapsedTime)}
-      </div>
-      <IconButton
+      </ElapsedTime>
+      <IconButtonStyled
         size="large"
         edge="start"
         color="inherit"
-        aria-label="menu"
-        sx={{ mr: 2 }}
         onClick={handleAddTimeEntryClick}
       >
         <PlayCircle />
-      </IconButton>
+      </IconButtonStyled>
       <Checkbox
         checked={checkboxState}
         indeterminate={checkboxIsIndeterminate}
         disabled={checkboxIsIndeterminate}
         onChange={handleCheckboxChange}
       />
-    </div>
+    </TimeEntryRowStyled>
   );
 };

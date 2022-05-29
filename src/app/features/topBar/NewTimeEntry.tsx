@@ -1,8 +1,8 @@
-import { IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/AddCircle";
 import { useState } from "react";
-import { useAppDispatch } from "../hooks/storeHooks";
-import { timeEntryAdded } from "../timeEntriesSlice";
+import { useAppDispatch } from "../../hooks";
+import { timeEntryAdded } from "../../timeEntriesSlice";
+import { IconButtonStyled, NewTimeEntryInput, NewTimeEntryInputWrapper } from "./TopBar.style";
 
 export const NewTimeEntry = () => {
   const dispatch = useAppDispatch();
@@ -15,27 +15,19 @@ export const NewTimeEntry = () => {
 
   return (
     <>
-      <div
-        style={{
-          flexGrow: 1,
-        }}
-      >
-        <input
+      <NewTimeEntryInputWrapper>
+        <NewTimeEntryInput
           value={text}
           onChange={(e) => setText(e.target.value)}
-          style={{ width: "300px", maxWidth: "300px" }}
         />
-      </div>
-      <IconButton
+      </NewTimeEntryInputWrapper>
+      <IconButtonStyled
         onClick={handleAddClick}
         size="large"
-        edge="start"
         color="inherit"
-        aria-label="menu"
-        sx={{ mr: 2 }}
       >
         <AddIcon />
-      </IconButton>
+      </IconButtonStyled>
     </>
   );
 };

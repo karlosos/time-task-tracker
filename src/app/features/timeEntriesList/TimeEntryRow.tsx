@@ -1,8 +1,9 @@
-import { Checkbox, IconButton } from "@mui/material";
-import { formatElapsedTime } from "../utils";
+import { Checkbox } from "@mui/material";
+import { formatElapsedTime } from "../../utils";
 import { PlayCircle } from "@mui/icons-material";
-import { useAppDispatch } from "../hooks/storeHooks";
-import { timeEntriesLoggedStatusChanged, TimeEntry, timeEntryAdded } from "../timeEntriesSlice";
+import { useAppDispatch } from "../../hooks";
+import { timeEntriesLoggedStatusChanged, TimeEntry, timeEntryAdded } from "../../timeEntriesSlice";
+import { ElapsedTime, IconButtonStyled, TimeEntryRowStyled, TimeEntryText } from "./TimeEntriesList.style";
 
 export const TimeEntryRow = ({
   timeEntry,
@@ -20,40 +21,23 @@ export const TimeEntryRow = ({
   }
 
   return (
-    <div
-      key={timeEntry.id}
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        height: "60px",
-      }}
-    >
-      <div
+    <TimeEntryRowStyled>
+      <TimeEntryText
         title={timeEntry.text}
-        style={{
-          width: '300px',
-          maxWidth: '300px',
-        }}
       >
         {timeEntry.text}
-      </div>
-      <div
-        style={{ flexGrow: 1 }}
-      >
+      </TimeEntryText>
+      <ElapsedTime>
         {formatElapsedTime(timeEntry.stopTime! - timeEntry.startTime)}
-      </div>
-      <IconButton
+      </ElapsedTime>
+      <IconButtonStyled
         size="large"
-        edge="start"
         color="inherit"
-        aria-label="menu"
-        sx={{ mr: 2 }}
         onClick={handleAddTimeEntryClick}
       >
         <PlayCircle />
-      </IconButton>
+      </IconButtonStyled>
       <Checkbox checked={timeEntry.logged} onChange={handleCheckboxChange} />
-    </div>
+    </TimeEntryRowStyled>
   );
 };

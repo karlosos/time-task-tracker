@@ -1,9 +1,9 @@
-import { IconButton } from "@mui/material";
 import StopIcon from "@mui/icons-material/StopCircle";
-import { formatElapsedTime } from "../utils";
+import { formatElapsedTime } from "../../utils";
 import { useState, useEffect, useRef } from "react";
-import { useAppDispatch } from "../hooks/storeHooks";
-import { TimeEntry, timeEntryStopped } from "../timeEntriesSlice";
+import { useAppDispatch } from "../../hooks";
+import { TimeEntry, timeEntryStopped } from "../../timeEntriesSlice";
+import { CurrentTimeEntryText, ElapsedTime, IconButtonStyled } from "./TopBar.style";
 
 export const CurrentTimeEntry = ({
   currentTimeEntry,
@@ -36,25 +36,21 @@ export const CurrentTimeEntry = ({
 
   return (
     <>
-      <div
+      <CurrentTimeEntryText
         title={currentTimeEntry.text}
-        style={{ width: "300px", maxWidth: "300px" }}
       >
         {currentTimeEntry.text}
-      </div>
-      <div style={{flexGrow: 1}}>
+      </CurrentTimeEntryText>
+      <ElapsedTime>
         {formatElapsedTime(elapsedTime)}
-      </div>
-      <IconButton
+      </ElapsedTime>
+      <IconButtonStyled
         onClick={handleOnStopClick}
         size="large"
-        edge="start"
         color="inherit"
-        aria-label="menu"
-        sx={{ mr: 2 }}
       >
         <StopIcon />
-      </IconButton>
+      </IconButtonStyled>
     </>
   );
 };
