@@ -4,24 +4,24 @@ import { PlayCircle } from "@mui/icons-material";
 import { useAppDispatch } from "../hooks/storeHooks";
 import { timeEntriesLoggedStatusChanged, TimeEntry, timeEntryAdded } from "../timeEntriesSlice";
 
-export const TaskRow = ({
-  task,
+export const TimeEntryRow = ({
+  timeEntry,
 }: {
-  task: TimeEntry;
+  timeEntry: TimeEntry;
 }) => {
   const dispatch = useAppDispatch();
 
-  const handleAddTaskClick = () => {
-    dispatch(timeEntryAdded({text: task.text, startTime: Date.now()}));
+  const handleAddTimeEntryClick = () => {
+    dispatch(timeEntryAdded({text: timeEntry.text, startTime: Date.now()}));
   }
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(timeEntriesLoggedStatusChanged([task.id]));
+    dispatch(timeEntriesLoggedStatusChanged([timeEntry.id]));
   }
 
   return (
     <div
-      key={task.id}
+      key={timeEntry.id}
       style={{
         display: "flex",
         flexDirection: "row",
@@ -30,18 +30,18 @@ export const TaskRow = ({
       }}
     >
       <div
-        title={task.text}
+        title={timeEntry.text}
         style={{
           width: '300px',
           maxWidth: '300px',
         }}
       >
-        {task.text}
+        {timeEntry.text}
       </div>
       <div
         style={{ flexGrow: 1 }}
       >
-        {formatElapsedTime(task.stopTime! - task.startTime)}
+        {formatElapsedTime(timeEntry.stopTime! - timeEntry.startTime)}
       </div>
       <IconButton
         size="large"
@@ -49,11 +49,11 @@ export const TaskRow = ({
         color="inherit"
         aria-label="menu"
         sx={{ mr: 2 }}
-        onClick={handleAddTaskClick}
+        onClick={handleAddTimeEntryClick}
       >
         <PlayCircle />
       </IconButton>
-      <Checkbox checked={task.logged} onChange={handleCheckboxChange} />
+      <Checkbox checked={timeEntry.logged} onChange={handleCheckboxChange} />
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useAppDispatch } from "../hooks/storeHooks";
 import { timeEntryAdded } from "../timeEntriesSlice";
 
-export const NewTask = () => {
+export const NewTimeEntry = () => {
   const dispatch = useAppDispatch();
 
   const [text, setText] = useState<string>("");

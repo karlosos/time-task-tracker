@@ -4,10 +4,10 @@ import { PlayCircle } from "@mui/icons-material";
 import { useAppDispatch } from "../hooks/storeHooks";
 import { timeEntriesLoggedStatusChanged, timeEntryAdded } from "../timeEntriesSlice";
 
-export const CombinedTaskRow = ({
-  combinedTask,
+export const CombinedTimeEntryRow = ({
+  combinedTimeEntry,
 }: {
-  combinedTask: {
+  combinedTimeEntry: {
     text: string;
     ids: string[];
     elapsedTime: number;
@@ -17,22 +17,22 @@ export const CombinedTaskRow = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  const handleAddTaskClick = () => {
+  const handleAddTimeEntryClick = () => {
     dispatch(
-      timeEntryAdded({ text: combinedTask.text, startTime: Date.now() })
+      timeEntryAdded({ text: combinedTimeEntry.text, startTime: Date.now() })
     );
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(timeEntriesLoggedStatusChanged(combinedTask.ids));
+    dispatch(timeEntriesLoggedStatusChanged(combinedTimeEntry.ids));
   };
 
   let checkboxState = true;
   let checkboxIsIndeterminate = false;
 
-  if (combinedTask.logged.every((a) => a === true)) {
+  if (combinedTimeEntry.logged.every((a) => a === true)) {
     checkboxState = true;
-  } else if (combinedTask.logged.every((a) => a === false)) {
+  } else if (combinedTimeEntry.logged.every((a) => a === false)) {
     checkboxState = false;
   } else {
     checkboxIsIndeterminate = true;
@@ -40,7 +40,7 @@ export const CombinedTaskRow = ({
 
   return (
     <div
-      key={combinedTask.text}
+      key={combinedTimeEntry.text}
       style={{
         display: "flex",
         flexDirection: "row",
@@ -49,16 +49,16 @@ export const CombinedTaskRow = ({
       }}
     >
       <div
-        title={combinedTask.text}
+        title={combinedTimeEntry.text}
         style={{
           width: "300px",
           maxWidth: "300px",
         }}
       >
-        {combinedTask.text}
+        {combinedTimeEntry.text}
       </div>
       <div style={{ flexGrow: 1 }}>
-        {formatElapsedTime(combinedTask.elapsedTime)}
+        {formatElapsedTime(combinedTimeEntry.elapsedTime)}
       </div>
       <IconButton
         size="large"
@@ -66,7 +66,7 @@ export const CombinedTaskRow = ({
         color="inherit"
         aria-label="menu"
         sx={{ mr: 2 }}
-        onClick={handleAddTaskClick}
+        onClick={handleAddTimeEntryClick}
       >
         <PlayCircle />
       </IconButton>

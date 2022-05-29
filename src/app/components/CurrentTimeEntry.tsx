@@ -5,24 +5,24 @@ import { useState, useEffect, useRef } from "react";
 import { useAppDispatch } from "../hooks/storeHooks";
 import { TimeEntry, timeEntryStopped } from "../timeEntriesSlice";
 
-export const CurrentTask = ({
-  currentTask,
+export const CurrentTimeEntry = ({
+  currentTimeEntry,
 }: {
-  currentTask: TimeEntry;
+  currentTimeEntry: TimeEntry;
 }) => {
   const dispatch = useAppDispatch();
 
-  const [elapsedTime, setElapsedTime] = useState<number>(currentTask ? Date.now() - currentTask.startTime : 0);
+  const [elapsedTime, setElapsedTime] = useState<number>(currentTimeEntry ? Date.now() - currentTimeEntry.startTime : 0);
 
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
-    setElapsedTime(currentTask ? Date.now() - currentTask.startTime : 0);
-  }, [currentTask])
+    setElapsedTime(currentTimeEntry ? Date.now() - currentTimeEntry.startTime : 0);
+  }, [currentTimeEntry])
 
   useEffect(() => {
     timeoutRef.current = setTimeout(() => {
-      setElapsedTime(currentTask ? Date.now() - currentTask.startTime : 0);
+      setElapsedTime(currentTimeEntry ? Date.now() - currentTimeEntry.startTime : 0);
     }, 1000);
 
     return () => {
@@ -31,16 +31,16 @@ export const CurrentTask = ({
   });
 
   const handleOnStopClick = () => {
-    dispatch(timeEntryStopped(currentTask.id));
+    dispatch(timeEntryStopped(currentTimeEntry.id));
   }
 
   return (
     <>
       <div
-        title={currentTask.text}
+        title={currentTimeEntry.text}
         style={{ width: "300px", maxWidth: "300px" }}
       >
-        {currentTask.text}
+        {currentTimeEntry.text}
       </div>
       <div style={{flexGrow: 1}}>
         {formatElapsedTime(elapsedTime)}

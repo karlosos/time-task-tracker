@@ -115,7 +115,7 @@ export const selectCurrentTimeEntry = (state: RootState) => {
 
 export const selectCombinedTimeEntries = (state: RootState) => {
   const timeEntries = selectAllTimeEntries(state)
-    .filter((task) => task.stopTime)
+    .filter((entry) => entry.stopTime)
     .sort((a, b) => b.stopTime! - a.stopTime!);
 
   return timeEntries
@@ -127,7 +127,7 @@ export const selectCombinedTimeEntries = (state: RootState) => {
 
 export const selectTimeEntriesByDate = (state: RootState) => {
   const timeEntriesByDate = selectAllTimeEntries(state)
-    .filter((task) => task.stopTime)
+    .filter((entry) => entry.stopTime)
     .sort((a, b) => b.stopTime! - a.stopTime!)
     .reduce(groupTimeEntriesByDate, {});
 
