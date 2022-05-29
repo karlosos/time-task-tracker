@@ -6,10 +6,11 @@ import { CurrentTask } from "./components/CurrentTask";
 import { NewTask } from "./components/NewTask";
 import { TaskRow } from "./components/TaskRow";
 import { CombinedTaskRow } from "./components/CombinedTaskRow";
+import { useAppSelector, useAppDispatch } from "./hooks/storeHooks";
+import { increment } from "./timeEntriesSlice";
 
 function App() {
   const {
-    tasks,
     tasksByDate,
     combinedTasks,
     currentTask,
@@ -18,8 +19,11 @@ function App() {
     toggleLogged,
   } = useTasks();
   const [isCollapsedMode, setIsCollapsedMode] = useState(false);
+  const count = useAppSelector((state) => state.timeEntries.value);
+  const dispatch = useAppDispatch();
 
   const handleStopClick = () => {
+    dispatch(increment())
     if (!currentTask) {
       return;
     }
