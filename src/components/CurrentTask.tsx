@@ -1,16 +1,17 @@
 import { IconButton } from "@mui/material";
-import { Task } from "../hooks/useTasks";
 import StopIcon from "@mui/icons-material/StopCircle";
 import { formatElapsedTime } from "../utils";
 import { useState, useEffect, useRef } from "react";
+import { useAppDispatch } from "../hooks/storeHooks";
+import { TimeEntry, timeEntryStopped } from "../timeEntriesSlice";
 
 export const CurrentTask = ({
   currentTask,
-  onStopClick,
 }: {
-  currentTask: Task;
-  onStopClick: () => void;
+  currentTask: TimeEntry;
 }) => {
+  const dispatch = useAppDispatch();
+
   const [elapsedTime, setElapsedTime] = useState<number>(currentTask ? Date.now() - currentTask.startTime : 0);
 
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
@@ -29,6 +30,10 @@ export const CurrentTask = ({
     };
   });
 
+  const handleOnStopClick = () => {
+    dispatch(timeEntryStopped(currentTask.id));
+  }
+
   return (
     <>
       <div
@@ -41,7 +46,7 @@ export const CurrentTask = ({
         {formatElapsedTime(elapsedTime)}
       </div>
       <IconButton
-        onClick={onStopClick}
+        onClick={handleOnStopClick}
         size="large"
         edge="start"
         color="inherit"

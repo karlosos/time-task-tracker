@@ -1,16 +1,16 @@
 import { IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/AddCircle";
 import { useState } from "react";
+import { useAppDispatch } from "../hooks/storeHooks";
+import { timeEntryAdded } from "../timeEntriesSlice";
 
-export const NewTask = ({
-  addNewTask,
-}: {
-  addNewTask: (text: string, startTime: number) => void;
-}) => {
+export const NewTask = () => {
+  const dispatch = useAppDispatch();
+
   const [text, setText] = useState<string>("");
 
   const handleAddClick = () => {
-    addNewTask(text, Date.now());
+    dispatch(timeEntryAdded({text: text, startTime: Date.now()}))
   };
 
   return (

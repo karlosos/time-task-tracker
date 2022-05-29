@@ -4,13 +4,23 @@
 
 ### [TTT-1] Move store into redux 
 
-Use redux toolkit for storing data. Create selectors for combined tasks etc. Use memoization (reselect).
+Use redux toolkit for storing data. Create selectors for combined time entries etc. Use memoization (reselect).
+
+- [x] Connect dummy redux store
+- [ ] Port existing useTasks into redux
+- [ ] Test existing functionality given some mocked store
 
 ## To Do ✅
+
+Last id: TTT-7
 
 ### [TTT-2] Preload store from the localstorage
 
 Populate redux store from local storage. Save the data from the store to localstorage.
+
+### [TTT-7] Editing existing time entry 
+
+As a user I would want to edit existing time entry. For example edit starting time for currently running time entry or edit starting time/stopped time for existing time entries.
 
 ### [TTT-3] Add links to Jira on task id
 

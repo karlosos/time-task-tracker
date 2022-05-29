@@ -1,31 +1,38 @@
 import { Checkbox, IconButton } from "@mui/material";
 import { formatElapsedTime } from "../utils";
 import { PlayCircle } from "@mui/icons-material";
+import { useAppDispatch } from "../hooks/storeHooks";
+import { timeEntriesLoggedStatusChanged, timeEntryAdded } from "../timeEntriesSlice";
 
 export const CombinedTaskRow = ({
   combinedTask,
-  addNewTask,
-  toggleLogged,
 }: {
-  combinedTask: {text: string, ids: string[], elapsedTime: number, logged: boolean[], date: string};
-  addNewTask: (text: string, startTime: number) => void;
-  toggleLogged: (taskIds: string[]) => void;
+  combinedTask: {
+    text: string;
+    ids: string[];
+    elapsedTime: number;
+    logged: boolean[];
+    date: string;
+  };
 }) => {
+  const dispatch = useAppDispatch();
+
   const handleAddTaskClick = () => {
-    addNewTask(combinedTask.text, Date.now());
-  }
+    dispatch(
+      timeEntryAdded({ text: combinedTask.text, startTime: Date.now() })
+    );
+  };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('> clicked ids', combinedTask.ids);
-    toggleLogged(combinedTask.ids)
-  }
+    dispatch(timeEntriesLoggedStatusChanged(combinedTask.ids));
+  };
 
   let checkboxState = true;
   let checkboxIsIndeterminate = false;
 
-  if (combinedTask.logged.every(a => a === true)) {
+  if (combinedTask.logged.every((a) => a === true)) {
     checkboxState = true;
-  } else if (combinedTask.logged.every(a => a === false)) {
+  } else if (combinedTask.logged.every((a) => a === false)) {
     checkboxState = false;
   } else {
     checkboxIsIndeterminate = true;
@@ -44,15 +51,13 @@ export const CombinedTaskRow = ({
       <div
         title={combinedTask.text}
         style={{
-          width: '300px',
-          maxWidth: '300px',
+          width: "300px",
+          maxWidth: "300px",
         }}
       >
         {combinedTask.text}
       </div>
-      <div
-        style={{ flexGrow: 1 }}
-      >
+      <div style={{ flexGrow: 1 }}>
         {formatElapsedTime(combinedTask.elapsedTime)}
       </div>
       <IconButton
@@ -65,7 +70,12 @@ export const CombinedTaskRow = ({
       >
         <PlayCircle />
       </IconButton>
-      <Checkbox checked={checkboxState} indeterminate={checkboxIsIndeterminate} disabled={checkboxIsIndeterminate} onChange={handleCheckboxChange} />
+      <Checkbox
+        checked={checkboxState}
+        indeterminate={checkboxIsIndeterminate}
+        disabled={checkboxIsIndeterminate}
+        onChange={handleCheckboxChange}
+      />
     </div>
   );
 };

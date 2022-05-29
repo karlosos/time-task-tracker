@@ -1,26 +1,22 @@
 import { Checkbox, IconButton } from "@mui/material";
-import { Task } from "../hooks/useTasks";
 import { formatElapsedTime } from "../utils";
 import { PlayCircle } from "@mui/icons-material";
+import { useAppDispatch } from "../hooks/storeHooks";
+import { timeEntriesLoggedStatusChanged, TimeEntry, timeEntryAdded } from "../timeEntriesSlice";
 
 export const TaskRow = ({
   task,
-  addNewTask,
-  editTask,
 }: {
-  task: Task;
-  addNewTask: (text: string, startTime: number) => void;
-  editTask: (task: Task) => void;
+  task: TimeEntry;
 }) => {
+  const dispatch = useAppDispatch();
+
   const handleAddTaskClick = () => {
-    addNewTask(task.text, Date.now());
+    dispatch(timeEntryAdded({text: task.text, startTime: Date.now()}));
   }
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    editTask({
-      ...task,
-      logged: e.target.checked,
-    })
+    dispatch(timeEntriesLoggedStatusChanged([task.id]));
   }
 
   return (
