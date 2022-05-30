@@ -44,6 +44,20 @@ Create new design for existing components. Move some of them into storybook.
 - [ ] Prepare UI Specification
 - [ ] Update components
 
+**Comments**:
+
+Figma available here: https://www.figma.com/file/JtYA2rmwQZvyOZOfmZU7IV/Task-Time-Tracker?node-id=0%3A1
+
+Flows to consider:
+
+- expanding/collapsing grouped tasks
+- editing text of the task
+  - for all tasks in group
+  - for individual tasks in group?
+- editing time of the tasks: starting time and ending time or duration
+- underling DX1-XXX tag and creating an anchor for that
+- 
+
 ## Done 🏆 
 
 
