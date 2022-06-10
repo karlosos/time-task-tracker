@@ -18,6 +18,12 @@ export const formatDayMonthYear = (datetime: number) => {
   return dateObj.toISOString().slice(0, 10);
 };
 
+export const formatDatetime = (datetime: number) => {
+  const dateObj = new Date(datetime);
+
+  return dateObj.toLocaleString();
+};
+
 export const generateId = () => {
   return Math.floor((1 + Math.random()) * 0x10000)
     .toString(16)

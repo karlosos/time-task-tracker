@@ -86,7 +86,7 @@ export const CombinedTimeEntryRow = ({
         </IconButtonStyled>
       </TimeEntryRowStyled>
       {!isCollapsed &&
-        combinedTimeEntry.subEntries.map((entry) => (
+        [...combinedTimeEntry.subEntries].reverse().map((entry) => (
           <TimeEntryRow timeEntry={entry} key={entry.id} />
         ))}
     </>
