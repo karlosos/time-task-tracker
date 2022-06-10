@@ -1,9 +1,8 @@
 import { Checkbox } from "@mui/material";
 import { formatElapsedTime } from "../../utils";
-import { PlayCircle } from "@mui/icons-material";
 import { useAppDispatch } from "../../hooks";
-import { timeEntriesLoggedStatusChanged, TimeEntry, timeEntryAdded } from "../../store/timeEntries/slice";
-import { ElapsedTime, IconButtonStyled, TimeEntryRowStyled, TimeEntryText } from "./TimeEntriesList.style";
+import { timeEntriesLoggedStatusChanged, TimeEntry } from "../../store/timeEntries/slice";
+import { ElapsedTime, TimeEntryRowStyled, TimeEntryText } from "./TimeEntriesList.style";
 
 export const TimeEntryRow = ({
   timeEntry,
@@ -11,10 +10,6 @@ export const TimeEntryRow = ({
   timeEntry: TimeEntry;
 }) => {
   const dispatch = useAppDispatch();
-
-  const handleAddTimeEntryClick = () => {
-    dispatch(timeEntryAdded({text: timeEntry.text, startTime: Date.now()}));
-  }
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(timeEntriesLoggedStatusChanged([timeEntry.id]));
@@ -30,13 +25,6 @@ export const TimeEntryRow = ({
       <ElapsedTime>
         {formatElapsedTime(timeEntry.stopTime! - timeEntry.startTime)}
       </ElapsedTime>
-      <IconButtonStyled
-        size="large"
-        color="inherit"
-        onClick={handleAddTimeEntryClick}
-      >
-        <PlayCircle />
-      </IconButtonStyled>
       <Checkbox checked={timeEntry.logged} onChange={handleCheckboxChange} />
     </TimeEntryRowStyled>
   );

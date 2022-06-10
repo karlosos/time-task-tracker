@@ -50,11 +50,13 @@ const groupTimeEntriesByText = (grouped: any[], current: TimeEntry) => {
   if (found) {
     found.elapsedTime = found.elapsedTime + diff;
     found.ids.push(current.id);
+    found.subEntries.push(current);
     found.logged.push(current.logged);
   } else {
     grouped.push({
       text: current.text,
       ids: [current.id],
+      subEntries: [current],
       elapsedTime: diff,
       date: formatDayMonthYear(current.stopTime!),
       logged: [current.logged],
