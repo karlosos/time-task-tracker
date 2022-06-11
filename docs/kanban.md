@@ -2,19 +2,23 @@
 
 ## Doing ⌚
 
+### Editing existing time entry
+
+Editing existing time entry. Change name, change starting time, change stopping time.
+
+## To Do ✅
+
 ### Move store into redux 
 
-Use redux toolkit for storing data. Create selectors for combined time entries etc. Use memoization (reselect).
+Use redux toolkit for storing data. Create selectors for combined time entries etc.
 
 - [x] Connect dummy redux store
 - [x] Port existing useTasks into redux
 - [ ] Test existing functionality given some mocked store
 
-## To Do ✅
+### Use memoization (reselect) in selectors
 
-### Preload store from the localstorage
-
-Populate redux store from local storage. Save the data from the store to localstorage.
+Use memoization in some selectors where we create new data objects.
 
 ### Editing existing time entry 
 
@@ -58,4 +62,10 @@ Flows to consider:
 
 ## Done 🏆 
 
+### Delete existing time entry
 
+Removing existing time entry. Show confirmation dialog.
+
+### Preload store from the localstorage
+
+Populate redux store from local storage. Save the data from the store to localstorage.

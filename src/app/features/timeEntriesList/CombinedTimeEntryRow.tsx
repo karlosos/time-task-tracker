@@ -20,7 +20,7 @@ export const CombinedTimeEntryRow = ({
   combinedTimeEntry,
 }: {
   combinedTimeEntry: {
-    text: string;
+    text: string; 
     ids: string[];
     subEntries: TimeEntry[];
     elapsedTime: number;
@@ -29,7 +29,7 @@ export const CombinedTimeEntryRow = ({
   };
 }) => {
   const dispatch = useAppDispatch();
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   const handleAddTimeEntryClick = () => {
     dispatch(
@@ -55,7 +55,9 @@ export const CombinedTimeEntryRow = ({
   return (
     <>
       <TimeEntryRowStyled>
-        {combinedTimeEntry.ids.length} &nbsp;
+        <div onClick={() => setIsCollapsed(state => !state)}>
+          {combinedTimeEntry.ids.length} &nbsp;
+        </div>
         <TimeEntryText title={combinedTimeEntry.text}>
           {combinedTimeEntry.text}
         </TimeEntryText>

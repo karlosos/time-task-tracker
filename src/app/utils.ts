@@ -8,7 +8,7 @@ export const formatElapsedTime = (timeDiff: number) => {
   timeDiff = Math.floor(timeDiff / 60);
   const minutes = Math.round(timeDiff % 60);
   timeDiff = Math.floor(timeDiff / 60);
-  const hours = Math.round(timeDiff % 24);
+  const hours = Math.round(timeDiff);
   return `${addLeadingZeros(hours, 2)}:${addLeadingZeros(minutes, 2)}:${addLeadingZeros(seconds, 2)}`
 }
 

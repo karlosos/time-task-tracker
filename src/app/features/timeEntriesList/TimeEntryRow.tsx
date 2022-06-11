@@ -1,5 +1,5 @@
 import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
-import { formatDatetime, formatDayMonthYear, formatElapsedTime } from "../../utils";
+import { formatDatetime, formatElapsedTime } from "../../utils";
 import { useAppDispatch } from "../../hooks";
 import {
   timeEntriesLoggedStatusChanged,

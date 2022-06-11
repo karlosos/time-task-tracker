@@ -1,10 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit'
+import { loadState, saveState } from './localStorage';
 import timeEntriesReducer from './timeEntries/slice'
+
+const preloadedState = loadState();
 
 export const store = configureStore({
   reducer: {
     timeEntries: timeEntriesReducer,
   },
+  preloadedState,
+})
+
+store.subscribe(() => {
+  saveState({
+    timeEntries: store.getState().timeEntries,
+  })
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
