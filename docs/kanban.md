@@ -2,10 +2,6 @@
 
 ## Doing ⌚
 
-### Editing existing time entry
-
-Editing existing time entry. Change name, change starting time, change stopping time.
-
 ## To Do ✅
 
 ### Move store into redux 
@@ -39,6 +35,10 @@ Create a settings view where use can customize link to Jira instance and task pa
 - [ ] code linting/formatting on commit
 - [ ] updating README
 
+### Port to Vite
+
+https://dev.to/nilanth/use-vite-for-react-apps-instead-of-cra-3pkg
+
 ### Application redesign
 
 Create new design for existing components. Move some of them into storybook. 
@@ -69,3 +69,7 @@ Removing existing time entry. Show confirmation dialog.
 ### Preload store from the localstorage
 
 Populate redux store from local storage. Save the data from the store to localstorage.
+
+### Editing existing time entry
+
+Editing existing time entry. Change name, change starting time, change stopping time.

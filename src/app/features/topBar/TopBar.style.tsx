@@ -9,12 +9,17 @@ export const TopBarStyled = styled.div`
 `;
 
 export const CurrentTimeEntryText = styled.div`
+  flex-grow: 1;
   width: 300px;
-  max-width: 300px;
 `
 
 export const ElapsedTime = styled.div`
-  flex-grow: 1;
+  &:hover {
+    background-color: #eee;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  padding: 4px;
 `
 
 export const IconButtonStyled = styled(IconButton)`

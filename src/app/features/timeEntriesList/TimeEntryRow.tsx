@@ -14,9 +14,12 @@ import {
 } from "./TimeEntriesList.style";
 import { Delete, Edit } from "@mui/icons-material";
 import { useState } from "react";
+import { TimeEntryEdit } from "./TimeEntryEdit";
 
 export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
   const dispatch = useAppDispatch();
+
+  const [isEditVisible, setIsEditVisible] = useState(false);
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(timeEntriesLoggedStatusChanged([timeEntry.id]));
@@ -41,7 +44,7 @@ export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
         size="large"
         edge="start"
         color="inherit"
-        onClick={() => undefined}
+        onClick={() => setIsEditVisible(state => !state)}
       >
         <Edit />
       </IconButtonStyled>
@@ -73,6 +76,8 @@ export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
         <Button onClick={handleRemoveEntry} startIcon={<Delete />}>Remove</Button>
       </DialogActions>
     </Dialog>
+
+    {isEditVisible && <TimeEntryEdit setIsEditVisible={setIsEditVisible} timeEntry={timeEntry} />}
     </>
   );
 };

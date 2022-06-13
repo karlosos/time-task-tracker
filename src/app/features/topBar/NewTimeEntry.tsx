@@ -2,7 +2,12 @@ import AddIcon from "@mui/icons-material/AddCircle";
 import { useState } from "react";
 import { useAppDispatch } from "../../hooks";
 import { timeEntryAdded } from "../../store/timeEntries/slice";
-import { IconButtonStyled, NewTimeEntryInput, NewTimeEntryInputWrapper } from "./TopBar.style";
+import {
+  IconButtonStyled,
+  NewTimeEntryInput,
+  NewTimeEntryInputWrapper,
+  TopBarStyled
+} from "./TopBar.style";
 
 export const NewTimeEntry = () => {
   const dispatch = useAppDispatch();
@@ -10,24 +15,20 @@ export const NewTimeEntry = () => {
   const [text, setText] = useState<string>("");
 
   const handleAddClick = () => {
-    dispatch(timeEntryAdded({text: text, startTime: Date.now()}))
+    dispatch(timeEntryAdded({ text: text, startTime: Date.now() }));
   };
 
   return (
-    <>
+    <TopBarStyled>
       <NewTimeEntryInputWrapper>
         <NewTimeEntryInput
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
       </NewTimeEntryInputWrapper>
-      <IconButtonStyled
-        onClick={handleAddClick}
-        size="large"
-        color="inherit"
-      >
+      <IconButtonStyled onClick={handleAddClick} size="large" color="inherit">
         <AddIcon />
       </IconButtonStyled>
-    </>
+    </TopBarStyled>
   );
 };

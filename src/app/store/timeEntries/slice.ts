@@ -71,6 +71,8 @@ export const timeEntries = createSlice({
       timeEntriesAdapter.addOne(state, newEntry);
     },
 
+    timeEntryUpdated: timeEntriesAdapter.updateOne,
+
     timeEntryRemoved: timeEntriesAdapter.removeOne,
     
     timeEntryStopped: (state, action: PayloadAction<EntityId>) => {
@@ -96,6 +98,7 @@ export const timeEntries = createSlice({
 
 export const {
   timeEntryAdded,
+  timeEntryUpdated,
   timeEntryRemoved,
   timeEntryStopped,
   timeEntriesLoggedStatusChanged,
