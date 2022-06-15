@@ -15,19 +15,22 @@ import {
 import { TimeEntry } from "../../store/timeEntries";
 import { TimeEntryRow } from "./TimeEntryRow";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
-export const CombinedTimeEntryRow = ({
-  combinedTimeEntry,
-}: {
-  combinedTimeEntry: {
-    text: string; 
+interface CombinedTimeEntry {
+    text: string;
     ids: string[];
     subEntries: TimeEntry[];
     elapsedTime: number;
     logged: boolean[];
     date: string;
-  };
-}) => {
+  }
+
+interface CombinedTimeEntryRowProps {
+  combinedTimeEntry: CombinedTimeEntry;
+}
+
+export const CombinedTimeEntryRow: React.FC<CombinedTimeEntryRowProps> = ({ combinedTimeEntry }) => {
   const dispatch = useAppDispatch();
   const [isCollapsed, setIsCollapsed] = useState(true);
 
@@ -36,6 +39,57 @@ export const CombinedTimeEntryRow = ({
       timeEntryAdded({ text: combinedTimeEntry.text, startTime: Date.now() })
     );
   };
+
+  const { checkboxState, checkboxIsIndeterminate, handleCheckboxChange } = useLoggedCheckbox(combinedTimeEntry)
+
+  return (
+    <>
+      <TimeEntryRowStyled>
+        <div onClick={() => setIsCollapsed((state) => !state)}>
+          {combinedTimeEntry.ids.length} &nbsp;
+        </div>
+        <TimeEntryText title={combinedTimeEntry.text}>
+          {combinedTimeEntry.text}
+        </TimeEntryText>
+        <ElapsedTime>
+          {formatElapsedTime(combinedTimeEntry.elapsedTime)}
+        </ElapsedTime>
+        <Checkbox
+          checked={checkboxState}
+          indeterminate={checkboxIsIndeterminate}
+          disabled={checkboxIsIndeterminate}
+          onChange={handleCheckboxChange}
+          aria-label='is logged status'
+        />
+        <IconButtonStyled
+          size="large"
+          edge="start"
+          color="inherit"
+          onClick={() => setIsCollapsed((state) => !state)}
+          aria-label='combined entry accordion'
+        >
+          {isCollapsed ? <ArrowDownward /> : <ArrowUpward />}
+        </IconButtonStyled>
+        <IconButtonStyled
+          size="large"
+          edge="start"
+          color="inherit"
+          onClick={handleAddTimeEntryClick}
+          aria-label='add time entry'
+        >
+          <PlayCircle />
+        </IconButtonStyled>
+      </TimeEntryRowStyled>
+      {!isCollapsed &&
+        [...combinedTimeEntry.subEntries]
+          .reverse()
+          .map((entry) => <TimeEntryRow timeEntry={entry} key={entry.id} />)}
+    </>
+  );
+};
+
+const useLoggedCheckbox = (combinedTimeEntry: CombinedTimeEntry) => {
+  const dispatch = useDispatch();
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(timeEntriesLoggedStatusChanged(combinedTimeEntry.ids));
@@ -52,45 +106,5 @@ export const CombinedTimeEntryRow = ({
     checkboxIsIndeterminate = true;
   }
 
-  return (
-    <>
-      <TimeEntryRowStyled>
-        <div onClick={() => setIsCollapsed(state => !state)}>
-          {combinedTimeEntry.ids.length} &nbsp;
-        </div>
-        <TimeEntryText title={combinedTimeEntry.text}>
-          {combinedTimeEntry.text}
-        </TimeEntryText>
-        <ElapsedTime>
-          {formatElapsedTime(combinedTimeEntry.elapsedTime)}
-        </ElapsedTime>
-        <Checkbox
-          checked={checkboxState}
-          indeterminate={checkboxIsIndeterminate}
-          disabled={checkboxIsIndeterminate}
-          onChange={handleCheckboxChange}
-        />
-        <IconButtonStyled
-          size="large"
-          edge="start"
-          color="inherit"
-          onClick={() => setIsCollapsed((state) => !state)}
-        >
-          {isCollapsed ? <ArrowDownward/> : <ArrowUpward/>}
-        </IconButtonStyled>
-        <IconButtonStyled
-          size="large"
-          edge="start"
-          color="inherit"
-          onClick={handleAddTimeEntryClick}
-        >
-          <PlayCircle />
-        </IconButtonStyled>
-      </TimeEntryRowStyled>
-      {!isCollapsed &&
-        [...combinedTimeEntry.subEntries].reverse().map((entry) => (
-          <TimeEntryRow timeEntry={entry} key={entry.id} />
-        ))}
-    </>
-  );
-};
+  return { checkboxState, checkboxIsIndeterminate, handleCheckboxChange}
+}

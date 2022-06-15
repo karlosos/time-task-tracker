@@ -24,9 +24,10 @@ export const NewTimeEntry = () => {
         <NewTimeEntryInput
           value={text}
           onChange={(e) => setText(e.target.value)}
+          name='new entry text'
         />
       </NewTimeEntryInputWrapper>
-      <IconButtonStyled onClick={handleAddClick} size="large" color="inherit">
+      <IconButtonStyled onClick={handleAddClick} size="large" color="inherit" aria-label="add entry">
         <AddIcon />
       </IconButtonStyled>
     </TopBarStyled>
