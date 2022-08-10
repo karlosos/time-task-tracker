@@ -4,21 +4,13 @@
 
 ## To Do ✅
 
-### Move store into redux 
+### Testing
 
-Use redux toolkit for storing data. Create selectors for combined time entries etc.
-
-- [x] Connect dummy redux store
-- [x] Port existing useTasks into redux
-- [ ] Test existing functionality given some mocked store
+Test existing functionality given some mocked store
 
 ### Use memoization (reselect) in selectors
 
 Use memoization in some selectors where we create new data objects.
-
-### Editing existing time entry 
-
-As a user I would want to edit existing time entry. For example edit starting time for currently running time entry or edit starting time/stopped time for existing time entries.
 
 ### Add links to Jira on task id
 
@@ -73,3 +65,14 @@ Populate redux store from local storage. Save the data from the store to localst
 ### Editing existing time entry
 
 Editing existing time entry. Change name, change starting time, change stopping time.
+
+### Move store into redux 
+
+Use redux toolkit for storing data. Create selectors for combined time entries etc.
+
+- [x] Connect dummy redux store
+- [x] Port existing useTasks into redux
+
+### Editing existing time entry 
+
+As a user I would want to edit existing time entry. For example edit starting time for currently running time entry or edit starting time/stopped time for existing time entries.
