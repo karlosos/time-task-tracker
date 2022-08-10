@@ -3,7 +3,7 @@ const addLeadingZeros = (num: number, totalLength: number) => {
 }
 
 export const formatElapsedTime = (timeDiff: number) => {
-  timeDiff /= 1000;
+  timeDiff = Math.floor(timeDiff/1000);
   const seconds = Math.round(timeDiff % 60);
   timeDiff = Math.floor(timeDiff / 60);
   const minutes = Math.round(timeDiff % 60);

@@ -4,10 +4,12 @@ import timeEntriesReducer from './timeEntries/slice'
 
 const preloadedState = loadState();
 
-export const store = configureStore({
-  reducer: {
+export const storeReducers = {
     timeEntries: timeEntriesReducer,
-  },
+}
+
+export const store = configureStore({
+  reducer: storeReducers,
   preloadedState,
 })
 

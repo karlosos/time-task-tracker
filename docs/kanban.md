@@ -2,11 +2,11 @@
 
 ## Doing ⌚
 
-## To Do ✅
-
 ### Testing
 
 Test existing functionality given some mocked store
+
+## To Do ✅
 
 ### Use memoization (reselect) in selectors
 

@@ -60,7 +60,7 @@ const useElapsedTimeForEntry = (currentTimeEntry: TimeEntry) => {
   const [elapsedTime, setElapsedTime] = useState<number>(
     currentTimeEntry ? Date.now() - currentTimeEntry.startTime : 0
   );
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const intervalRef = useRef<ReturnType<typeof setInterval>>();
 
   useEffect(() => {
     setElapsedTime(
@@ -69,14 +69,14 @@ const useElapsedTimeForEntry = (currentTimeEntry: TimeEntry) => {
   }, [currentTimeEntry]);
 
   useEffect(() => {
-    timeoutRef.current = setTimeout(() => {
+    intervalRef.current = setInterval(() => {
       setElapsedTime(
         currentTimeEntry ? Date.now() - currentTimeEntry.startTime : 0
       );
-    }, 1000);
+    }, 500);
 
     return () => {
-      clearTimeout(timeoutRef.current);
+      clearInterval(intervalRef.current);
     };
   });
 

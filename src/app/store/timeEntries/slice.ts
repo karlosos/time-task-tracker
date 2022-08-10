@@ -17,7 +17,7 @@ export interface TimeEntry {
 
 export const timeEntriesAdapter = createEntityAdapter<TimeEntry>();
 
-const initialState: EntityState<TimeEntry> = {
+const testFixtures = {
   ids: ["1", "2", "3"],
   entities: {
     "1": {
@@ -42,11 +42,16 @@ const initialState: EntityState<TimeEntry> = {
       logged: false,
     },
   },
+
+}
+export const timeEntriesInitialState: EntityState<TimeEntry> = {
+  ids: [],
+  entities: {},
 };
 
 export const timeEntries = createSlice({
   name: "timeEntries",
-  initialState,
+  initialState: timeEntriesInitialState,
   reducers: {
     timeEntryAdded: (
       state,
