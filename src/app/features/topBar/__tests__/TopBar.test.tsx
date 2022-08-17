@@ -88,7 +88,7 @@ describe("TopBar", () => {
 
       // assert
       expect(
-        screen.getByRole("textbox", { name: "Entry text" })
+        screen.getByRole("textbox", { name: "Current entry text" })
       ).toBeInTheDocument();
       expect(screen.getByLabelText("Start Time")).toBeInTheDocument();
       expect(screen.getByLabelText("Stop Time")).toBeInTheDocument();
@@ -98,6 +98,12 @@ describe("TopBar", () => {
   });
 
   describe("GIVEN editing view is opened", () => {
+    beforeEach(() => {
+      jest
+        .useFakeTimers()
+        .setSystemTime(new Date('2022-08-16 20:50'));
+    });
+
     const arrange = () => {
       render(
         connectStore(<TopBar />, {
@@ -107,7 +113,7 @@ describe("TopBar", () => {
               "1": {
                 id: "1",
                 text: "DX1-3213: Doing something",
-                startTime: Date.now(),
+                startTime: (new Date('2022-08-16 20:47')).getTime(), // 3 minutes ago
                 stopTime: undefined,
                 logged: false,
               },
@@ -116,17 +122,37 @@ describe("TopBar", () => {
         })
       );
 
-      const timer = screen.getByText("00:00:00");
+      const timer = screen.getByText("00:03:00");
       userEvent.click(timer);
     };
 
-    it("WHEN entry text and start time edited THEN", async () => {
+    it("WHEN entry text and start time edited and save clicked THEN running entry is updated", async () => {
       arrange();
-      screen.debug(); // TODO: continue
+
+      const textInput = screen.getByRole("textbox", {
+        name: "Current entry text",
+      })
+      const startTimeInput = screen.getByRole("textbox", {name: "Choose time, selected time is 8:47 PM"});
+      const saveButton = screen.getByText("Save");
 
       // act
+      userEvent.clear(textInput);
+      userEvent.type(textInput, "--Completely new task--");
+
+      userEvent.click(startTimeInput);
+      // screen.debug(document, Infinity);
+      // screen.debug(screen.getByLabelText("20 hours"))
+      userEvent.click(screen.getByLabelText("20 hours"));
+      screen.debug(document, Infinity); // TODO: clicking on hours not working?
+      userEvent.click(screen.getByLabelText("10 minutes"));
+      // userEvent.type(startTimeInput, "2000");
+
+      userEvent.click(saveButton);
 
       // assert
+      expect(screen.getByText("--Completely new task--")).toBeInTheDocument();
+      expect(screen.getByText("00:47:00")).toBeInTheDocument();
+      // screen.debug();
     });
   });
 });

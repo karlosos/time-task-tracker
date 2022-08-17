@@ -50,7 +50,7 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <TextField
-        label="Entry text"
+        label="Current entry text"
         value={entryText}
         onChange={handleTextChange}
       />
