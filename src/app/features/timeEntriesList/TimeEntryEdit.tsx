@@ -1,5 +1,5 @@
 import { TextField } from "@mui/material";
-import { TimePicker } from "@mui/x-date-pickers";
+import { DateTimePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { useState } from "react";
@@ -56,7 +56,7 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
       />
       <br />
       <br />
-      <TimePicker
+      <DateTimePicker
         label="Start Time"
         value={startTimeValue}
         ampm={false}
@@ -65,7 +65,7 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
         }}
         renderInput={(params) => <TextField {...params} />}
       />{" "}
-      <TimePicker
+      <DateTimePicker
         label="Stop Time"
         value={stopTimeValue}
         disabled={!stopTimeValue}
