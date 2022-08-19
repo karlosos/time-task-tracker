@@ -13,7 +13,6 @@ function connectStore(
   component: ReactElement,
   preloadedState: RootState = initialState
 ) {
-  console.log('>>preloadedState', preloadedState)
   const store = configureStore({
     reducer: storeReducers,
     preloadedState,

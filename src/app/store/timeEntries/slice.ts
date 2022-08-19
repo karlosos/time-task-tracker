@@ -6,6 +6,7 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { generateId } from "../../utils";
+import { timeEntriesFixture } from "./fixtures";
 
 export interface TimeEntry {
   id: string;
@@ -17,37 +18,12 @@ export interface TimeEntry {
 
 export const timeEntriesAdapter = createEntityAdapter<TimeEntry>();
 
-const testFixtures = {
-  ids: ["1", "2", "3"],
-  entities: {
-    "1": {
-      id: "1",
-      text: "DX1-3213: Doing something",
-      startTime: 1653236911845,
-      stopTime: undefined,
-      logged: false,
-    },
-    "2": {
-      id: "2",
-      text: "DX1-1111: Different task",
-      startTime: 1653236911845,
-      stopTime: 1653237028845,
-      logged: false,
-    },
-    "3": {
-      id: "3",
-      text: "DX1-1111: Different task",
-      startTime: 1653672520415,
-      stopTime: 1653672530415,
-      logged: false,
-    },
-  },
-
-}
 export const timeEntriesInitialState: EntityState<TimeEntry> = {
   ids: [],
   entities: {},
 };
+
+// export const timeEntriesInitialState = timeEntriesFixture; // TODO: uncomment when want to reset store
 
 export const timeEntries = createSlice({
   name: "timeEntries",
