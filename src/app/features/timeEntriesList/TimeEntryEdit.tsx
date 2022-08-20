@@ -1,11 +1,19 @@
 import { TextField } from "@mui/material";
-import { DateTimePicker } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { TimeEntry, timeEntryUpdated } from "../../store/timeEntries";
 
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+import styles from "./datepicker.module.css";
+import styled from "@emotion/styled";
+
+const EditFieldsContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+`;
 interface TimeEntryEditProps {
   timeEntry: TimeEntry;
   setIsEditVisible: (flag: boolean) => void;
@@ -48,36 +56,41 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
   };
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <TextField
-        label="Current entry text"
-        value={entryText}
-        onChange={handleTextChange}
-      />
-      <br />
-      <br />
-      <DateTimePicker
-        label="Start Time"
-        value={startTimeValue}
-        ampm={false}
-        onChange={(newValue: Date | null) => {
-          newValue && setStartTimeValue(newValue.getTime());
-        }}
-        renderInput={(params) => <TextField {...params} />}
-      />{" "}
-      <DateTimePicker
-        label="Stop Time"
-        value={stopTimeValue}
-        disabled={!stopTimeValue}
-        ampm={false}
-        onChange={(newValue: Date | null) => {
-          newValue && setStopTimeValue(newValue.getTime());
-        }}
-        renderInput={(params) => <TextField {...params} />}
-      />
+    <>
+      <EditFieldsContainer>
+        <TextField
+          label="Current entry text"
+          value={entryText}
+          onChange={handleTextChange}
+          style={{flexGrow: '1'}}
+        />
+        <div>
+          <DatePicker
+            selected={new Date(startTimeValue)}
+            wrapperClassName={styles.date_picker}
+            onChange={(date: Date) =>
+              date && setStartTimeValue(date?.getTime())
+            }
+            timeInputLabel="Time:"
+            dateFormat="HH:mm"
+            showTimeInput
+          />
+        </div>
+        <div>
+          <DatePicker
+            disabled={!stopTimeValue}
+            wrapperClassName={styles.date_picker}
+            selected={new Date(stopTimeValue!)}
+            onChange={(date: Date) => date && setStopTimeValue(date?.getTime())}
+            timeInputLabel="Time:"
+            dateFormat="HH:mm"
+            showTimeInput
+          />
+        </div>
+      </EditFieldsContainer>
       <br />
       <button onClick={handleCancel}>Cancel</button>
       <button onClick={handleSave}>Save</button>
-    </LocalizationProvider>
+    </>
   );
 };
