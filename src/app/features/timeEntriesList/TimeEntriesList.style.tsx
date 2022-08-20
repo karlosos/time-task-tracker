@@ -8,11 +8,6 @@ export const TimeEntryRowStyled = styled.div`
   height: 60px;
 `;
 
-export const TimeEntryText = styled.div`
-  width: 300px;
-  max-width: 300px;
-`;
-
 export const ElapsedTime = styled.div`
  flex-grow: 1;
 `

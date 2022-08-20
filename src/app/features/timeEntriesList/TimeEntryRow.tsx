@@ -18,11 +18,11 @@ import {
   ElapsedTime,
   IconButtonStyled,
   TimeEntryRowStyled,
-  TimeEntryText,
 } from "./TimeEntriesList.style";
 import { Delete, Edit } from "@mui/icons-material";
 import { useState } from "react";
 import { TimeEntryEdit } from "./TimeEntryEdit";
+import { TimeEntryText } from "../../components/TimeEntryText";
 
 export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
   const dispatch = useAppDispatch();
@@ -43,7 +43,7 @@ export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
   return (
     <>
       <TimeEntryRowStyled>
-        <TimeEntryText title={timeEntry.text}>{timeEntry.text}</TimeEntryText>
+        <TimeEntryText timeEntryText={timeEntry.text} />
         <ElapsedTime>
           {formatElapsedTime(timeEntry.stopTime! - timeEntry.startTime)}
         </ElapsedTime>

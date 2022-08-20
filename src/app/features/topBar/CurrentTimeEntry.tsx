@@ -5,12 +5,12 @@ import React from "react";
 import { useAppDispatch } from "../../hooks";
 import { TimeEntry, timeEntryStopped } from "../../store/timeEntries/slice";
 import {
-  CurrentTimeEntryText,
   ElapsedTime,
   IconButtonStyled,
   TopBarStyled,
 } from "./TopBar.style";
 import { TimeEntryEdit } from "../timeEntriesList/TimeEntryEdit";
+import { TimeEntryText } from "../../components/TimeEntryText";
 
 interface CurrentTimeEntryProps {
   currentTimeEntry: TimeEntry;
@@ -31,10 +31,11 @@ export const CurrentTimeEntry: React.FC<CurrentTimeEntryProps> = ({
   return (
     <>
       <TopBarStyled>
-        <CurrentTimeEntryText title={currentTimeEntry.text}>
-          {currentTimeEntry.text}
-        </CurrentTimeEntryText>
-        <ElapsedTime onClick={() => setIsEditVisible((state) => !state)} aria-label='elapsed time'>
+        <TimeEntryText timeEntryText={currentTimeEntry.text} />
+        <ElapsedTime
+          onClick={() => setIsEditVisible((state) => !state)}
+          aria-label="elapsed time"
+        >
           {formatElapsedTime(elapsedTime)}
         </ElapsedTime>
         <IconButtonStyled

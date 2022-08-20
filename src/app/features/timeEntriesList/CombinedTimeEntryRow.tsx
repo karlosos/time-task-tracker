@@ -10,12 +10,12 @@ import {
   ElapsedTime,
   IconButtonStyled,
   TimeEntryRowStyled,
-  TimeEntryText,
 } from "./TimeEntriesList.style";
 import { TimeEntry } from "../../store/timeEntries";
 import { TimeEntryRow } from "./TimeEntryRow";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { TimeEntryText } from "../../components/TimeEntryText";
 
 interface CombinedTimeEntry {
     text: string;
@@ -48,9 +48,7 @@ export const CombinedTimeEntryRow: React.FC<CombinedTimeEntryRowProps> = ({ comb
         <div onClick={() => setIsCollapsed((state) => !state)}>
           {combinedTimeEntry.ids.length} &nbsp;
         </div>
-        <TimeEntryText title={combinedTimeEntry.text}>
-          {combinedTimeEntry.text}
-        </TimeEntryText>
+        <TimeEntryText timeEntryText={combinedTimeEntry.text} />
         <ElapsedTime>
           {formatElapsedTime(combinedTimeEntry.elapsedTime)}
         </ElapsedTime>

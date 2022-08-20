@@ -8,11 +8,6 @@ export const TopBarStyled = styled.div`
   align-items: center;
 `;
 
-export const CurrentTimeEntryText = styled.div`
-  flex-grow: 1;
-  width: 300px;
-`
-
 export const ElapsedTime = styled.div`
   &:hover {
     background-color: #eee;
