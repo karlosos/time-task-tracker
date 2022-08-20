@@ -14,6 +14,15 @@ const EditFieldsContainer = styled.div`
   gap: 10px;
   flex-direction: row;
 `;
+
+const ActionButtonContainer = styled.div`
+  padding-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-direction: row;
+`;
+
 interface TimeEntryEditProps {
   timeEntry: TimeEntry;
   setIsEditVisible: (flag: boolean) => void;
@@ -80,7 +89,7 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
           <DatePicker
             disabled={!stopTimeValue}
             wrapperClassName={styles.date_picker}
-            selected={new Date(stopTimeValue!)}
+            selected={stopTimeValue ? new Date(stopTimeValue) : new Date(Date.now())}
             onChange={(date: Date) => date && setStopTimeValue(date?.getTime())}
             timeInputLabel="Time:"
             dateFormat="HH:mm"
@@ -88,9 +97,10 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
           />
         </div>
       </EditFieldsContainer>
-      <br />
-      <button onClick={handleCancel}>Cancel</button>
-      <button onClick={handleSave}>Save</button>
+      <ActionButtonContainer>
+        <button onClick={handleCancel}>Cancel</button>
+        <button onClick={handleSave}>Save</button>
+      </ActionButtonContainer>
     </>
   );
 };

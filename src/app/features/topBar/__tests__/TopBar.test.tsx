@@ -132,23 +132,22 @@ describe("TopBar", () => {
       const textInput = screen.getByRole("textbox", {
         name: "Current entry text",
       });
-      const startTimeInput = screen.getByRole("textbox", {
-        name: "Choose time, selected time is 8:47 PM",
-      });
+      const startTimeInput = screen.getByDisplayValue("20:47");
       const saveButton = screen.getByText("Save");
 
       // act
       userEvent.clear(textInput);
       userEvent.type(textInput, "--Completely new task--");
 
-      userEvent.click(startTimeInput);
-      // userEvent.type(startTimeInput, "20:05"); // TODO: change time
+      userEvent.clear(startTimeInput);
+      userEvent.type(startTimeInput, "20:05");
+      userEvent.type(startTimeInput, "{enter}")
 
       userEvent.click(saveButton);
 
       // assert
       expect(screen.getByText("--Completely new task--")).toBeInTheDocument();
-      // expect(screen.getByText("00:47:00")).toBeInTheDocument(); // TODO: change time
+      expect(screen.getByText("00:45:00")).toBeInTheDocument();
     });
 
     it("WHEN entry text edited and cancel clicked THEN entry text is not updated", async () => {
