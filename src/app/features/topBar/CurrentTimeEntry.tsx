@@ -9,7 +9,7 @@ import {
   IconButtonStyled,
   TopBarStyled,
 } from "./TopBar.style";
-import { TimeEntryEdit } from "../timeEntriesList/TimeEntryEdit";
+import { TimeEntryEdit } from "../../components/TimeEntryEdit";
 import { TimeEntryText } from "../../components/TimeEntryText";
 
 interface CurrentTimeEntryProps {

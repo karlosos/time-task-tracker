@@ -21,7 +21,7 @@ import {
 } from "./TimeEntriesList.style";
 import { Delete, Edit } from "@mui/icons-material";
 import { useState } from "react";
-import { TimeEntryEdit } from "./TimeEntryEdit";
+import { TimeEntryEdit } from "../../components/TimeEntryEdit";
 import { TimeEntryText } from "../../components/TimeEntryText";
 
 export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {

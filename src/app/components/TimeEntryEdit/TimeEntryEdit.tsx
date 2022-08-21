@@ -7,21 +7,11 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./datepicker.module.css";
-import styled from "@emotion/styled";
-
-const EditFieldsContainer = styled.div`
-  display: flex;
-  gap: 10px;
-  flex-direction: row;
-`;
-
-const ActionButtonContainer = styled.div`
-  padding-top: 10px;
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  flex-direction: row;
-`;
+import {
+  ActionButtonContainer,
+  EditFieldsContainer,
+} from "./TimeEntryEdit.style";
+import { testId } from "../../testUtils/testId";
 
 interface TimeEntryEditProps {
   timeEntry: TimeEntry;
@@ -71,9 +61,9 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
           label="Current entry text"
           value={entryText}
           onChange={handleTextChange}
-          style={{flexGrow: '1'}}
+          style={{ flexGrow: "1" }}
         />
-        <div>
+        <div data-testid={testId.startTime}>
           <DatePicker
             selected={new Date(startTimeValue)}
             wrapperClassName={styles.date_picker}
@@ -85,11 +75,13 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
             showTimeInput
           />
         </div>
-        <div>
+        <div data-testid={testId.stopTime}>
           <DatePicker
             disabled={!stopTimeValue}
             wrapperClassName={styles.date_picker}
-            selected={stopTimeValue ? new Date(stopTimeValue) : new Date(Date.now())}
+            selected={
+              stopTimeValue ? new Date(stopTimeValue) : new Date(Date.now())
+            }
             onChange={(date: Date) => date && setStopTimeValue(date?.getTime())}
             timeInputLabel="Time:"
             dateFormat="HH:mm"
