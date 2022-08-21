@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
 import connectStore from "../../../testUtils/connectStore";
+import { testId } from "../../../testUtils/testId";
 import { TopBar } from "../TopBar";
 
 describe("TopBar", () => {
@@ -91,8 +92,8 @@ describe("TopBar", () => {
       expect(
         screen.getByRole("textbox", { name: "Current entry text" })
       ).toBeInTheDocument();
-      expect(screen.getByLabelText("Start Time")).toBeInTheDocument();
-      expect(screen.getByLabelText("Stop Time")).toBeInTheDocument();
+      expect(screen.getByTestId(testId.startTime)).toBeInTheDocument();
+      expect(screen.getByTestId(testId.stopTime)).toBeInTheDocument();
       expect(screen.getByText("Cancel")).toBeInTheDocument();
       expect(screen.getByText("Save")).toBeInTheDocument();
     });
@@ -136,14 +137,17 @@ describe("TopBar", () => {
       const saveButton = screen.getByText("Save");
 
       // act
-      userEvent.clear(textInput);
-      userEvent.type(textInput, "--Completely new task--");
+      // eslint-disable-next-line testing-library/no-unnecessary-act
+      act(() => {
+        userEvent.clear(textInput);
+        userEvent.type(textInput, "--Completely new task--");
 
-      userEvent.clear(startTimeInput);
-      userEvent.type(startTimeInput, "20:05");
-      userEvent.type(startTimeInput, "{enter}")
+        userEvent.clear(startTimeInput);
+        userEvent.type(startTimeInput, "20:05");
+        userEvent.type(startTimeInput, "{enter}")
 
-      userEvent.click(saveButton);
+        userEvent.click(saveButton);
+      })
 
       // assert
       expect(screen.getByText("--Completely new task--")).toBeInTheDocument();
@@ -167,7 +171,7 @@ describe("TopBar", () => {
 
       // assert
       expect(screen.queryByText("--Completely new task--")).not.toBeInTheDocument();
-      expect(screen.getByText("DX1-3213: Doing something")).toBeInTheDocument();
+      expect(screen.getByTitle("DX1-3213: Doing something")).toBeInTheDocument();
     })
   });
 });

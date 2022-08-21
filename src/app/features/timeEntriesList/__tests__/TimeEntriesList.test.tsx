@@ -25,10 +25,10 @@ describe("TimeEntriesList", () => {
       arrange();
 
       // assert
-      expect(screen.getByText("DX1-4444: Task 4 with some logged entries")).toBeInTheDocument();
-      expect(screen.getByText("DX1-3: Task 3 with logged entries")).toBeInTheDocument();
-      expect(screen.getAllByText("DX1-1: Task 1")).toHaveLength(2);
-      expect(screen.getByText("DX1-2: Task 2 with multiple entries")).toBeInTheDocument();
+      expect(screen.getByTitle("DX1-4444: Task 4 with some logged entries")).toBeInTheDocument();
+      expect(screen.getByTitle("DX1-3: Task 3 with logged entries")).toBeInTheDocument();
+      expect(screen.getAllByTitle("DX1-1: Task 1")).toHaveLength(2);
+      expect(screen.getAllByTitle("DX1-2: Task 2 with multiple entries")).toHaveLength(2);
     });
 
     it("THEN items are grouped by day and time per day is calculated", () => {
@@ -44,11 +44,11 @@ describe("TimeEntriesList", () => {
     it("THEN tasks are collapsed by name and time is summed", () => {
       arrange();
       // eslint-disable-next-line testing-library/no-node-access
-      const combinedRow = screen.getByText("DX1-4444: Task 4 with some logged entries").parentElement;
+      const combinedRow = screen.getByTitle("DX1-4444: Task 4 with some logged entries").parentElement;
 
       // assert
       expect(within(combinedRow!).getByText("3")).toBeInTheDocument(); // number of collapsed elements
-      expect(within(combinedRow!).getByText("DX1-4444: Task 4 with some logged entries")).toBeInTheDocument();
+      expect(within(combinedRow!).getByTitle("DX1-4444: Task 4 with some logged entries")).toBeInTheDocument();
       expect(within(combinedRow!).getByText("00:03:05")).toBeInTheDocument();
       expect(within(combinedRow!).getByRole("checkbox")).toBeDisabled();
     });
