@@ -53,6 +53,7 @@ export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
           edge="start"
           color="inherit"
           onClick={() => setIsEditVisible((state) => !state)}
+          aria-label="Edit entry"
         >
           <Edit />
         </IconButtonStyled>
