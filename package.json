@@ -54,5 +54,9 @@
   },
   "devDependencies": {
     "@types/react-datepicker": "^4.4.2"
+    "@types/react-datepicker": "^4.4.2",
+    "autoprefixer": "^10.4.11",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8"
   }
 }

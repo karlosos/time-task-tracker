@@ -18,12 +18,16 @@ export interface TimeEntry {
 
 export const timeEntriesAdapter = createEntityAdapter<TimeEntry>();
 
-export const timeEntriesInitialState: EntityState<TimeEntry> = {
-  ids: [],
-  entities: {},
-};
-
-// export const timeEntriesInitialState = timeEntriesFixture; // TODO: uncomment when want to reset store
+export let timeEntriesInitialState: EntityState<TimeEntry>;
+// Change to false for using example data
+if (true) { 
+  timeEntriesInitialState = {
+    ids: [],
+    entities: {},
+  };
+} else {
+  timeEntriesInitialState = timeEntriesFixture;
+}
 
 export const timeEntries = createSlice({
   name: "timeEntries",
@@ -55,7 +59,7 @@ export const timeEntries = createSlice({
     timeEntryUpdated: timeEntriesAdapter.updateOne,
 
     timeEntryRemoved: timeEntriesAdapter.removeOne,
-    
+
     timeEntryStopped: (state, action: PayloadAction<EntityId>) => {
       const changes: Partial<TimeEntry> = {
         stopTime: Date.now(),
