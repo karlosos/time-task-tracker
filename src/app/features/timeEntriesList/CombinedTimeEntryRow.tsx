@@ -44,7 +44,7 @@ export const CombinedTimeEntryRow: React.FC<CombinedTimeEntryRowProps> = ({ comb
 
   return (
     <>
-      <TimeEntryRowStyled>
+      <TimeEntryRowStyled aria-label="Combined entry row">
         <div onClick={() => setIsCollapsed((state) => !state)}>
           {combinedTimeEntry.ids.length} &nbsp;
         </div>
@@ -64,7 +64,7 @@ export const CombinedTimeEntryRow: React.FC<CombinedTimeEntryRowProps> = ({ comb
           edge="start"
           color="inherit"
           onClick={() => setIsCollapsed((state) => !state)}
-          aria-label='combined entry accordion'
+          aria-label='Combined entry accordion'
         >
           {isCollapsed ? <ArrowDownward /> : <ArrowUpward />}
         </IconButtonStyled>
@@ -73,7 +73,7 @@ export const CombinedTimeEntryRow: React.FC<CombinedTimeEntryRowProps> = ({ comb
           edge="start"
           color="inherit"
           onClick={handleAddTimeEntryClick}
-          aria-label='add time entry'
+          aria-label='Start tracking time for combined entry'
         >
           <PlayCircle />
         </IconButtonStyled>

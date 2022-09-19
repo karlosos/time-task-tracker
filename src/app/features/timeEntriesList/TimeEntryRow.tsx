@@ -42,7 +42,7 @@ export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
 
   return (
     <>
-      <TimeEntryRowStyled>
+      <TimeEntryRowStyled aria-label="Time entry child row">
         <TimeEntryText timeEntryText={timeEntry.text} />
         <ElapsedTime>
           {formatElapsedTime(timeEntry.stopTime! - timeEntry.startTime)}
@@ -61,33 +61,40 @@ export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
           edge="start"
           color="inherit"
           onClick={() => setRemoveDialogOpen(true)}
+          aria-label="Remove entry"
         >
           <Delete />
         </IconButtonStyled>
       </TimeEntryRowStyled>
 
-      <Dialog
-        open={removeDialogOpen}
-        onClose={() => setRemoveDialogOpen(false)}
-      >
-        <DialogTitle>Delete entry {timeEntry.text}?</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Do you want to delete entry {timeEntry.text} which started in{" "}
-            {formatDatetime(timeEntry.startTime)} and ended in{" "}
-            {formatDatetime(timeEntry.stopTime!)}.
-            {timeEntry.logged && "This entry was already logged!"}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={() => setRemoveDialogOpen(false)}>
-            Cancel
-          </Button>
-          <Button onClick={handleRemoveEntry} startIcon={<Delete />}>
-            Remove
-          </Button>
-        </DialogActions>
-      </Dialog>
+      {removeDialogOpen && (
+        <Dialog
+          open={removeDialogOpen}
+          onClose={() => setRemoveDialogOpen(false)}
+        >
+          <DialogTitle>Delete entry {timeEntry.text}?</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Do you want to delete entry {timeEntry.text} which started in{" "}
+              {formatDatetime(timeEntry.startTime)} and ended in{" "}
+              {formatDatetime(timeEntry.stopTime!)}.
+              {timeEntry.logged && "This entry was already logged!"}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button autoFocus onClick={() => setRemoveDialogOpen(false)}>
+              Cancel
+            </Button>
+            <Button
+              onClick={handleRemoveEntry}
+              startIcon={<Delete />}
+              aria-label="Confirm entry removal"
+            >
+              Remove
+            </Button>
+          </DialogActions>
+        </Dialog>
+      )}
 
       {isEditVisible && (
         <TimeEntryEdit
