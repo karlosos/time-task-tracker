@@ -4,11 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import React from "react";
 import { useAppDispatch } from "../../hooks";
 import { TimeEntry, timeEntryStopped } from "../../store/timeEntries/slice";
-import {
-  ElapsedTime,
-  IconButtonStyled,
-  TopBarStyled,
-} from "./TopBar.style";
+import { ElapsedTime, IconButtonStyled, TopBarStyled } from "./TopBar.style";
 import { TimeEntryEdit } from "../../components/TimeEntryEdit";
 import { TimeEntryText } from "../../components/TimeEntryText";
 
@@ -31,21 +27,29 @@ export const CurrentTimeEntry: React.FC<CurrentTimeEntryProps> = ({
   return (
     <>
       <TopBarStyled>
+        <div className="flex-grow ml-4">
         <TimeEntryText timeEntryText={currentTimeEntry.text} />
+          </div>
+          <div className="flex flex-row space-x-2 justify-center items-center">
+
         <ElapsedTime
           onClick={() => setIsEditVisible((state) => !state)}
           aria-label="elapsed time"
         >
-          {formatElapsedTime(elapsedTime)}
+          <span className="ml-4">{formatElapsedTime(elapsedTime)}</span>
         </ElapsedTime>
-        <IconButtonStyled
-          onClick={handleOnStopClick}
-          size="large"
-          color="inherit"
-          aria-label="stop timer"
-        >
-          <StopIcon />
-        </IconButtonStyled>
+        <div className="text-red-300">
+          <IconButtonStyled
+            onClick={handleOnStopClick}
+            size="large"
+            color="inherit"
+            aria-label="stop timer"
+            style={{marginRight: '0'}}
+          >
+            <StopIcon />
+          </IconButtonStyled>
+        </div>
+          </div>
       </TopBarStyled>
       {isEditVisible && (
         <TimeEntryEdit

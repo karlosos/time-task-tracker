@@ -5,11 +5,9 @@ export const TimeEntryRowStyled = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 60px;
 `;
 
 export const ElapsedTime = styled.div`
- flex-grow: 1;
 `
 
 export const IconButtonStyled = styled(IconButton)`

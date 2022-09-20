@@ -1,6 +1,5 @@
 import { useAppSelector } from "../../hooks";
 import { selectCombinedTimeEntries } from "../../store/timeEntries";
-import { testId } from "../../testUtils/testId";
 import { formatElapsedTime } from "../../utils";
 import { CombinedTimeEntryRow } from "./CombinedTimeEntryRow";
 import {
@@ -25,10 +24,18 @@ export const TimeEntriesList = () => {
           0
         );
         return (
-          <TimeEntriesDateSublist key={date}>
+          <TimeEntriesDateSublist
+            key={date}
+            className="p-4 rounded-lg shadow-[-2px_5px_20px_0px_#0000001A]"
+          >
             <DateLabel>
-              <span>{date}</span> &nbsp;
-              <span>{formatElapsedTime(elapsedTimePerDay)}</span>
+              <span className="font-poppins text-[18px] text-[#353942] font-semibold">
+                {date}
+              </span>{" "}
+              &nbsp;
+              <span className="font-poppins text-[18px] text-[#353942] opacity-50 font-semibold">
+                {formatElapsedTime(elapsedTimePerDay)}
+              </span>
             </DateLabel>
             {combinedTimeEntriesPerDate.map((combinedTimeEntries: any) => (
               <CombinedTimeEntryRow
@@ -45,8 +52,8 @@ export const TimeEntriesList = () => {
   };
 
   return (
-    <>
-      <TimeEntriesListStyled>{renderTimeEntries()}</TimeEntriesListStyled>
-    </>
+    <TimeEntriesListStyled className="mt-4 flex flex-col space-y-6">
+      {renderTimeEntries()}
+    </TimeEntriesListStyled>
   );
 };

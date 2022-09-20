@@ -55,16 +55,18 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
   };
 
   return (
-    <>
+    <div className='mt-2 mb-2'>
       <EditFieldsContainer>
         <TextField
           label="Current entry text"
           value={entryText}
           onChange={handleTextChange}
-          style={{ flexGrow: "1" }}
+          style={{ flexGrow: "1", fontFamily: 'Poppins' }}
+          className="font-poppins font-medium"
         />
         <div data-testid={testId.startTime}>
           <DatePicker
+            className="border border-[rgba(0,0,0,0.23)] hover:border-black rounded focus:outline-blue-500 font-poppins"
             selected={new Date(startTimeValue)}
             wrapperClassName={styles.date_picker}
             onChange={(date: Date) =>
@@ -77,6 +79,7 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
         </div>
         <div data-testid={testId.stopTime}>
           <DatePicker
+            className="border border-[rgba(0,0,0,0.23)] hover:border-black rounded focus:outline-blue-500 font-poppins"
             disabled={!stopTimeValue}
             wrapperClassName={styles.date_picker}
             selected={
@@ -90,9 +93,9 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
         </div>
       </EditFieldsContainer>
       <ActionButtonContainer>
-        <button onClick={handleCancel}>Cancel</button>
-        <button onClick={handleSave}>Save</button>
+        <button onClick={handleCancel} className="bg-white border-2 border-[#4B7BE5] rounded text-[#4B7BE5] hover:opacity-50 px-3 py-1.5 font-poppins font-medium">Cancel</button>
+        <button onClick={handleSave} className="bg-[#4B7BE5] rounded text-white hover:opacity-50 px-3 py-1.5 font-poppins font-medium">Save</button>
       </ActionButtonContainer>
-    </>
+    </div>
   );
 };

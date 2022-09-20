@@ -4,9 +4,8 @@ import { TopBar } from "./features/topBar";
 
 function App() {
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" className="my-4">
       <TopBar />
-      <hr />
       <TimeEntriesList />
     </Container>
   );

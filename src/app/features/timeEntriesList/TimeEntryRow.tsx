@@ -43,29 +43,32 @@ export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
   return (
     <>
       <TimeEntryRowStyled aria-label="Time entry child row">
-        <TimeEntryText timeEntryText={timeEntry.text} />
-        <ElapsedTime>
-          {formatElapsedTime(timeEntry.stopTime! - timeEntry.startTime)}
-        </ElapsedTime>
-        <Checkbox checked={timeEntry.logged} onChange={handleCheckboxChange} />
-        <IconButtonStyled
-          size="large"
-          edge="start"
-          color="inherit"
-          onClick={() => setIsEditVisible((state) => !state)}
-          aria-label="Edit entry"
-        >
-          <Edit />
-        </IconButtonStyled>
-        <IconButtonStyled
-          size="large"
-          edge="start"
-          color="inherit"
-          onClick={() => setRemoveDialogOpen(true)}
-          aria-label="Remove entry"
-        >
-          <Delete />
-        </IconButtonStyled>
+        <div className="font-poppins text-[14px] text-[#363942] font-medium max-w-[350px] whitespace-nowrap text-ellipsis overflow-hidden">
+          {timeEntry.text}
+        </div>
+        {/* <TimeEntryText timeEntryText={timeEntry.text} /> */}
+        <div className="flex flex-row flex-grow justify-end items-center space-x-1.5">
+          <Checkbox
+            style={{
+              color: "#4B7BE5",
+            }}
+            checked={timeEntry.logged}
+            onChange={handleCheckboxChange}
+          />
+          <ElapsedTime className="font-poppins font-medium text-[14px] text-[#363942] w-[65px] text-center opacity-60">
+            {formatElapsedTime(timeEntry.stopTime! - timeEntry.startTime)}
+          </ElapsedTime>
+          <Edit
+            onClick={() => setIsEditVisible((state) => !state)}
+            aria-label="Edit entry"
+            className="text-[#363942] hover:opacity-80 hover:cursor-pointer"
+          />
+          <Delete
+            className="text-[#363942] hover:opacity-80 hover:cursor-pointer"
+            onClick={() => setRemoveDialogOpen(true)}
+            aria-label="Remove entry"
+          />
+        </div>
       </TimeEntryRowStyled>
 
       {removeDialogOpen && (
