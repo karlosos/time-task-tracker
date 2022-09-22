@@ -63,7 +63,7 @@ describe("TimeEntry Edit", () => {
 
   it("WHEN entry text edited and cancel clicked THEN entry text is not updated", async () => {
     // arrange
-    const {expandButton: collapseButton} = arrange();
+    const { expandButton: collapseButton } = arrange();
 
     const textInput = screen.getByRole("textbox", {
       name: "Current entry text",
@@ -75,7 +75,7 @@ describe("TimeEntry Edit", () => {
     userEvent.type(textInput, "--Completely new task--");
 
     userEvent.click(cancelButton);
-    userEvent.click(collapseButton)
+    userEvent.click(collapseButton);
 
     // assert
     expect(

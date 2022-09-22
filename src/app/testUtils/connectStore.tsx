@@ -7,7 +7,7 @@ import { timeEntriesInitialState } from "../store/timeEntries";
 
 const initialState: RootState = {
   timeEntries: timeEntriesInitialState,
-}
+};
 
 function connectStore(
   component: ReactElement,

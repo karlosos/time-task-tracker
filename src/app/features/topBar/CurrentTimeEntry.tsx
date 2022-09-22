@@ -29,27 +29,26 @@ export const CurrentTimeEntry: React.FC<CurrentTimeEntryProps> = ({
     <>
       <TopBarStyled>
         <div className="flex-grow ml-4">
-        <TimeEntryText timeEntryText={currentTimeEntry.text} />
-          </div>
-          <div className="flex flex-row space-x-2 justify-center items-center">
-
-        <ElapsedTime
-          onClick={() => setIsEditVisible((state) => !state)}
-          aria-label="elapsed time"
-        >
-          <span className="ml-4">{formatElapsedTime(elapsedTime)}</span>
-        </ElapsedTime>
-        <div className="text-red-300">
-          <IconButton
-            onClick={handleOnStopClick}
-            size="large"
-            color="inherit"
-            aria-label="stop timer"
-          >
-            <StopIcon />
-          </IconButton>
+          <TimeEntryText timeEntryText={currentTimeEntry.text} />
         </div>
+        <div className="flex flex-row space-x-2 justify-center items-center">
+          <ElapsedTime
+            onClick={() => setIsEditVisible((state) => !state)}
+            aria-label="elapsed time"
+          >
+            <span className="ml-4">{formatElapsedTime(elapsedTime)}</span>
+          </ElapsedTime>
+          <div className="text-red-300">
+            <IconButton
+              onClick={handleOnStopClick}
+              size="large"
+              color="inherit"
+              aria-label="stop timer"
+            >
+              <StopIcon />
+            </IconButton>
           </div>
+        </div>
       </TopBarStyled>
       {isEditVisible && (
         <TimeEntryEdit

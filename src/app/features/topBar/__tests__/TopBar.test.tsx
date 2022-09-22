@@ -7,10 +7,10 @@ import { TopBar } from "../TopBar";
 
 describe("TopBar", () => {
   it("WHEN empty task name THEN start button is disabled", () => {
-    // arrange 
+    // arrange
     render(connectStore(<TopBar />));
 
-    // assert 
+    // assert
     const startButton = screen.getByRole("button", { name: "add entry" });
     expect(startButton).toBeDisabled();
   });
@@ -144,10 +144,10 @@ describe("TopBar", () => {
 
         userEvent.clear(startTimeInput);
         userEvent.type(startTimeInput, "20:05");
-        userEvent.type(startTimeInput, "{enter}")
+        userEvent.type(startTimeInput, "{enter}");
 
         userEvent.click(saveButton);
-      })
+      });
 
       // assert
       expect(screen.getByText("--Completely new task--")).toBeInTheDocument();
@@ -170,8 +170,12 @@ describe("TopBar", () => {
       userEvent.click(cancelButton);
 
       // assert
-      expect(screen.queryByText("--Completely new task--")).not.toBeInTheDocument();
-      expect(screen.getByTitle("DX1-3213: Doing something")).toBeInTheDocument();
-    })
+      expect(
+        screen.queryByText("--Completely new task--")
+      ).not.toBeInTheDocument();
+      expect(
+        screen.getByTitle("DX1-3213: Doing something")
+      ).toBeInTheDocument();
+    });
   });
 });

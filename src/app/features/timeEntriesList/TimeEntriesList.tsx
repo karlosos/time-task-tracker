@@ -39,20 +39,24 @@ export const TimeEntriesList = () => {
   };
 
   return (
-    <div className="mt-4 flex flex-col space-y-6">
-      {renderTimeEntries()}
-    </div>
+    <div className="mt-4 flex flex-col space-y-6">{renderTimeEntries()}</div>
   );
 };
 
-function DayHeader({date, elapsedTimePerDay}: {date: string, elapsedTimePerDay: number}) {
-  return <div>
-    <span className="text-lg text-neutral-700 font-semibold">
-      {date}
-    </span>{" "}
-    &nbsp;
-    <span className="text-lg text-neutral-700 opacity-50 font-semibold">
-      {formatElapsedTime(elapsedTimePerDay)}
-    </span>
-  </div>;
+function DayHeader({
+  date,
+  elapsedTimePerDay,
+}: {
+  date: string;
+  elapsedTimePerDay: number;
+}) {
+  return (
+    <div>
+      <span className="text-lg text-neutral-700 font-semibold">{date}</span>{" "}
+      &nbsp;
+      <span className="text-lg text-neutral-700 opacity-50 font-semibold">
+        {formatElapsedTime(elapsedTimePerDay)}
+      </span>
+    </div>
+  );
 }

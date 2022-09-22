@@ -1,16 +1,19 @@
 const addLeadingZeros = (num: number, totalLength: number) => {
-  return String(num).padStart(totalLength, '0');
-}
+  return String(num).padStart(totalLength, "0");
+};
 
 export const formatElapsedTime = (timeDiff: number) => {
-  timeDiff = Math.floor(timeDiff/1000);
+  timeDiff = Math.floor(timeDiff / 1000);
   const seconds = Math.round(timeDiff % 60);
   timeDiff = Math.floor(timeDiff / 60);
   const minutes = Math.round(timeDiff % 60);
   timeDiff = Math.floor(timeDiff / 60);
   const hours = Math.round(timeDiff);
-  return `${addLeadingZeros(hours, 2)}:${addLeadingZeros(minutes, 2)}:${addLeadingZeros(seconds, 2)}`
-}
+  return `${addLeadingZeros(hours, 2)}:${addLeadingZeros(
+    minutes,
+    2
+  )}:${addLeadingZeros(seconds, 2)}`;
+};
 
 export const formatDayMonthYear = (datetime: number) => {
   const dateObj = new Date(datetime);

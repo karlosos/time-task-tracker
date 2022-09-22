@@ -51,13 +51,13 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
   };
 
   return (
-    <div className='mt-4 mb-2'>
-      <div className='flex flex-row gap-[10px]'>
+    <div className="mt-4 mb-2">
+      <div className="flex flex-row gap-[10px]">
         <TextField
           label="Current entry text"
           value={entryText}
           onChange={handleTextChange}
-          className='flex-grow'
+          className="flex-grow"
         />
         <div data-testid={testId.startTime}>
           <DatePicker
@@ -87,9 +87,19 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
           />
         </div>
       </div>
-      <div className='pt-[10px] flex flex-row justify-end gap-[10px]'>
-        <button onClick={handleCancel} className="bg-white border-2 border-blue-600 rounded text-blue-600 hover:text-blue-800 hover:border-blue-800 px-3 py-1.5 font-medium">Cancel</button>
-        <button onClick={handleSave} className="bg-blue-600 rounded text-white hover:bg-blue-800 px-3 py-1.5 font-medium">Save</button>
+      <div className="pt-[10px] flex flex-row justify-end gap-[10px]">
+        <button
+          onClick={handleCancel}
+          className="bg-white border-2 border-blue-600 rounded text-blue-600 hover:text-blue-800 hover:border-blue-800 px-3 py-1.5 font-medium"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={handleSave}
+          className="bg-blue-600 rounded text-white hover:bg-blue-800 px-3 py-1.5 font-medium"
+        >
+          Save
+        </button>
       </div>
     </div>
   );

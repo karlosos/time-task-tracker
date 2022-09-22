@@ -3,9 +3,7 @@ import { IconButton } from "@mui/material";
 import { useState } from "react";
 import { useAppDispatch } from "../../hooks";
 import { timeEntryAdded } from "../../store/timeEntries/slice";
-import {
-  TopBarStyled,
-} from "./TopBar.style";
+import { TopBarStyled } from "./TopBar.style";
 
 export const NewTimeEntry = () => {
   const dispatch = useAppDispatch();

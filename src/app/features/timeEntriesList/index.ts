@@ -1,1 +1,1 @@
-export * from './TimeEntriesList'
+export * from "./TimeEntriesList";

@@ -1,1 +1,1 @@
-export * from './TimeEntryText'
+export * from "./TimeEntryText";

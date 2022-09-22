@@ -20,7 +20,7 @@ export const timeEntriesAdapter = createEntityAdapter<TimeEntry>();
 
 export let timeEntriesInitialState: EntityState<TimeEntry>;
 // Change to false for using example data
-if (true) { 
+if (true) {
   timeEntriesInitialState = {
     ids: [],
     entities: {},

@@ -36,7 +36,10 @@ export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
 
   return (
     <>
-      <div className="flex flex-row items-center" aria-label="Time entry child row">
+      <div
+        className="flex flex-row items-center"
+        aria-label="Time entry child row"
+      >
         <div className="text-sm text-neutral-800 font-medium max-w-[350px] whitespace-nowrap text-ellipsis overflow-hidden">
           {timeEntry.text}
         </div>
@@ -66,7 +69,12 @@ export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
       </div>
 
       {removeDialogOpen && (
-        <RemoveEntryDialog removeDialogOpen={removeDialogOpen} setRemoveDialogOpen={setRemoveDialogOpen} timeEntry={timeEntry} handleRemoveEntry={handleRemoveEntry} />
+        <RemoveEntryDialog
+          removeDialogOpen={removeDialogOpen}
+          setRemoveDialogOpen={setRemoveDialogOpen}
+          timeEntry={timeEntry}
+          handleRemoveEntry={handleRemoveEntry}
+        />
       )}
 
       {isEditVisible && (
@@ -79,32 +87,40 @@ export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
   );
 };
 
-function RemoveEntryDialog({removeDialogOpen, setRemoveDialogOpen, timeEntry, handleRemoveEntry}: {removeDialogOpen: boolean, setRemoveDialogOpen: any, timeEntry: TimeEntry, handleRemoveEntry: () => void}) {
-  return <Dialog
-    open={removeDialogOpen}
-    onClose={() => setRemoveDialogOpen(false)}
-  >
-    <DialogTitle>Delete entry {timeEntry.text}?</DialogTitle>
-    <DialogContent>
-      <DialogContentText>
-        Do you want to delete entry {timeEntry.text} which started in{" "}
-        {formatDatetime(timeEntry.startTime)} and ended in{" "}
-        {formatDatetime(timeEntry.stopTime!)}.
-        {timeEntry.logged && "This entry was already logged!"}
-      </DialogContentText>
-    </DialogContent>
-    <DialogActions>
-      <Button autoFocus onClick={() => setRemoveDialogOpen(false)}>
-        Cancel
-      </Button>
-      <Button
-        onClick={handleRemoveEntry}
-        startIcon={<Delete />}
-        aria-label="Confirm entry removal"
-      >
-        Remove
-      </Button>
-    </DialogActions>
-  </Dialog>;
+function RemoveEntryDialog({
+  removeDialogOpen,
+  setRemoveDialogOpen,
+  timeEntry,
+  handleRemoveEntry,
+}: {
+  removeDialogOpen: boolean;
+  setRemoveDialogOpen: any;
+  timeEntry: TimeEntry;
+  handleRemoveEntry: () => void;
+}) {
+  return (
+    <Dialog open={removeDialogOpen} onClose={() => setRemoveDialogOpen(false)}>
+      <DialogTitle>Delete entry {timeEntry.text}?</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          Do you want to delete entry {timeEntry.text} which started in{" "}
+          {formatDatetime(timeEntry.startTime)} and ended in{" "}
+          {formatDatetime(timeEntry.stopTime!)}.
+          {timeEntry.logged && "This entry was already logged!"}
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button autoFocus onClick={() => setRemoveDialogOpen(false)}>
+          Cancel
+        </Button>
+        <Button
+          onClick={handleRemoveEntry}
+          startIcon={<Delete />}
+          aria-label="Confirm entry removal"
+        >
+          Remove
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
 }
-

@@ -1,4 +1,4 @@
 export const testId = {
-  startTime: 'startTime',
-  stopTime: 'stopTime',
-}
+  startTime: "startTime",
+  stopTime: "stopTime",
+};

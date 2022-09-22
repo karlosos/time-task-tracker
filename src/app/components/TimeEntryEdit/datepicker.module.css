@@ -1,15 +1,15 @@
 /* Date picker */
 
 .date_picker {
-   padding: 0;
+  padding: 0;
 }
 
 .date_picker input {
-   width: 100px;
-   height: 56px;
-   text-align: center;
+  width: 100px;
+  height: 56px;
+  text-align: center;
 }
 
 .date_picker input :focus {
-   box-sizing: border-box;
+  box-sizing: border-box;
 }

@@ -1,1 +1,1 @@
-export * from './ToggleAccordionIcon'
+export * from "./ToggleAccordionIcon";
