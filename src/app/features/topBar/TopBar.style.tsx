@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { IconButton } from "@mui/material";
 
 export const TopBarStyled = styled.div`
   flex-grow: 1;
@@ -23,12 +22,5 @@ export const ElapsedTime = styled.div`
   border-radius: 4px;
   width: 103px;
   height: 32px;
-`
-
-export const IconButtonStyled = styled(IconButton)`
-  margin-right: 16px;
-`
-
-export const NewTimeEntryInputWrapper = styled.div`
-  flex-grow: 1;
+  user-select: none;
 `

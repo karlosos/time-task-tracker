@@ -2,11 +2,6 @@ import { useAppSelector } from "../../hooks";
 import { selectCombinedTimeEntries } from "../../store/timeEntries";
 import { formatElapsedTime } from "../../utils";
 import { CombinedTimeEntryRow } from "./CombinedTimeEntryRow";
-import {
-  DateLabel,
-  TimeEntriesDateSublist,
-  TimeEntriesListStyled,
-} from "./TimeEntriesList.style";
 
 export const TimeEntriesList = () => {
   const combinedTimeEntries = useAppSelector(selectCombinedTimeEntries);
@@ -24,26 +19,18 @@ export const TimeEntriesList = () => {
           0
         );
         return (
-          <TimeEntriesDateSublist
+          <div
             key={date}
             className="p-4 rounded-lg shadow-[-2px_5px_20px_0px_#0000001A]"
           >
-            <DateLabel>
-              <span className="font-poppins text-[18px] text-[#353942] font-semibold">
-                {date}
-              </span>{" "}
-              &nbsp;
-              <span className="font-poppins text-[18px] text-[#353942] opacity-50 font-semibold">
-                {formatElapsedTime(elapsedTimePerDay)}
-              </span>
-            </DateLabel>
+            <DayHeader date={date} elapsedTimePerDay={elapsedTimePerDay} />
             {combinedTimeEntriesPerDate.map((combinedTimeEntries: any) => (
               <CombinedTimeEntryRow
                 combinedTimeEntry={combinedTimeEntries}
                 key={combinedTimeEntries.text}
               />
             ))}
-          </TimeEntriesDateSublist>
+          </div>
         );
       })
     ) : (
@@ -52,8 +39,20 @@ export const TimeEntriesList = () => {
   };
 
   return (
-    <TimeEntriesListStyled className="mt-4 flex flex-col space-y-6">
+    <div className="mt-4 flex flex-col space-y-6">
       {renderTimeEntries()}
-    </TimeEntriesListStyled>
+    </div>
   );
 };
+
+function DayHeader({date, elapsedTimePerDay}: {date: string, elapsedTimePerDay: number}) {
+  return <div>
+    <span className="text-lg text-neutral-700 font-semibold">
+      {date}
+    </span>{" "}
+    &nbsp;
+    <span className="text-lg text-neutral-700 opacity-50 font-semibold">
+      {formatElapsedTime(elapsedTimePerDay)}
+    </span>
+  </div>;
+}

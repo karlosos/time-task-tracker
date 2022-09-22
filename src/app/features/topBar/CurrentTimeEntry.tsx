@@ -4,9 +4,10 @@ import { useState, useEffect, useRef } from "react";
 import React from "react";
 import { useAppDispatch } from "../../hooks";
 import { TimeEntry, timeEntryStopped } from "../../store/timeEntries/slice";
-import { ElapsedTime, IconButtonStyled, TopBarStyled } from "./TopBar.style";
+import { ElapsedTime, TopBarStyled } from "./TopBar.style";
 import { TimeEntryEdit } from "../../components/TimeEntryEdit";
 import { TimeEntryText } from "../../components/TimeEntryText";
+import { IconButton } from "@mui/material";
 
 interface CurrentTimeEntryProps {
   currentTimeEntry: TimeEntry;
@@ -39,15 +40,14 @@ export const CurrentTimeEntry: React.FC<CurrentTimeEntryProps> = ({
           <span className="ml-4">{formatElapsedTime(elapsedTime)}</span>
         </ElapsedTime>
         <div className="text-red-300">
-          <IconButtonStyled
+          <IconButton
             onClick={handleOnStopClick}
             size="large"
             color="inherit"
             aria-label="stop timer"
-            style={{marginRight: '0'}}
           >
             <StopIcon />
-          </IconButtonStyled>
+          </IconButton>
         </div>
           </div>
       </TopBarStyled>

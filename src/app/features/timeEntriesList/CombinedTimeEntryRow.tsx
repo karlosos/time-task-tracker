@@ -6,10 +6,6 @@ import {
   timeEntriesLoggedStatusChanged,
   timeEntryAdded,
 } from "../../store/timeEntries/slice";
-import {
-  ElapsedTime,
-  TimeEntryRowStyled,
-} from "./TimeEntriesList.style";
 import { TimeEntry } from "../../store/timeEntries";
 import { TimeEntryRow } from "./TimeEntryRow";
 import { useState } from "react";
@@ -42,24 +38,28 @@ export const CombinedTimeEntryRow: React.FC<CombinedTimeEntryRowProps> = ({
     );
   };
 
+  const handleToggleCollapse = () => {
+    setIsCollapsed((state) => !state);
+  };
+
   const { checkboxState, checkboxIsIndeterminate, handleCheckboxChange } =
     useLoggedCheckbox(combinedTimeEntry);
 
   return (
     <div className="shadow-[0px_20px_1px_-20px_black] last:shadow-none">
-      <TimeEntryRowStyled aria-label="Combined entry row">
-        <div
-          onClick={() => setIsCollapsed((state) => !state)}
-          className="bg-[rgba(171,171,171,0.1)] border border-[#D6D6D6] rounded w-[24px] h-[24px] flex justify-center items-center hover:cursor-pointer font-poppins text-[12px] font-medium mr-2 hover:bg-[rgba(171,171,171,0.2)]"
-        >
-          {combinedTimeEntry.ids.length}
-        </div>
+      <div
+        className="flex flex-row items-center"
+        aria-label="Combined entry row"
+      >
+        <SubEntriesCount
+          onClick={handleToggleCollapse}
+          combinedTimeEntry={combinedTimeEntry}
+        />
         <TimeEntryText timeEntryText={combinedTimeEntry.text} />
-
         <div className="flex flex-row flex-grow justify-end items-center space-x-1.5">
           <Checkbox
             style={{
-              color: checkboxIsIndeterminate ? '#BDBDBD': "#4B7BE5",
+              color: checkboxIsIndeterminate ? "#BDBDBD" : "#2563eb",
             }}
             checked={checkboxState}
             indeterminate={checkboxIsIndeterminate}
@@ -67,20 +67,20 @@ export const CombinedTimeEntryRow: React.FC<CombinedTimeEntryRowProps> = ({
             onChange={handleCheckboxChange}
             aria-label="is logged status"
           />
-          <ElapsedTime className="font-poppins font-medium text-[14px] text-[#363942] w-[65px] text-center opacity-60">
+          <div className="font-medium text-sm text-dark w-[65px] text-center opacity-60">
             {formatElapsedTime(combinedTimeEntry.elapsedTime)}
-          </ElapsedTime>
+          </div>
           <ToggleAccordionIcon
-            onClick={() => setIsCollapsed((state) => !state)}
+            onClick={handleToggleCollapse}
             aria-label="Combined entry accordion"
             isCollapsed={isCollapsed}
           />
           <PlayCircle
-            className="text-[#4B7BE5] hover:cursor-pointer hover:opacity-80"
+            className="text-blue-600 hover:cursor-pointer hover:text-blue-800"
             onClick={handleAddTimeEntryClick}
           />
         </div>
-      </TimeEntryRowStyled>
+      </div>
       {!isCollapsed && (
         <div className="flex flex-col">
           {[...combinedTimeEntry.subEntries].reverse().map((entry) => (
@@ -112,3 +112,20 @@ const useLoggedCheckbox = (combinedTimeEntry: CombinedTimeEntry) => {
 
   return { checkboxState, checkboxIsIndeterminate, handleCheckboxChange };
 };
+
+function SubEntriesCount({
+  onClick,
+  combinedTimeEntry,
+}: {
+  onClick: () => void;
+  combinedTimeEntry: CombinedTimeEntry;
+}) {
+  return (
+    <div
+      onClick={onClick}
+      className="bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 rounded w-6 h-6 flex justify-center items-center hover:cursor-pointer text-xs font-medium mr-2 select-none"
+    >
+      {combinedTimeEntry.ids.length}
+    </div>
+  );
+}

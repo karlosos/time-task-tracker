@@ -1,10 +1,9 @@
 import AddIcon from "@mui/icons-material/AddCircle";
+import { IconButton } from "@mui/material";
 import { useState } from "react";
 import { useAppDispatch } from "../../hooks";
 import { timeEntryAdded } from "../../store/timeEntries/slice";
 import {
-  IconButtonStyled,
-  NewTimeEntryInputWrapper,
   TopBarStyled,
 } from "./TopBar.style";
 
@@ -18,26 +17,26 @@ export const NewTimeEntry = () => {
   };
 
   return (
-    <TopBarStyled className="hover:border-[#EEEEEE]">
-      <NewTimeEntryInputWrapper>
+    <TopBarStyled className="hover:border-neutral-200">
+      <div className="flex-grow">
         <input
-          className="bg-[#F5F5F5] rounded rounded-lg text-[#363942] px-3 py-2 focus:outline-none text-[18px] font-poppins font-medium w-[450px]"
+          className="bg-neutral-100 rounded-lg text-neutral-800 px-3 py-2 focus:outline-none text-lg font-medium w-full"
+          type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
           aria-label="new entry text"
         />
-      </NewTimeEntryInputWrapper>
+      </div>
       <div className="text-green-400">
-        <IconButtonStyled
+        <IconButton
           onClick={handleAddClick}
           size="large"
           color="inherit"
           aria-label="add entry"
           disabled={text === ""}
-          style={{ marginRight: "0" }}
         >
           <AddIcon />
-        </IconButtonStyled>
+        </IconButton>
       </div>
     </TopBarStyled>
   );
