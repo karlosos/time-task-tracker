@@ -38,6 +38,7 @@
     "tailwindcss": "3.1.8"
   },
   "eslintConfig": {
+    "ignorePatterns": ["build/*"],
     "extends": [
       "react-app",
       "react-app/jest"
