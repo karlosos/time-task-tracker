@@ -7,7 +7,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "format": "npx prettier --write .",
+    "format:check": "npx prettier --check ."
   },
   "dependencies": {
     "@date-io/date-fns": "2.14.0",
@@ -35,10 +37,13 @@
     "@types/react-datepicker": "4.4.2",
     "autoprefixer": "10.4.11",
     "postcss": "8.4.16",
+    "prettier": "^2.7.1",
     "tailwindcss": "3.1.8"
   },
   "eslintConfig": {
-    "ignorePatterns": ["build/*"],
+    "ignorePatterns": [
+      "build/*"
+    ],
     "extends": [
       "react-app",
       "react-app/jest"
