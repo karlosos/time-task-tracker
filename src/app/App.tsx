@@ -1,13 +1,12 @@
-import { Container } from "@mui/material";
 import { TimeEntriesList } from "./features/timeEntriesList";
 import { TopBar } from "./features/topBar";
 
 function App() {
   return (
-    <Container maxWidth="sm" className="my-4">
+    <div className="min-h-screen max-w-screen-sm flex flex-col py-4 px-2 mx-auto">
       <TopBar />
       <TimeEntriesList />
-    </Container>
+    </div>
   );
 }
 

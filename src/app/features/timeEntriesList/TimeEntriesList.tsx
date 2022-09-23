@@ -1,3 +1,4 @@
+import { EmptyState } from "../../components/EmptyState";
 import { useAppSelector } from "../../hooks";
 import { selectCombinedTimeEntries } from "../../store/timeEntries";
 import { formatElapsedTime } from "../../utils";
@@ -6,13 +7,19 @@ import { CombinedTimeEntryRow } from "./CombinedTimeEntryRow";
 export const TimeEntriesList = () => {
   const combinedTimeEntries = useAppSelector(selectCombinedTimeEntries);
 
-  const renderTimeEntries = () => {
-    const sortedTimeEntries = Object.entries(combinedTimeEntries).sort((a, b) =>
-      a[0] > b[0] ? -1 : 1
-    );
+  const sortedTimeEntries = Object.entries(combinedTimeEntries).sort((a, b) =>
+    a[0] > b[0] ? -1 : 1
+  );
 
-    return sortedTimeEntries.length ? (
-      sortedTimeEntries.map(([date, combinedTimeEntriesPerDate]: any[]) => {
+  if (sortedTimeEntries.length === 0) {
+    return (
+      <EmptyState />
+    );
+  }
+
+  return (
+    <div className="mt-4 flex flex-col space-y-6">
+      {sortedTimeEntries.map(([date, combinedTimeEntriesPerDate]: any[]) => {
         const elapsedTimePerDay = combinedTimeEntriesPerDate.reduce(
           (acc: number, combinedTimeEntries: any) =>
             acc + combinedTimeEntries.elapsedTime,
@@ -32,14 +39,8 @@ export const TimeEntriesList = () => {
             ))}
           </div>
         );
-      })
-    ) : (
-      <>There is no entries to show.</>
-    );
-  };
-
-  return (
-    <div className="mt-4 flex flex-col space-y-6">{renderTimeEntries()}</div>
+      })}
+    </div>
   );
 };
 

@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 
 export const TopBarStyled = styled.div`
-  flex-grow: 1;
   display: flex;
   flex-direction: row;
   align-items: center;
