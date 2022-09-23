@@ -76,7 +76,6 @@ describe("TimeEntriesList Deleting", () => {
 });
 
 const getEntryWithOneChild = () => {
-  // eslint-disable-next-line testing-library/no-node-access
   const entryRow = screen.getAllByTitle("DX1-1: Task 1")[0].parentElement!;
   const expandButton = within(entryRow).getByLabelText(
     "Combined entry accordion"
@@ -86,7 +85,6 @@ const getEntryWithOneChild = () => {
 };
 
 const getEntryWithMultipleChildren = () => {
-  // eslint-disable-next-line testing-library/no-node-access
   const entryRow = screen.getByTitle("DX1-3: Task 3 with logged entries")
     .parentElement!;
   const expandButton = within(entryRow).getByLabelText(

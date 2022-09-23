@@ -12,9 +12,7 @@ export const TimeEntriesList = () => {
   );
 
   if (sortedTimeEntries.length === 0) {
-    return (
-      <EmptyState />
-    );
+    return <EmptyState />;
   }
 
   return (

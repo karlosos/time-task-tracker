@@ -88,7 +88,6 @@ describe("TimeEntriesList Logged Status", () => {
 });
 
 const getEntryWithUncheckedChildren = () => {
-  // eslint-disable-next-line testing-library/no-node-access
   const entryRow = screen.getAllByTitle(
     "DX1-2: Task 2 with multiple entries"
   )[0].parentElement!;
@@ -100,7 +99,6 @@ const getEntryWithUncheckedChildren = () => {
 };
 
 const getEntryWithCheckedChildren = () => {
-  // eslint-disable-next-line testing-library/no-node-access
   const entryRow = screen.getByTitle("DX1-3: Task 3 with logged entries")
     .parentElement!;
   const expandButton = within(entryRow).getByLabelText(
@@ -111,7 +109,6 @@ const getEntryWithCheckedChildren = () => {
 };
 
 const getEntryWithMixedChildren = () => {
-  // eslint-disable-next-line testing-library/no-node-access
   const entryRow = screen.getByTitle(
     "DX1-4444: Task 4 with some logged entries"
   ).parentElement!;

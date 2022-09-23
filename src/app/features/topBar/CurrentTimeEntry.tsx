@@ -29,7 +29,7 @@ export const CurrentTimeEntry: React.FC<CurrentTimeEntryProps> = ({
     <>
       <TopBarStyled>
         <div className="flex-grow ml-4 whitespace-nowrap text-ellipsis overflow-hidden ">
-          <TimeEntryText timeEntryText={currentTimeEntry.text}  />
+          <TimeEntryText timeEntryText={currentTimeEntry.text} />
         </div>
         <div className="flex flex-row space-x-2 justify-center items-center">
           <ElapsedTime

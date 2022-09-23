@@ -51,7 +51,6 @@ describe("TimeEntriesList", () => {
       arrange();
       const combinedRow = screen.getByTitle(
         "DX1-4444: Task 4 with some logged entries"
-      // eslint-disable-next-line testing-library/no-node-access
       ).parentElement;
 
       // assert

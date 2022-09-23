@@ -12,7 +12,6 @@ describe("TimeEntry Edit", () => {
       })
     );
 
-    // eslint-disable-next-line testing-library/no-node-access
     const entryRow = screen.getAllByTitle("DX1-1: Task 1")[0].parentElement!;
     const expandButton = within(entryRow).getByLabelText(
       "Combined entry accordion"
