@@ -52,7 +52,7 @@ export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
             checked={timeEntry.logged}
             onChange={handleCheckboxChange}
           />
-          <div className="font-medium text-s, text-neutral-800 w-[65px] text-center opacity-60">
+          <div className="font-medium text-sm text-neutral-800 w-[65px] text-center opacity-60">
             {formatElapsedTime(timeEntry.stopTime! - timeEntry.startTime)}
           </div>
           <Edit

@@ -67,7 +67,7 @@ export const CombinedTimeEntryRow: React.FC<CombinedTimeEntryRowProps> = ({
             onChange={handleCheckboxChange}
             aria-label="is logged status"
           />
-          <div className="font-medium text-sm text-dark w-[65px] text-center opacity-60">
+          <div className="font-medium text-sm text-neutral-800 w-[65px] text-center opacity-60">
             {formatElapsedTime(combinedTimeEntry.elapsedTime)}
           </div>
           <ToggleAccordionIcon
