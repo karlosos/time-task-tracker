@@ -123,7 +123,7 @@ function SubEntriesCount({
   return (
     <div
       onClick={onClick}
-      className="bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 rounded w-6 h-6 flex justify-center items-center hover:cursor-pointer text-xs font-medium mr-2 select-none"
+      className="bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 rounded w-6 h-6 shrink-0 flex justify-center items-center hover:cursor-pointer text-xs font-medium mr-2 select-none"
     >
       {combinedTimeEntry.ids.length}
     </div>
