@@ -109,9 +109,9 @@ const Illustration = () => {
           width="157"
           height="47"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -143,9 +143,9 @@ const Illustration = () => {
           width="157"
           height="47"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -177,9 +177,9 @@ const Illustration = () => {
           width="157"
           height="47"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -212,8 +212,8 @@ const Illustration = () => {
           y2="140"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#E3ECFA" />
-          <stop offset="1" stop-color="#DAE7FF" />
+          <stop stopColor="#E3ECFA" />
+          <stop offset="1" stopColor="#DAE7FF" />
         </linearGradient>
       </defs>
     </svg>

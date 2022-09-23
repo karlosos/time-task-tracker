@@ -9,7 +9,7 @@ describe("TimeEntriesList", () => {
     render(connectStore(<TimeEntriesList />));
 
     // assert
-    screen.getByText("There is no entries to show.");
+    screen.getByText("Start by adding time entries");
   });
 
   describe("GIVEN items in store", () => {
@@ -49,9 +49,9 @@ describe("TimeEntriesList", () => {
 
     it("THEN tasks are collapsed by name and time is summed", () => {
       arrange();
-      // eslint-disable-next-line testing-library/no-node-access
       const combinedRow = screen.getByTitle(
         "DX1-4444: Task 4 with some logged entries"
+      // eslint-disable-next-line testing-library/no-node-access
       ).parentElement;
 
       // assert
