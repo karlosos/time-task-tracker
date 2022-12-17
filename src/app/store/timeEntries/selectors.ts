@@ -18,10 +18,14 @@ export const selectCurrentTimeEntry = (state: RootState) => {
   return currentTimeEntry;
 };
 
-export const selectCombinedTimeEntries = (state: RootState) => {
-  const timeEntries = selectAllTimeEntries(state)
+export const selectCombinedTimeEntries = (state: RootState, limit?: number) => {
+  let timeEntries = selectAllTimeEntries(state)
     .filter((entry) => entry.stopTime)
     .sort((a, b) => b.stopTime! - a.stopTime!);
+
+  if (limit !== undefined) {
+    timeEntries = timeEntries.slice(0, limit);
+  }
 
   return timeEntries
     .sort((a: any, b: any) => a.startTime - b.startTime)

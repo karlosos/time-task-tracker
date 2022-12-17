@@ -1,11 +1,20 @@
+import { useState } from "react";
 import { EmptyState } from "../../components/EmptyState";
 import { useAppSelector } from "../../hooks";
-import { selectCombinedTimeEntries } from "../../store/timeEntries";
+import {
+  selectCombinedTimeEntries,
+  selectTimeEntriesCount,
+} from "../../store/timeEntries";
 import { formatElapsedTime } from "../../utils";
 import { CombinedTimeEntryRow } from "./CombinedTimeEntryRow";
 
+const TIME_ENTRIES_LIMIT = 50;
+
 export const TimeEntriesList = () => {
-  const combinedTimeEntries = useAppSelector(selectCombinedTimeEntries);
+  const [timeEntriesLimit, setTimeEntriesLimit] = useState(TIME_ENTRIES_LIMIT);
+  const combinedTimeEntries = useAppSelector((state) =>
+    selectCombinedTimeEntries(state, timeEntriesLimit)
+  );
 
   const sortedTimeEntries = Object.entries(combinedTimeEntries).sort((a, b) =>
     a[0] > b[0] ? -1 : 1
@@ -38,6 +47,11 @@ export const TimeEntriesList = () => {
           </div>
         );
       })}
+
+      <PaginationButtons
+        timeEntriesLimit={timeEntriesLimit}
+        setTimeEntriesLimit={setTimeEntriesLimit}
+      />
     </div>
   );
 };
@@ -59,3 +73,44 @@ function DayHeader({
     </div>
   );
 }
+
+type PaginationButtonsProps = {
+  timeEntriesLimit: number;
+  setTimeEntriesLimit: React.Dispatch<React.SetStateAction<number>>;
+};
+
+const PaginationButtons = ({
+  timeEntriesLimit,
+  setTimeEntriesLimit,
+}: PaginationButtonsProps) => {
+  const timeEntriesCount = useAppSelector(selectTimeEntriesCount);
+
+  const handleLoadMore = () => {
+    setTimeEntriesLimit((state) => state + TIME_ENTRIES_LIMIT);
+  };
+
+  const handleLoadAll = () => {
+    setTimeEntriesLimit(Infinity);
+  };
+
+  if (timeEntriesCount < timeEntriesLimit) {
+    return null;
+  }
+
+  return (
+    <div className="pt-[10px] flex flex-row justify-end gap-[10px]">
+      <button
+        onClick={handleLoadAll}
+        className="bg-white border-2 border-blue-600 rounded text-blue-600 hover:text-blue-800 hover:border-blue-800 px-3 py-1.5 font-medium"
+      >
+        Load All
+      </button>
+      <button
+        onClick={handleLoadMore}
+        className="bg-blue-600 rounded text-white hover:bg-blue-800 px-3 py-1.5 font-medium"
+      >
+        Load More
+      </button>
+    </div>
+  );
+};
