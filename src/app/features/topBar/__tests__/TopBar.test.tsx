@@ -15,6 +15,22 @@ describe("TopBar", () => {
     expect(startButton).toBeDisabled();
   });
 
+  it("WHEN filled in task name WHEN enter key clicked THEN task is added", async () => {
+    // arrange
+    render(connectStore(<TopBar />));
+
+    const newEntryInput = screen.getByRole("textbox", {
+      name: "new entry text",
+    });
+    userEvent.type(newEntryInput, "--Test entry 1--");
+
+    // act
+    userEvent.type(newEntryInput, "{enter}");
+
+    // assert
+    expect(screen.getByText("--Test entry 1--")).toBeInTheDocument();
+  });
+
   describe("GIVEN filled in task name and clicked start button", () => {
     const arrange = () => {
       render(connectStore(<TopBar />));

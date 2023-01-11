@@ -1,11 +1,13 @@
 import AddIcon from "@mui/icons-material/AddCircle";
 import { IconButton } from "@mui/material";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useAppDispatch } from "../../hooks";
+import { useKeyPress } from "../../hooks/useKeyPress";
 import { timeEntryAdded } from "../../store/timeEntries/slice";
 import { TopBarStyled } from "./TopBar.style";
 
 export const NewTimeEntry = () => {
+  const ref = useRef(null);
   const dispatch = useAppDispatch();
 
   const [text, setText] = useState<string>("");
@@ -14,8 +16,10 @@ export const NewTimeEntry = () => {
     dispatch(timeEntryAdded({ text: text, startTime: Date.now() }));
   };
 
+  useKeyPress(handleAddClick, ["Enter"], ref);
+
   return (
-    <TopBarStyled className="hover:border-neutral-200">
+    <TopBarStyled className="hover:border-neutral-200" ref={ref}>
       <div className="flex-grow">
         <input
           className="bg-neutral-100 rounded-lg text-neutral-800 px-3 py-2 focus:outline-none text-lg font-medium w-full"
