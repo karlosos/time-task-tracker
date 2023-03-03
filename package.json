@@ -37,7 +37,7 @@
   "devDependencies": {
     "@types/react-datepicker": "4.4.2",
     "autoprefixer": "10.4.11",
-    "postcss": "8.4.16",
+    "postcss": "8.4.21",
     "prettier": "^2.7.1",
     "tailwindcss": "3.1.8",
     "husky": "8.0.1"
