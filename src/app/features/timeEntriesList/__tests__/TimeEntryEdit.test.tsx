@@ -4,6 +4,8 @@ import { timeEntriesFixture } from "../../../store/timeEntries/fixtures";
 import connectStore from "../../../testUtils/connectStore";
 import { TimeEntriesList } from "../TimeEntriesList";
 
+process.env.TZ = "UTC";
+
 describe("TimeEntry Edit", () => {
   const arrange = () => {
     render(
@@ -33,8 +35,8 @@ describe("TimeEntry Edit", () => {
     const textInput = screen.getByRole("textbox", {
       name: "Current entry text",
     });
-    const startTimeInput = screen.getByDisplayValue("17:27");
-    const stopTimeInput = screen.getByDisplayValue("19:31");
+    const startTimeInput = screen.getByDisplayValue("15:27");
+    const stopTimeInput = screen.getByDisplayValue("17:31");
     const saveButton = screen.getByText("Save");
 
     // act
