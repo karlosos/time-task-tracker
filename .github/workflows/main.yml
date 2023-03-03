@@ -1,0 +1,23 @@
+name: Build and Deploy
+on: [push]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout 🛎️
+              uses: actions/checkout@v2.3.1
+
+            - name: Install and Build 🔧
+              run: |
+                  npm install
+                  npm run build
+
+            - name: Linting 🪄
+              run: |
+                  npm run lint
+                  npm run format:check
+
+            - name: Test ✅
+              run: |
+                  npm run test
