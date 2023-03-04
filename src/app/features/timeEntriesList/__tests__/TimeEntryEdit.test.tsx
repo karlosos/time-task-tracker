@@ -1,4 +1,4 @@
-import { act, render, screen, within } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { timeEntriesFixture } from "../../../store/timeEntries/fixtures";
 import connectStore from "../../../testUtils/connectStore";
@@ -24,10 +24,6 @@ describe("TimeEntry Edit", () => {
     return { expandButton };
   };
 
-  beforeEach(() => {
-    jest.useFakeTimers().setSystemTime(new Date("2022-08-19 20:50"));
-  });
-
   it("WHEN entry text, start time and stop time edited and save clicked THEN entry is updated", async () => {
     // arrange
     const { expandButton: collapseButton } = arrange();
@@ -40,21 +36,16 @@ describe("TimeEntry Edit", () => {
     const saveButton = screen.getByText("Save");
 
     // act
-    // eslint-disable-next-line testing-library/no-unnecessary-act
-    act(() => {
-      userEvent.clear(textInput);
-      userEvent.type(textInput, "--Completely new task--");
+    userEvent.clear(textInput);
+    userEvent.type(textInput, "--Completely new task--");
 
-      userEvent.clear(startTimeInput);
-      userEvent.type(startTimeInput, "20:05");
-      userEvent.type(startTimeInput, "{enter}");
+    userEvent.clear(startTimeInput);
+    userEvent.type(startTimeInput, "20:05");
 
-      userEvent.clear(stopTimeInput);
-      userEvent.type(stopTimeInput, "20:10");
-      userEvent.type(stopTimeInput, "{enter}");
+    userEvent.clear(stopTimeInput);
+    userEvent.type(stopTimeInput, "20:10");
 
-      userEvent.click(saveButton);
-    });
+    userEvent.click(saveButton);
 
     // assert
     userEvent.click(collapseButton);
