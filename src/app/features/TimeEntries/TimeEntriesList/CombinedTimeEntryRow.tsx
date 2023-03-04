@@ -1,17 +1,17 @@
 import { Checkbox } from "@mui/material";
-import { formatElapsedTime } from "../../utils";
+import { formatElapsedTime } from "../../../utils";
 import { PlayCircle } from "@mui/icons-material";
-import { useAppDispatch } from "../../hooks";
-import {
-  timeEntriesLoggedStatusChanged,
-  timeEntryAdded,
-} from "../../store/timeEntries/slice";
-import { TimeEntry } from "../../store/timeEntries";
+import { useAppDispatch } from "../../../hooks";
 import { TimeEntryRow } from "./TimeEntryRow";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { TimeEntryText } from "../../components/TimeEntryText";
-import { ToggleAccordionIcon } from "../../components/ToggleAccordionIcon";
+import { TimeEntryText } from "../components/TimeEntryText";
+import { ToggleAccordionIcon } from "./ToggleAccordionIcon";
+import {
+  timeEntriesLoggedStatusChanged,
+  TimeEntry,
+  timeEntryAdded,
+} from "../store";
 
 interface CombinedTimeEntry {
   text: string;

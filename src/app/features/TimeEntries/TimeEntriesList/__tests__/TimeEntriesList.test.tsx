@@ -1,6 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
-import { timeEntriesFixture } from "../../../store/timeEntries/fixtures";
-import connectStore from "../../../testUtils/connectStore";
+import connectStore from "../../../../testUtils/connectStore";
+import { timeEntriesFixture } from "../../store/fixtures";
 import { TimeEntriesList } from "../TimeEntriesList";
 
 describe("TimeEntriesList", () => {

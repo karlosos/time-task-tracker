@@ -1,5 +1,5 @@
-import { formatDayMonthYear } from "../../utils";
-import { RootState } from "../store";
+import { RootState } from "../../../store/store";
+import { formatDayMonthYear } from "../../../utils";
 import { timeEntriesAdapter, TimeEntry } from "./slice";
 
 export const {

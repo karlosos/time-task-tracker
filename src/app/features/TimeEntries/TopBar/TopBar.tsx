@@ -1,5 +1,5 @@
-import { useAppSelector } from "../../hooks";
-import { selectCurrentTimeEntry } from "../../store/timeEntries";
+import { useAppSelector } from "../../../hooks";
+import { selectCurrentTimeEntry } from "../store";
 import { CurrentTimeEntry } from "./CurrentTimeEntry";
 import { NewTimeEntry } from "./NewTimeEntry";
 

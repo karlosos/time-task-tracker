@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { loadState, saveState } from "./localStorage";
-import timeEntriesReducer from "./timeEntries/slice";
+import timeEntriesReducer from "../features/TimeEntries/store/slice";
 
 const preloadedState = loadState();
 

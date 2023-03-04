@@ -5,7 +5,7 @@ import {
   EntityId,
   PayloadAction,
 } from "@reduxjs/toolkit";
-import { generateId } from "../../utils";
+import { generateId } from "../../../utils";
 import { timeEntriesFixture } from "./fixtures";
 
 export interface TimeEntry {

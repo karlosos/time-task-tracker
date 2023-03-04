@@ -1,9 +1,9 @@
 import AddIcon from "@mui/icons-material/AddCircle";
 import { IconButton } from "@mui/material";
 import { useRef, useState } from "react";
-import { useAppDispatch } from "../../hooks";
-import { useKeyPress } from "../../hooks/useKeyPress";
-import { timeEntryAdded } from "../../store/timeEntries/slice";
+import { useAppDispatch } from "../../../hooks";
+import { useKeyPress } from "../../../hooks/useKeyPress";
+import { timeEntryAdded } from "../store";
 import { TopBarStyled } from "./TopBar.style";
 
 export const NewTimeEntry = () => {

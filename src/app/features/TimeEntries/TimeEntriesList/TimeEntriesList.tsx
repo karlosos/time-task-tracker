@@ -1,12 +1,9 @@
 import { useState } from "react";
-import { EmptyState } from "../../components/EmptyState";
-import { useAppSelector } from "../../hooks";
-import {
-  selectCombinedTimeEntries,
-  selectTimeEntriesCount,
-} from "../../store/timeEntries";
-import { formatElapsedTime } from "../../utils";
+import { EmptyState } from "./EmptyState";
+import { useAppSelector } from "../../../hooks";
+import { formatElapsedTime } from "../../../utils";
 import { CombinedTimeEntryRow } from "./CombinedTimeEntryRow";
+import { selectCombinedTimeEntries, selectTimeEntriesCount } from "../store";
 
 const TIME_ENTRIES_LIMIT = 50;
 

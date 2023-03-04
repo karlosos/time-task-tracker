@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { getByTextContent } from "../../../testUtils/getByTextContent";
+import { getByTextContent } from "../../../../../testUtils/getByTextContent";
 import { TimeEntryText } from "../TimeEntryText";
 
 describe("TimeEntryText", () => {

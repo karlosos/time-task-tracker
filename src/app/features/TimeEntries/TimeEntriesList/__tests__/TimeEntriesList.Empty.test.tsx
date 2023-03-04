@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import connectStore from "../../../testUtils/connectStore";
+import connectStore from "../../../../testUtils/connectStore";
 import { TimeEntriesList } from "../TimeEntriesList";
 
 describe("TimeEntriesList Empty", () => {

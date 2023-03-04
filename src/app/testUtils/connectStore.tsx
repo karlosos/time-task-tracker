@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 import { Provider } from "react-redux";
 
 import { RootState, storeReducers } from "../store/store";
-import { timeEntriesInitialState } from "../store/timeEntries";
+import { timeEntriesInitialState } from "../features/TimeEntries/store/slice";
 
 const initialState: RootState = {
   timeEntries: timeEntriesInitialState,

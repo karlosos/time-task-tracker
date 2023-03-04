@@ -7,16 +7,16 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import { formatDatetime, formatElapsedTime } from "../../utils";
-import { useAppDispatch } from "../../hooks";
+import { formatDatetime, formatElapsedTime } from "../../../utils";
+import { useAppDispatch } from "../../../hooks";
+import { Delete, Edit } from "@mui/icons-material";
+import { useState } from "react";
+import { TimeEntryEdit } from "../components/TimeEntryEdit";
 import {
   timeEntriesLoggedStatusChanged,
   TimeEntry,
   timeEntryRemoved,
-} from "../../store/timeEntries/slice";
-import { Delete, Edit } from "@mui/icons-material";
-import { useState } from "react";
-import { TimeEntryEdit } from "../../components/TimeEntryEdit";
+} from "../store";
 
 export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
   const dispatch = useAppDispatch();

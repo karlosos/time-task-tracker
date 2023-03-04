@@ -1,13 +1,13 @@
 import { TextField } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { TimeEntry, timeEntryUpdated } from "../../store/timeEntries";
 
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./datepicker.module.css";
-import { testId } from "../../testUtils/testId";
+import { testId } from "../../../../testUtils/testId";
+import { TimeEntry, timeEntryUpdated } from "../../store";
 
 interface TimeEntryEditProps {
   timeEntry: TimeEntry;
