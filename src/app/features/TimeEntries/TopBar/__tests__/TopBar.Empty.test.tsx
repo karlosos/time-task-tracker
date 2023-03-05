@@ -15,15 +15,16 @@ describe("TopBar Empty", () => {
 
   it("WHEN filled in task name WHEN enter key clicked THEN task is added", async () => {
     // arrange
+    const user = userEvent.setup();
     render(connectStore(<TopBar />));
 
     const newEntryInput = screen.getByRole("textbox", {
       name: "new entry text",
     });
-    userEvent.type(newEntryInput, "--Test entry 1--");
+    await user.type(newEntryInput, "--Test entry 1--");
 
     // act
-    userEvent.type(newEntryInput, "{enter}");
+    await user.type(newEntryInput, "{enter}");
 
     // assert
     expect(screen.getByText("--Test entry 1--")).toBeInTheDocument();

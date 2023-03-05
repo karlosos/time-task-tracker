@@ -7,7 +7,8 @@ import { TimeEntriesList } from "../TimeEntriesList";
 process.env.TZ = "UTC";
 
 describe("TimeEntry Edit", () => {
-  const arrange = () => {
+  const arrange = async () => {
+    const user = userEvent.setup();
     render(
       connectStore(<TimeEntriesList />, {
         timeEntries: timeEntriesFixture,
@@ -18,15 +19,15 @@ describe("TimeEntry Edit", () => {
     const expandButton = within(entryRow).getByLabelText(
       "Combined entry accordion"
     );
-    userEvent.click(expandButton);
-    userEvent.click(screen.getByLabelText("Edit entry"));
+    await user.click(expandButton);
+    await user.click(screen.getByLabelText("Edit entry"));
 
-    return { expandButton };
+    return { user, expandButton };
   };
 
   it("WHEN entry text, start time and stop time edited and save clicked THEN entry is updated", async () => {
     // arrange
-    const { expandButton: collapseButton } = arrange();
+    const { user, expandButton: collapseButton } = await arrange();
 
     const textInput = screen.getByRole("textbox", {
       name: "Current entry text",
@@ -36,26 +37,26 @@ describe("TimeEntry Edit", () => {
     const saveButton = screen.getByText("Save");
 
     // act
-    userEvent.clear(textInput);
-    userEvent.type(textInput, "--Completely new task--");
+    await user.clear(textInput);
+    await user.type(textInput, "--Completely new task--");
 
-    userEvent.clear(startTimeInput);
-    userEvent.type(startTimeInput, "20:05");
+    await user.clear(startTimeInput);
+    await user.type(startTimeInput, "20:05");
 
-    userEvent.clear(stopTimeInput);
-    userEvent.type(stopTimeInput, "20:10");
+    await user.clear(stopTimeInput);
+    await user.type(stopTimeInput, "20:10");
 
-    userEvent.click(saveButton);
+    await user.click(saveButton);
 
     // assert
-    userEvent.click(collapseButton);
+    await user.click(collapseButton);
     expect(screen.getByText("--Completely new task--")).toBeInTheDocument();
     expect(screen.getByText("00:05:00")).toBeInTheDocument();
   });
 
   it("WHEN entry text edited and cancel clicked THEN entry text is not updated", async () => {
     // arrange
-    const { expandButton: collapseButton } = arrange();
+    const { user, expandButton: collapseButton } = await arrange();
 
     const textInput = screen.getByRole("textbox", {
       name: "Current entry text",
@@ -63,11 +64,11 @@ describe("TimeEntry Edit", () => {
     const cancelButton = screen.getByText("Cancel");
 
     // act
-    userEvent.clear(textInput);
-    userEvent.type(textInput, "--Completely new task--");
+    await user.clear(textInput);
+    await user.type(textInput, "--Completely new task--");
 
-    userEvent.click(cancelButton);
-    userEvent.click(collapseButton);
+    await user.click(cancelButton);
+    await user.click(collapseButton);
 
     // assert
     expect(

@@ -8,7 +8,8 @@ describe("TopBar Editing", () => {
     jest.useFakeTimers().setSystemTime(new Date("2022-08-16 20:50"));
   });
 
-  const arrange = () => {
+  const arrange = async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       connectStore(<TopBar />, {
         timeEntries: {
@@ -27,12 +28,13 @@ describe("TopBar Editing", () => {
     );
 
     const timer = screen.getByText("00:03:00");
-    userEvent.click(timer);
+    await user.click(timer);
+    return { user };
   };
 
   it("WHEN entry text and start time edited and save clicked THEN running entry is updated", async () => {
     // arrange
-    arrange();
+    const { user } = await arrange();
 
     const textInput = screen.getByRole("textbox", {
       name: "Current entry text",
@@ -41,13 +43,13 @@ describe("TopBar Editing", () => {
     const saveButton = screen.getByText("Save");
 
     // act
-    userEvent.clear(textInput);
-    userEvent.type(textInput, "--Completely new task--");
+    await user.clear(textInput);
+    await user.type(textInput, "--Completely new task--");
 
-    userEvent.clear(startTimeInput);
-    userEvent.type(startTimeInput, "20:05");
+    await user.clear(startTimeInput);
+    await user.type(startTimeInput, "20:05");
 
-    userEvent.click(saveButton);
+    await user.click(saveButton);
 
     // assert
     expect(screen.getByText("--Completely new task--")).toBeInTheDocument();
@@ -56,7 +58,7 @@ describe("TopBar Editing", () => {
 
   it("WHEN entry text edited and cancel clicked THEN entry text is not updated", async () => {
     // arrange
-    arrange();
+    const { user } = await arrange();
 
     const textInput = screen.getByRole("textbox", {
       name: "Current entry text",
@@ -64,10 +66,10 @@ describe("TopBar Editing", () => {
     const cancelButton = screen.getByText("Cancel");
 
     // act
-    userEvent.clear(textInput);
-    userEvent.type(textInput, "--Completely new task--");
+    await user.clear(textInput);
+    await user.type(textInput, "--Completely new task--");
 
-    userEvent.click(cancelButton);
+    await user.click(cancelButton);
 
     // assert
     expect(

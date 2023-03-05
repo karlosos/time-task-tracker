@@ -1,16 +1,20 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
 import connectStore from "../../../../testUtils/connectStore";
 import { timeEntriesFixture } from "../../store/fixtures";
 import { TimeEntriesList } from "../TimeEntriesList";
 
 describe("TimeEntriesList Logged Status", () => {
   const arrange = () => {
+    const user = userEvent.setup();
     render(
       connectStore(<TimeEntriesList />, {
         timeEntries: timeEntriesFixture,
       })
     );
+
+    return { user };
   };
 
   it("WHEN parent task has all children logged THEN checkbox is enabled and checked", () => {
@@ -43,36 +47,36 @@ describe("TimeEntriesList Logged Status", () => {
     );
   });
 
-  it("WHEN checked parent task THEN all children all logged", () => {
-    arrange();
+  it("WHEN checked parent task THEN all children all logged", async () => {
+    const { user } = arrange();
     const { entryRow, expandButton } = getEntryWithUncheckedChildren();
 
     // act
-    userEvent.click(within(entryRow).getByRole("checkbox"));
+    await user.click(within(entryRow).getByRole("checkbox"));
 
     // assert
-    assertAllChidrenCheckedStatus(expandButton, true);
+    await assertAllChidrenCheckedStatus(user, expandButton, true);
   });
 
-  it("WHEN unchecked parent task THEN all children all not logged", () => {
-    arrange();
+  it("WHEN unchecked parent task THEN all children all not logged", async () => {
+    const { user } = arrange();
     const { entryRow, expandButton } = getEntryWithCheckedChildren();
 
     // act
-    userEvent.click(within(entryRow).getByRole("checkbox"));
+    await user.click(within(entryRow).getByRole("checkbox"));
 
     // assert
-    assertAllChidrenCheckedStatus(expandButton, false);
+    await assertAllChidrenCheckedStatus(user, expandButton, false);
   });
 
-  it("WHEN child task log status changed for parent with all children checked THEN parent checkbox is indeterminate state", () => {
-    arrange();
+  it("WHEN child task log status changed for parent with all children checked THEN parent checkbox is indeterminate state", async () => {
+    const { user } = arrange();
     const { entryRow, expandButton } = getEntryWithCheckedChildren();
 
     // act
-    userEvent.click(expandButton);
-    userEvent.click(within(entryRow).getByRole("checkbox"));
-    userEvent.click(
+    await user.click(expandButton);
+    await user.click(within(entryRow).getByRole("checkbox"));
+    await user.click(
       within(screen.getAllByLabelText("Time entry child row")[0]).getByRole(
         "checkbox"
       )
@@ -119,11 +123,12 @@ const getEntryWithMixedChildren = () => {
   return { entryRow, expandButton };
 };
 
-const assertAllChidrenCheckedStatus = (
+const assertAllChidrenCheckedStatus = async (
+  user: UserEvent,
   expandRowButton: HTMLElement,
   isChecked: boolean
 ) => {
-  userEvent.click(expandRowButton);
+  await user.click(expandRowButton);
 
   const children = screen.getAllByLabelText("Time entry child row");
   children.forEach((childRow) => {
@@ -134,5 +139,5 @@ const assertAllChidrenCheckedStatus = (
     }
   });
 
-  userEvent.click(expandRowButton);
+  await user.click(expandRowButton);
 };

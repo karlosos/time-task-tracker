@@ -6,21 +6,26 @@ import { testId } from "../../../../testUtils/testId";
 import { TopBar } from "../TopBar";
 
 describe("TopBar Ongoing", () => {
-  const arrange = () => {
+  jest.useFakeTimers();
+
+  const arrange = async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(connectStore(<TopBar />));
 
     const newEntryInput = screen.getByRole("textbox", {
       name: "new entry text",
     });
-    userEvent.type(newEntryInput, "--Test entry 1--");
+    await user.type(newEntryInput, "--Test entry 1--");
     const startButton = screen.getByRole("button", { name: "add entry" });
-    userEvent.click(startButton);
+    await user.click(startButton);
 
     expect(screen.getByText("--Test entry 1--")).toBeInTheDocument();
+
+    return { user };
   };
 
-  it("THEN start button is hidden and stop button is visible", () => {
-    arrange();
+  it("THEN start button is hidden and stop button is visible", async () => {
+    await arrange();
 
     // assert
     expect(
@@ -33,8 +38,7 @@ describe("TopBar Ongoing", () => {
 
   it("WHEN time passes THEN timer is updated", async () => {
     // arrange
-    jest.useFakeTimers();
-    arrange();
+    await arrange();
     expect(screen.getByText("00:00:00")).toBeInTheDocument();
 
     // act
@@ -47,11 +51,11 @@ describe("TopBar Ongoing", () => {
   });
 
   it("WHEN stop button clicked THEN topbar is cleared", async () => {
-    arrange();
+    const { user } = await arrange();
 
     // act
     const stopButton = screen.getByRole("button", { name: "stop timer" });
-    userEvent.click(stopButton);
+    await user.click(stopButton);
 
     // assert
     expect(
@@ -70,11 +74,11 @@ describe("TopBar Ongoing", () => {
   });
 
   it("WHEN timer clicked THEN editing view is visible", async () => {
-    arrange();
+    const { user } = await arrange();
 
     // act
     const timer = screen.getByText("00:00:00");
-    userEvent.click(timer);
+    await user.click(timer);
 
     // assert
     expect(
