@@ -32,7 +32,7 @@ export const TimeEntriesList = () => {
         return (
           <div
             key={date}
-            className="p-4 rounded-lg shadow-[-2px_5px_20px_0px_#0000001A]"
+            className="rounded-lg p-4 shadow-[-2px_5px_20px_0px_#0000001A]"
           >
             <DayHeader date={date} elapsedTimePerDay={elapsedTimePerDay} />
             {combinedTimeEntriesPerDate.map((combinedTimeEntries: any) => (
@@ -62,9 +62,9 @@ function DayHeader({
 }) {
   return (
     <div>
-      <span className="text-lg text-neutral-700 font-semibold">{date}</span>{" "}
+      <span className="text-lg font-semibold text-neutral-700">{date}</span>{" "}
       &nbsp;
-      <span className="text-lg text-neutral-700 opacity-50 font-semibold">
+      <span className="text-lg font-semibold text-neutral-700 opacity-50">
         {formatElapsedTime(elapsedTimePerDay)}
       </span>
     </div>
@@ -95,16 +95,16 @@ const PaginationButtons = ({
   }
 
   return (
-    <div className="pt-[10px] flex flex-row justify-end gap-[10px]">
+    <div className="flex flex-row justify-end gap-[10px] pt-[10px]">
       <button
         onClick={handleLoadAll}
-        className="bg-white border-2 border-blue-600 rounded text-blue-600 hover:text-blue-800 hover:border-blue-800 px-3 py-1.5 font-medium"
+        className="rounded border-2 border-blue-600 bg-white px-3 py-1.5 font-medium text-blue-600 hover:border-blue-800 hover:text-blue-800"
       >
         Load All
       </button>
       <button
         onClick={handleLoadMore}
-        className="bg-blue-600 rounded text-white hover:bg-blue-800 px-3 py-1.5 font-medium"
+        className="rounded bg-blue-600 px-3 py-1.5 font-medium text-white hover:bg-blue-800"
       >
         Load More
       </button>

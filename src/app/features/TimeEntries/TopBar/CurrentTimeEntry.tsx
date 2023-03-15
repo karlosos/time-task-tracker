@@ -28,10 +28,10 @@ export const CurrentTimeEntry: React.FC<CurrentTimeEntryProps> = ({
   return (
     <>
       <TopBarStyled>
-        <div className="flex-grow ml-4 whitespace-nowrap text-ellipsis overflow-hidden ">
+        <div className="ml-4 flex-grow overflow-hidden text-ellipsis whitespace-nowrap ">
           <TimeEntryText timeEntryText={currentTimeEntry.text} />
         </div>
-        <div className="flex flex-row space-x-2 justify-center items-center">
+        <div className="flex flex-row items-center justify-center space-x-2">
           <ElapsedTime
             onClick={() => setIsEditVisible((state) => !state)}
             aria-label="elapsed time"

@@ -40,11 +40,11 @@ export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
         className="flex flex-row items-center"
         aria-label="Time entry child row"
       >
-        <div className="text-sm text-neutral-800 font-medium max-w-[350px] whitespace-nowrap text-ellipsis overflow-hidden">
+        <div className="max-w-[350px] overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium text-neutral-800">
           {timeEntry.text}
         </div>
         {/* <TimeEntryText timeEntryText={timeEntry.text} /> */}
-        <div className="flex flex-row flex-grow justify-end items-center space-x-1.5">
+        <div className="flex flex-grow flex-row items-center justify-end space-x-1.5">
           <Checkbox
             style={{
               color: "#2563eb",
@@ -52,16 +52,16 @@ export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
             checked={timeEntry.logged}
             onChange={handleCheckboxChange}
           />
-          <div className="font-medium text-sm text-neutral-800 w-[65px] text-center opacity-60">
+          <div className="w-[65px] text-center text-sm font-medium text-neutral-800 opacity-60">
             {formatElapsedTime(timeEntry.stopTime! - timeEntry.startTime)}
           </div>
           <Edit
             onClick={() => setIsEditVisible((state) => !state)}
             aria-label="Edit entry"
-            className="text-neutral-800 hover:opacity-80 hover:cursor-pointer"
+            className="text-neutral-800 hover:cursor-pointer hover:opacity-80"
           />
           <Delete
-            className="text-neutral-800 hover:opacity-80 hover:cursor-pointer"
+            className="text-neutral-800 hover:cursor-pointer hover:opacity-80"
             onClick={() => setRemoveDialogOpen(true)}
             aria-label="Remove entry"
           />

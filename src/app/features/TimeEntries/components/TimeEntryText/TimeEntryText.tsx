@@ -12,7 +12,7 @@ export const TimeEntryText: React.FC<{ timeEntryText: string }> = ({
           <a
             key={id}
             href={`${jiraInstanceLink}/${slice}`}
-            className="text-indigo-600 font-medium text-base hover:underline"
+            className="text-base font-medium text-indigo-600 hover:underline"
           >
             {slice}
           </a>
@@ -24,7 +24,7 @@ export const TimeEntryText: React.FC<{ timeEntryText: string }> = ({
 
   return (
     <div
-      className="whitespace-nowrap text-ellipsis overflow-hidden font-medium text-base text-neutral-800"
+      className="overflow-hidden text-ellipsis whitespace-nowrap text-base font-medium text-neutral-800"
       title={timeEntryText}
     >
       {timeEntryTextWithLinks}

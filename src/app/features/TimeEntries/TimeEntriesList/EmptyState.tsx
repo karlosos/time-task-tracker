@@ -1,8 +1,8 @@
 export const EmptyState = () => {
   return (
-    <div className="flex flex-col justify-center items-center flex-grow text-neutral-800 py-4 px-8">
+    <div className="flex flex-grow flex-col items-center justify-center py-4 px-8 text-neutral-800">
       <Illustration />
-      <h3 className="text-lg font-medium mt-10">
+      <h3 className="mt-10 text-lg font-medium">
         Start by adding time entries
       </h3>
       <p className="mt-2 text-center">

@@ -56,7 +56,7 @@ export const CombinedTimeEntryRow: React.FC<CombinedTimeEntryRowProps> = ({
           combinedTimeEntry={combinedTimeEntry}
         />
         <TimeEntryText timeEntryText={combinedTimeEntry.text} />
-        <div className="flex flex-row flex-grow justify-end items-center space-x-1.5">
+        <div className="flex flex-grow flex-row items-center justify-end space-x-1.5">
           <Checkbox
             style={{
               color: checkboxIsIndeterminate ? "#BDBDBD" : "#2563eb",
@@ -67,7 +67,7 @@ export const CombinedTimeEntryRow: React.FC<CombinedTimeEntryRowProps> = ({
             onChange={handleCheckboxChange}
             aria-label="is logged status"
           />
-          <div className="font-medium text-sm text-neutral-800 w-[65px] text-center opacity-60">
+          <div className="w-[65px] text-center text-sm font-medium text-neutral-800 opacity-60">
             {formatElapsedTime(combinedTimeEntry.elapsedTime)}
           </div>
           <ToggleAccordionIcon
@@ -123,7 +123,7 @@ function SubEntriesCount({
   return (
     <div
       onClick={onClick}
-      className="bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 rounded w-6 h-6 shrink-0 flex justify-center items-center hover:cursor-pointer text-xs font-medium mr-2 select-none"
+      className="mr-2 flex h-6 w-6 shrink-0 select-none items-center justify-center rounded border border-neutral-300 bg-neutral-100 text-xs font-medium hover:cursor-pointer hover:bg-neutral-200"
     >
       {combinedTimeEntry.ids.length}
     </div>

@@ -61,7 +61,7 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
         />
         <div data-testid={testId.startTime}>
           <DatePicker
-            className="border border-gray_border rounded hover:border-black focus:outline-blue-500"
+            className="border-gray_border rounded border hover:border-black focus:outline-blue-500"
             selected={new Date(startTimeValue)}
             wrapperClassName={styles.date_picker}
             onChange={(date: Date) =>
@@ -74,7 +74,7 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
         </div>
         <div data-testid={testId.stopTime}>
           <DatePicker
-            className="border border-gray_border rounded hover:border-black focus:outline-blue-500"
+            className="border-gray_border rounded border hover:border-black focus:outline-blue-500"
             disabled={!stopTimeValue}
             wrapperClassName={styles.date_picker}
             selected={
@@ -87,16 +87,16 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
           />
         </div>
       </div>
-      <div className="pt-[10px] flex flex-row justify-end gap-[10px]">
+      <div className="flex flex-row justify-end gap-[10px] pt-[10px]">
         <button
           onClick={handleCancel}
-          className="bg-white border-2 border-blue-600 rounded text-blue-600 hover:text-blue-800 hover:border-blue-800 px-3 py-1.5 font-medium"
+          className="rounded border-2 border-blue-600 bg-white px-3 py-1.5 font-medium text-blue-600 hover:border-blue-800 hover:text-blue-800"
         >
           Cancel
         </button>
         <button
           onClick={handleSave}
-          className="bg-blue-600 rounded text-white hover:bg-blue-800 px-3 py-1.5 font-medium"
+          className="rounded bg-blue-600 px-3 py-1.5 font-medium text-white hover:bg-blue-800"
         >
           Save
         </button>
