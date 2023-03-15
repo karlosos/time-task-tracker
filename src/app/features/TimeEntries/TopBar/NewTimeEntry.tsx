@@ -22,7 +22,7 @@ export const NewTimeEntry = () => {
     <TopBarStyled className="hover:border-neutral-200" ref={ref}>
       <div className="flex-grow">
         <input
-          className="bg-neutral-100 rounded-lg text-neutral-800 px-3 py-2 focus:outline-none text-lg font-medium w-full"
+          className="w-full rounded-lg bg-neutral-100 px-3 py-2 text-lg font-medium text-neutral-800 focus:outline-none"
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}

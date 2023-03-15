@@ -9,7 +9,7 @@ export const ToggleAccordionIcon = ({
     <div
       aria-label="Combined entry accordion"
       onClick={onClick}
-      className="bg-neutral-50 border border-neutral-300 hover:bg-neutral-200 rounded w-6 h-6 flex items-center justify-center hover:cursor-pointer select-none"
+      className="flex h-6 w-6 select-none items-center justify-center rounded border border-neutral-300 bg-neutral-50 hover:cursor-pointer hover:bg-neutral-200"
     >
       <svg
         className={
