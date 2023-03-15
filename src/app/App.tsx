@@ -1,10 +1,23 @@
-import { TimeEntries } from "./features/TimeEntries/TimeEntries";
+import { createTheme, ThemeProvider } from "@mui/material";
+import { Settings } from "./features/Settings/Settings";
+import { TimeEntriesList } from "./features/TimeEntries/TimeEntriesList";
+import { TopBar } from "./features/TimeEntries/TopBar";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: "Poppins",
+  },
+});
 
 function App() {
   return (
-    <div className="min-h-screen max-w-screen-sm flex flex-col py-4 px-2 mx-auto">
-      <TimeEntries />
-    </div>
+    <ThemeProvider theme={theme}>
+      <Settings />
+      <div className="mx-auto flex min-h-screen max-w-screen-sm flex-col py-4 px-2">
+        <TopBar />
+        <TimeEntriesList />
+      </div>
+    </ThemeProvider>
   );
 }
 
