@@ -1,13 +1,11 @@
 import {
   AddCircle,
   Delete,
-  Save,
   Settings as MuiSettingsIcon,
+  WarningRounded,
 } from "@mui/icons-material";
 import {
-  Button,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
@@ -72,7 +70,9 @@ function SettingsDialog({
     dispatch(patternsChanged(patterns));
   };
 
-  const [patterns, setPatterns] = useState<LinkPattern[]>(structuredClone(storePatterns));
+  const [patterns, setPatterns] = useState<LinkPattern[]>(
+    structuredClone(storePatterns)
+  );
 
   useEffect(() => {
     setPatterns(structuredClone(storePatterns));
@@ -86,19 +86,27 @@ function SettingsDialog({
           Patterns and urls for automatic link creation.
         </DialogContentText>
         <PatternList patterns={patterns} setPatterns={setPatterns} />
+        <hr className="my-4" />
+        <DialogContentText>Import & Export your data</DialogContentText>
+        <div className="mt-2 rounded border-2 border-yellow-200 bg-yellow-100 px-4 py-2">
+          <WarningRounded className="text-lg text-yellow-800" /> To be
+          implemented.
+        </div>
       </DialogContent>
-      <DialogActions>
-        <Button autoFocus onClick={() => setIsDialogOpen(false)}>
-          Cancel
-        </Button>
-        <Button
-          onClick={handleSaveSettings}
-          startIcon={<Save />}
-          aria-label="Confirm save"
+      <div className="mx-6 mb-6 flex flex-row justify-end gap-[10px] pt-[10px]">
+        <button
+          onClick={() => setIsDialogOpen(false)}
+          className="rounded border-2 border-blue-600 bg-white px-3 py-1.5 font-medium text-blue-600 hover:border-blue-800 hover:text-blue-800"
         >
-          Save changes
-        </Button>
-      </DialogActions>
+          Cancel
+        </button>
+        <button
+          onClick={handleSaveSettings}
+          className="rounded bg-blue-600 px-3 py-1.5 font-medium text-white hover:bg-blue-800"
+        >
+          Save
+        </button>
+      </div>
     </Dialog>
   );
 }
@@ -116,7 +124,6 @@ const PatternList = ({ patterns, setPatterns }: PatternListProps) => {
   };
 
   const handleChangeRegex = (index: number, regex: string) => {
-    // This changes state directly
     const newPatterns = patterns.slice();
     newPatterns[index].regex = regex;
     setPatterns(newPatterns);
@@ -129,7 +136,7 @@ const PatternList = ({ patterns, setPatterns }: PatternListProps) => {
 
   return (
     <>
-      <div className="flex flex-col">
+      <div className="mt-2 flex flex-col">
         {patterns.map((pattern, index) => (
           <div className="flex gap-2" key={index}>
             <>
@@ -149,18 +156,25 @@ const PatternList = ({ patterns, setPatterns }: PatternListProps) => {
               />
               <div className="flex items-center justify-center">
                 <IconButton onClick={() => handleRemovePattern(index)}>
-                  <Delete />
+                  <Delete fontSize="small" />
                 </IconButton>
               </div>
             </>
           </div>
         ))}
       </div>
-      <Button
-        onClick={() => setPatterns([...patterns, { regex: "", url: "" }])}
-      >
-        <AddCircle /> Add new pattern
-      </Button>
+
+      <div className="mr-2 flex flex-row justify-end gap-[10px] pt-[10px]">
+        <button
+          onClick={() => setPatterns([...patterns, { regex: "", url: "" }])}
+          className="flex cursor-pointer items-center gap-1 rounded-lg border border-neutral-200 bg-neutral-100 px-3 py-1 text-xs font-semibold text-neutral-700 hover:text-neutral-900"
+        >
+          <span className="flex justify-center text-sm">
+            <AddCircle fontSize="inherit" />
+          </span>{" "}
+          Add new pattern
+        </button>
+      </div>
     </>
   );
 };

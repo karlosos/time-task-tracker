@@ -1,14 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-
 export type LinkPattern = {
   regex: string;
   url: string;
 };
 
 type State = {
-    patterns: LinkPattern[];
-}
+  patterns: LinkPattern[];
+};
 
 export const settingsInitialState: State = {
   patterns: [
@@ -33,7 +32,7 @@ export const settings = createSlice({
   reducers: {
     patternsChanged: (state, action: PayloadAction<any>) => {
       state.patterns = action.payload;
-      console.log('>> patternsChanged', action.payload);
+      console.log(">> patternsChanged", action.payload);
     },
   },
 });

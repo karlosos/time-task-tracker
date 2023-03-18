@@ -1,8 +1,6 @@
 import {
-  Button,
   Checkbox,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
@@ -109,18 +107,21 @@ function RemoveEntryDialog({
           {timeEntry.logged && "This entry was already logged!"}
         </DialogContentText>
       </DialogContent>
-      <DialogActions>
-        <Button autoFocus onClick={() => setRemoveDialogOpen(false)}>
+      <div className="mx-6 mb-6 flex flex-row justify-end gap-[10px] pt-[10px]">
+        <button
+          onClick={() => setRemoveDialogOpen(false)}
+          className="rounded border-2 border-blue-600 bg-white px-3 py-1.5 font-medium text-blue-600 hover:border-blue-800 hover:text-blue-800"
+        >
           Cancel
-        </Button>
-        <Button
+        </button>
+        <button
           onClick={handleRemoveEntry}
-          startIcon={<Delete />}
+          className="rounded bg-blue-600 px-3 py-1.5 font-medium text-white hover:bg-blue-800"
           aria-label="Confirm entry removal"
         >
           Remove
-        </Button>
-      </DialogActions>
+        </button>
+      </div>
     </Dialog>
   );
 }
