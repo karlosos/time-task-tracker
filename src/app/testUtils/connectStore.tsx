@@ -4,9 +4,11 @@ import { Provider } from "react-redux";
 
 import { RootState, storeReducers } from "../store/store";
 import { timeEntriesInitialState } from "../features/TimeEntries/store/slice";
+import { settingsInitialState } from "../features/Settings/slice";
 
 const initialState: RootState = {
   timeEntries: timeEntriesInitialState,
+  settings: settingsInitialState,
 };
 
 function connectStore(

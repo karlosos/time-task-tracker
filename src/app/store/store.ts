@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { loadState, saveState } from "./localStorage";
 import timeEntriesReducer from "../features/TimeEntries/store/slice";
+import settingsReducer from "../features/Settings/slice";
 
 const preloadedState = loadState();
 
 export const storeReducers = {
   timeEntries: timeEntriesReducer,
+  settings: settingsReducer,
 };
 
 export const store = configureStore({
@@ -16,6 +18,7 @@ export const store = configureStore({
 store.subscribe(() => {
   saveState({
     timeEntries: store.getState().timeEntries,
+    settings: store.getState().settings,
   });
 });
 
