@@ -18,7 +18,11 @@ describe("TimeEntryText", () => {
 
   it("WHEN multiple patterns used THEN issue ids are made into links", () => {
     // arange
-    render(connectStore(<TimeEntryText timeEntryText="DX1-3464: KAR-32: Something" />));
+    render(
+      connectStore(
+        <TimeEntryText timeEntryText="DX1-3464: KAR-32: Something" />
+      )
+    );
 
     // assert
     expect(getByTextContent("DX1-3464: KAR-32: Something")).toBeInTheDocument();
@@ -34,7 +38,11 @@ describe("TimeEntryText", () => {
 
   it("WHEN text with jira id in the middle provided THEN jira id is made into link", () => {
     // arange
-    render(connectStore(<TimeEntryText timeEntryText="Review: DX1-3464: Something" />));
+    render(
+      connectStore(
+        <TimeEntryText timeEntryText="Review: DX1-3464: Something" />
+      )
+    );
 
     // assert
     expect(getByTextContent("Review: DX1-3464: Something")).toBeInTheDocument();
