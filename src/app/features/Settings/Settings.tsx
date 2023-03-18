@@ -14,7 +14,10 @@ import {
   IconButton,
   TextField,
 } from "@mui/material";
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { RootState } from "../../store/store";
+import { LinkPattern, patternsChanged } from "./slice";
 
 export const Settings = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -43,7 +46,7 @@ export const SettingsIcon = ({
   return (
     <button
       onClick={onClick}
-      className="flex cursor-pointer items-center gap-1 rounded-lg border border-neutral-200 bg-neutral-100 px-3 py-1 text-xs text-neutral-700 hover:text-neutral-900"
+      className="flex cursor-pointer items-center gap-1 rounded-lg border border-neutral-200 bg-neutral-100 px-3 py-1 text-xs font-semibold text-neutral-700 hover:text-neutral-900"
       tabIndex={0}
     >
       <span>Settings</span>
@@ -59,11 +62,21 @@ function SettingsDialog({
   isDialogOpen: boolean;
   setIsDialogOpen: any;
 }) {
+  const dispatch = useAppDispatch();
+
+  const storePatterns = useAppSelector(
+    (state: RootState) => state.settings.patterns
+  );
+
   const handleSaveSettings = () => {
-    console.log("Save");
+    dispatch(patternsChanged(patterns));
   };
 
-  const [patterns, setPatterns] = useState<LinkPattern[]>([]);
+  const [patterns, setPatterns] = useState<LinkPattern[]>(structuredClone(storePatterns));
+
+  useEffect(() => {
+    setPatterns(structuredClone(storePatterns));
+  }, [storePatterns]);
 
   return (
     <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
@@ -90,11 +103,6 @@ function SettingsDialog({
   );
 }
 
-type LinkPattern = {
-  regex: string;
-  url: string;
-};
-
 type PatternListProps = {
   patterns: LinkPattern[];
   setPatterns: (patterns: LinkPattern[]) => void;
@@ -108,6 +116,7 @@ const PatternList = ({ patterns, setPatterns }: PatternListProps) => {
   };
 
   const handleChangeRegex = (index: number, regex: string) => {
+    // This changes state directly
     const newPatterns = patterns.slice();
     newPatterns[index].regex = regex;
     setPatterns(newPatterns);
