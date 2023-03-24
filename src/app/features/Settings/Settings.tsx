@@ -22,7 +22,7 @@ export const Settings = () => {
 
   return (
     <>
-      <div className="absolute right-2 top-4 ">
+      <div className="absolute right-2 top-4 max-mobile:static max-mobile:mx-auto max-mobile:-mb-2 max-mobile:flex max-mobile:max-w-screen-sm max-mobile:justify-end max-mobile:px-2 max-mobile:pt-2">
         <SettingsIcon onClick={() => setIsDialogOpen(true)} />
       </div>
 
@@ -44,7 +44,7 @@ export const SettingsIcon = ({
   return (
     <button
       onClick={onClick}
-      className="flex cursor-pointer items-center gap-1 rounded-lg border border-neutral-200 bg-neutral-100 px-3 py-1 text-xs font-semibold text-neutral-700 hover:text-neutral-900"
+      className="flex cursor-pointer items-center gap-1 rounded-lg border border-neutral-300 bg-neutral-50 px-3 py-1 text-xs font-semibold text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900"
       tabIndex={0}
     >
       <span>Settings</span>
@@ -167,7 +167,7 @@ const PatternList = ({ patterns, setPatterns }: PatternListProps) => {
       <div className="mr-2 flex flex-row justify-end gap-[10px] pt-[10px]">
         <button
           onClick={() => setPatterns([...patterns, { regex: "", url: "" }])}
-          className="flex cursor-pointer items-center gap-1 rounded-lg border border-neutral-200 bg-neutral-100 px-3 py-1 text-xs font-semibold text-neutral-700 hover:text-neutral-900"
+          className="flex cursor-pointer items-center gap-1 rounded-lg border border-neutral-300 bg-neutral-50 px-3 py-1 text-xs font-semibold text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900"
         >
           <span className="flex justify-center text-sm">
             <AddCircle fontSize="inherit" />
