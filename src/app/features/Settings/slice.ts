@@ -13,15 +13,19 @@ export const settingsInitialState: State = {
   patterns: [
     {
       regex: "(DX1-\\d+)",
-      url: "https://jiradc2.ext.net.nokia.com/browse",
+      url: "https://jiradc2.ext.net.nokia.com/browse/",
     },
     {
       regex: "(KAR-\\d+)",
-      url: "https://linear.app/karlosos/issue",
+      url: "https://linear.app/karlosos/issue/",
     },
     {
       regex: "(FCA_UTF_[A-Z_]+-\\d+)",
-      url: "https://jiradc.ext.net.nokia.com/browse",
+      url: "https://jiradc.ext.net.nokia.com/browse/",
+    },
+    {
+      regex: "(PR\\d+)",
+      url: "https://pronto.ext.net.nokia.com/pronto/problemReport.html?prid=",
     },
   ],
 };

@@ -68,6 +68,7 @@ function SettingsDialog({
 
   const handleSaveSettings = () => {
     dispatch(patternsChanged(patterns));
+    setIsDialogOpen(false);
   };
 
   const [patterns, setPatterns] = useState<LinkPattern[]>(

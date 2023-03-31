@@ -32,7 +32,7 @@ export const TimeEntryText: React.FC<{ timeEntryText: string }> = ({
       return (
         <a
           key={id}
-          href={`${url}/${slice}`}
+          href={`${url}${slice}`}
           className="text-base font-medium text-indigo-600 hover:underline"
         >
           {slice}
