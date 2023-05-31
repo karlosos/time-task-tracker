@@ -165,7 +165,7 @@ function SettingsDialog({
 
         <div className="mt-4">
           <div className="flex items-center text-base">
-            <Download className="mr-2 stroke-2 text-gray-500 h-4 w-4" />
+            <Download className="mr-2 h-4 w-4 stroke-2 text-gray-500" />
             <span className="font-semibold text-gray-800">Export data</span>
           </div>
           <div className="ml-6 flex items-center justify-between">
@@ -181,7 +181,7 @@ function SettingsDialog({
         </div>
         <div className="mt-2">
           <div className="flex items-center text-base">
-            <Radiation className="mr-2 stroke-2 text-gray-500 h-4 w-4" />
+            <Radiation className="mr-2 h-4 w-4 stroke-2 text-gray-500" />
             <span className="font-semibold text-gray-800">Clear data</span>
           </div>
           <div className="ml-6 flex items-center justify-between">

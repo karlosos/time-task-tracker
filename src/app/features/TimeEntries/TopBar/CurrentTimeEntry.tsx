@@ -26,7 +26,13 @@ export const CurrentTimeEntry: React.FC<CurrentTimeEntryProps> = ({
   };
 
   return (
-    <div className={`bg-white rounded-lg border ${isEditVisible ? 'shadow-lg transition-all duration-200' : 'transition-none border-transparent'}`}>
+    <div
+      className={`rounded-lg border bg-white ${
+        isEditVisible
+          ? "shadow-lg transition-all duration-200"
+          : "border-transparent transition-none"
+      }`}
+    >
       <TopBarStyled>
         <div className="ml-4 flex-grow overflow-hidden text-ellipsis whitespace-nowrap ">
           <TimeEntryText timeEntryText={currentTimeEntry.text} />
@@ -38,7 +44,7 @@ export const CurrentTimeEntry: React.FC<CurrentTimeEntryProps> = ({
           >
             <span className="ml-4">{formatElapsedTime(elapsedTime)}</span>
           </ElapsedTime>
-          <div className="text-red-300 pr-2">
+          <div className="pr-2 text-red-300">
             <IconButton
               onClick={handleOnStopClick}
               size="large"
@@ -52,11 +58,11 @@ export const CurrentTimeEntry: React.FC<CurrentTimeEntryProps> = ({
       </TopBarStyled>
       {isEditVisible && (
         <div className="px-2">
-        <TimeEntryEdit
-          timeEntry={currentTimeEntry}
-          setIsEditVisible={setIsEditVisible}
-        />
-          </div>
+          <TimeEntryEdit
+            timeEntry={currentTimeEntry}
+            setIsEditVisible={setIsEditVisible}
+          />
+        </div>
       )}
     </div>
   );
