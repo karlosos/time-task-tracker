@@ -22,6 +22,7 @@ import {
 import { MouseEventHandler, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { RootState } from "../../store/store";
+import { Button } from "../../ui/Button";
 import { LinkPattern, patternsChanged } from "./slice";
 
 export const Settings = () => {
@@ -155,46 +156,42 @@ function SettingsDialog({
             </a>
 
             <div className="flex flex-row justify-end gap-[10px] pt-[10px]">
-              <button className="rounded border-2 border-blue-600 bg-white px-3 py-1.5 font-medium text-blue-600 hover:border-blue-800 hover:text-blue-800">
-                Discard
-              </button>
+              <Button variant="outline">Discard</Button>
               {/* TODO: this button should be hold to action */}
-              <button className="rounded bg-blue-600 px-3 py-1.5 font-medium text-white hover:bg-blue-800">
-                Import
-              </button>
+              <Button variant={"default"}>Import</Button>
             </div>
           </div>
         </div>
 
         <div className="mt-4">
           <div className="flex items-center text-base">
-            <Download className="mr-2 stroke-2 text-gray-500" />
+            <Download className="mr-2 stroke-2 text-gray-500 h-4 w-4" />
             <span className="font-semibold text-gray-800">Export data</span>
           </div>
-          <div className="ml-8 flex items-center justify-between">
+          <div className="ml-6 flex items-center justify-between">
             <div className="w-80 text-sm text-gray-700">
-              Exported data could be later imported or read manually. Data is
+              Exported data can be later imported or read manually. Data is
               exported in JSON format.
             </div>
-            <button className="flex gap-2 rounded border-2 border-blue-600 bg-white px-3 py-1.5 font-medium text-blue-600 hover:border-blue-800 hover:text-blue-800">
-              <FileDown />
+            <Button variant="outline">
+              <FileDown className="mr-2 h-4 w-4" />
               Download
-            </button>
+            </Button>
           </div>
         </div>
         <div className="mt-2">
           <div className="flex items-center text-base">
-            <Radiation className="mr-2 stroke-2 text-gray-500" />
+            <Radiation className="mr-2 stroke-2 text-gray-500 h-4 w-4" />
             <span className="font-semibold text-gray-800">Clear data</span>
           </div>
-          <div className="ml-8 flex items-center justify-between">
+          <div className="ml-6 flex items-center justify-between">
             <div className="w-80 text-sm text-gray-700">
               Delete all data. This action cannot be undone.
             </div>
-            <button className="flex gap-2 rounded border-2 border-blue-600 bg-white px-3 py-1.5 font-medium text-blue-600 hover:border-blue-800 hover:text-blue-800">
-              <AlertOctagon />
+            <Button variant="outline">
+              <AlertOctagon className="mr-2 h-4 w-4" />
               Clear data
-            </button>
+            </Button>
           </div>
         </div>
       </DialogContent>

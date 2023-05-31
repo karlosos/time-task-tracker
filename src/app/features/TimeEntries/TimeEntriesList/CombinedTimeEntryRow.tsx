@@ -6,12 +6,13 @@ import { TimeEntryRow } from "./TimeEntryRow";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { TimeEntryText } from "../components/TimeEntryText";
-import { ToggleAccordionIcon } from "./ToggleAccordionIcon";
+import { ToggleAccordionIcon } from "../../../ui/ToggleAccordionIcon";
 import {
   timeEntriesLoggedStatusChanged,
   TimeEntry,
   timeEntryAdded,
 } from "../store";
+import { Button } from "../../../ui/Button";
 
 interface CombinedTimeEntry {
   text: string;
@@ -75,10 +76,13 @@ export const CombinedTimeEntryRow: React.FC<CombinedTimeEntryRowProps> = ({
             aria-label="Combined entry accordion"
             isCollapsed={isCollapsed}
           />
-          <PlayCircle
-            className="text-blue-600 hover:cursor-pointer hover:text-blue-800"
+          <Button
+            variant={"ghost"}
+            className="h-8 w-8 p-2"
             onClick={handleAddTimeEntryClick}
-          />
+          >
+            <PlayCircle className="text-blue-600" />
+          </Button>
         </div>
       </div>
       {!isCollapsed && (

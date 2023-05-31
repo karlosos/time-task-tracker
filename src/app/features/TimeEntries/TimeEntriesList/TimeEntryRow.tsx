@@ -7,7 +7,6 @@ import {
 } from "@mui/material";
 import { formatDatetime, formatElapsedTime } from "../../../utils";
 import { useAppDispatch } from "../../../hooks";
-import { Delete, Edit } from "@mui/icons-material";
 import { useState } from "react";
 import { TimeEntryEdit } from "../components/TimeEntryEdit";
 import {
@@ -15,6 +14,8 @@ import {
   TimeEntry,
   timeEntryRemoved,
 } from "../store";
+import { Edit2, Trash } from "lucide-react";
+import { Button } from "../../../ui/Button";
 
 export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
   const dispatch = useAppDispatch();
@@ -41,7 +42,6 @@ export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
         <div className="max-w-[350px] overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium text-neutral-800">
           {timeEntry.text}
         </div>
-        {/* <TimeEntryText timeEntryText={timeEntry.text} /> */}
         <div className="flex flex-grow flex-row items-center justify-end space-x-1.5">
           <Checkbox
             style={{
@@ -53,16 +53,18 @@ export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
           <div className="w-[65px] text-center text-sm font-medium text-neutral-800 opacity-60">
             {formatElapsedTime(timeEntry.stopTime! - timeEntry.startTime)}
           </div>
-          <Edit
-            onClick={() => setIsEditVisible((state) => !state)}
-            aria-label="Edit entry"
-            className="text-neutral-800 hover:cursor-pointer hover:opacity-80"
-          />
-          <Delete
-            className="text-neutral-800 hover:cursor-pointer hover:opacity-80"
-            onClick={() => setRemoveDialogOpen(true)}
-            aria-label="Remove entry"
-          />
+          <Button variant={"ghost"} className="h-8 w-8 p-2">
+            <Edit2
+              onClick={() => setIsEditVisible((state) => !state)}
+              aria-label="Edit entry"
+            />
+          </Button>
+          <Button variant={"ghost"} className="h-8 w-8 p-2 hover:bg-rose-50">
+            <Trash
+              onClick={() => setRemoveDialogOpen(true)}
+              aria-label="Remove entry"
+            />
+          </Button>
         </div>
       </div>
 
@@ -108,19 +110,18 @@ function RemoveEntryDialog({
         </DialogContentText>
       </DialogContent>
       <div className="mx-6 mb-6 flex flex-row justify-end gap-[10px] pt-[10px]">
-        <button
+        <Button
           onClick={() => setRemoveDialogOpen(false)}
-          className="rounded border-2 border-blue-600 bg-white px-3 py-1.5 font-medium text-blue-600 hover:border-blue-800 hover:text-blue-800"
+          variant="outline"
         >
           Cancel
-        </button>
-        <button
-          onClick={handleRemoveEntry}
-          className="rounded bg-blue-600 px-3 py-1.5 font-medium text-white hover:bg-blue-800"
-          aria-label="Confirm entry removal"
+        </Button>
+        <Button
+          onClick={handleRemoveEntry} 
+          aria-label="Confirm entry romoval"
         >
           Remove
-        </button>
+        </Button>
       </div>
     </Dialog>
   );
