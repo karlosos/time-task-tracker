@@ -1,3 +1,5 @@
+import { Button } from "./Button";
+
 export const ToggleAccordionIcon = ({
   onClick,
   isCollapsed,
@@ -6,10 +8,12 @@ export const ToggleAccordionIcon = ({
   isCollapsed: boolean;
 }) => {
   return (
-    <div
+    <div className="h-8 w-8 flex justify-center items-center">
+    <Button
       aria-label="Combined entry accordion"
       onClick={onClick}
-      className="flex h-6 w-6 select-none items-center justify-center rounded border border-neutral-300 bg-neutral-50 hover:cursor-pointer hover:bg-neutral-200"
+      className="h-6 w-6 p-0 hover:bg-neutral-200 bg-neutral-50 border-neutral-300"
+      variant="alternative"
     >
       <svg
         className={
@@ -30,6 +34,7 @@ export const ToggleAccordionIcon = ({
           fill="#363942"
         />
       </svg>
+    </Button>
     </div>
   );
 };

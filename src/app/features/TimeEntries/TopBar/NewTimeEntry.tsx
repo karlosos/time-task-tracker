@@ -29,7 +29,7 @@ export const NewTimeEntry = () => {
           aria-label="new entry text"
         />
       </div>
-      <div className="text-green-400">
+      <div className="text-green-400 mr-2">
         <IconButton
           onClick={handleAddClick}
           size="large"

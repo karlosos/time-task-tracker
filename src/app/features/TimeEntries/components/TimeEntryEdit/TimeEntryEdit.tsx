@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import styles from "./datepicker.module.css";
 import { testId } from "../../../../testUtils/testId";
 import { TimeEntry, timeEntryUpdated } from "../../store";
+import { Button } from "../../../../ui/Button";
 
 interface TimeEntryEditProps {
   timeEntry: TimeEntry;
@@ -88,18 +89,17 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
         </div>
       </div>
       <div className="flex flex-row justify-end gap-[10px] pt-[10px]">
-        <button
+        <Button variant="outline"
+        
           onClick={handleCancel}
-          className="rounded border-2 border-blue-600 bg-white px-3 py-1.5 font-medium text-blue-600 hover:border-blue-800 hover:text-blue-800"
         >
           Cancel
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={handleSave}
-          className="rounded bg-blue-600 px-3 py-1.5 font-medium text-white hover:bg-blue-800"
         >
           Save
-        </button>
+        </Button>
       </div>
     </div>
   );

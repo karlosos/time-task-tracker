@@ -38,7 +38,7 @@ export const CurrentTimeEntry: React.FC<CurrentTimeEntryProps> = ({
           >
             <span className="ml-4">{formatElapsedTime(elapsedTime)}</span>
           </ElapsedTime>
-          <div className="text-red-300">
+          <div className="text-red-300 pr-2">
             <IconButton
               onClick={handleOnStopClick}
               size="large"
