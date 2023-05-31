@@ -2,7 +2,6 @@ import {
   AddCircle,
   Delete,
   Settings as MuiSettingsIcon,
-  WarningRounded,
 } from "@mui/icons-material";
 import {
   Dialog,
@@ -12,6 +11,14 @@ import {
   IconButton,
   TextField,
 } from "@mui/material";
+import {
+  AlertOctagon,
+  Download,
+  FileDown,
+  FileUp,
+  HelpCircle,
+  Radiation,
+} from "lucide-react";
 import { MouseEventHandler, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { RootState } from "../../store/store";
@@ -66,6 +73,7 @@ function SettingsDialog({
     (state: RootState) => state.settings.patterns
   );
 
+  // TODO: save patterns on change
   const handleSaveSettings = () => {
     dispatch(patternsChanged(patterns));
     setIsDialogOpen(false);
@@ -88,26 +96,108 @@ function SettingsDialog({
         </DialogContentText>
         <PatternList patterns={patterns} setPatterns={setPatterns} />
         <hr className="my-4" />
-        <DialogContentText>Import & Export your data</DialogContentText>
-        <div className="mt-2 rounded border-2 border-yellow-200 bg-yellow-100 px-4 py-2">
-          <WarningRounded className="text-lg text-yellow-800" /> To be
-          implemented.
+        <div>
+          <DialogContentText>Manage data</DialogContentText>
+          <div className="mt-2 mb-2 flex w-full items-center justify-center">
+            <label
+              htmlFor="dropzone-file"
+              className="dark:hover:bg-bray-800 flex h-52 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+            >
+              <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                <FileUp className="mb-3 h-10 w-10 text-gray-400" />
+                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                  <span className="font-semibold">Click to upload</span> or drag
+                  and drop
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  JSON file previously exported from the app. Only specific
+                  format will be recognized.
+                </p>
+              </div>
+              <input id="dropzone-file" type="file" className="hidden" />
+            </label>
+          </div>
+
+          <div
+            className="flex rounded-lg bg-red-50 p-4 text-sm text-red-800 dark:bg-gray-800 dark:text-red-400"
+            role="alert"
+          >
+            <svg
+              aria-hidden="true"
+              className="mr-3 inline h-5 w-5 flex-shrink-0"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            <span className="sr-only">Info</span>
+            <div>
+              <span className="font-medium">
+                You are about to replace your data!
+              </span>{" "}
+              Confirm importing by holding the "Import" button. Your existing
+              data will be lost and replaced by the new data. Existing 23
+              entries will be replaced by new 400.
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <a href="#">
+              <div className="flex items-center text-sm font-medium text-gray-400">
+                <HelpCircle className="mr-1 h-4 w-4 stroke-[2px]" />
+                Support
+              </div>
+            </a>
+
+            <div className="flex flex-row justify-end gap-[10px] pt-[10px]">
+              <button className="rounded border-2 border-blue-600 bg-white px-3 py-1.5 font-medium text-blue-600 hover:border-blue-800 hover:text-blue-800">
+                Discard
+              </button>
+              {/* TODO: this button should be hold to action */}
+              <button className="rounded bg-blue-600 px-3 py-1.5 font-medium text-white hover:bg-blue-800">
+                Import
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4">
+          <div className="flex items-center text-base">
+            <Download className="mr-2 stroke-2 text-gray-500" />
+            <span className="font-semibold text-gray-800">Export data</span>
+          </div>
+          <div className="ml-8 flex items-center justify-between">
+            <div className="w-80 text-sm text-gray-700">
+              Exported data could be later imported or read manually. Data is
+              exported in JSON format.
+            </div>
+            <button className="flex gap-2 rounded border-2 border-blue-600 bg-white px-3 py-1.5 font-medium text-blue-600 hover:border-blue-800 hover:text-blue-800">
+              <FileDown />
+              Download
+            </button>
+          </div>
+        </div>
+        <div className="mt-2">
+          <div className="flex items-center text-base">
+            <Radiation className="mr-2 stroke-2 text-gray-500" />
+            <span className="font-semibold text-gray-800">Clear data</span>
+          </div>
+          <div className="ml-8 flex items-center justify-between">
+            <div className="w-80 text-sm text-gray-700">
+              Delete all data. This action cannot be undone.
+            </div>
+            <button className="flex gap-2 rounded border-2 border-blue-600 bg-white px-3 py-1.5 font-medium text-blue-600 hover:border-blue-800 hover:text-blue-800">
+              <AlertOctagon />
+              Clear data
+            </button>
+          </div>
         </div>
       </DialogContent>
-      <div className="mx-6 mb-6 flex flex-row justify-end gap-[10px] pt-[10px]">
-        <button
-          onClick={() => setIsDialogOpen(false)}
-          className="rounded border-2 border-blue-600 bg-white px-3 py-1.5 font-medium text-blue-600 hover:border-blue-800 hover:text-blue-800"
-        >
-          Cancel
-        </button>
-        <button
-          onClick={handleSaveSettings}
-          className="rounded bg-blue-600 px-3 py-1.5 font-medium text-white hover:bg-blue-800"
-        >
-          Save
-        </button>
-      </div>
     </Dialog>
   );
 }
