@@ -89,17 +89,10 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
         </div>
       </div>
       <div className="flex flex-row justify-end gap-[10px] pt-[10px]">
-        <Button variant="outline"
-        
-          onClick={handleCancel}
-        >
+        <Button variant="outline" onClick={handleCancel}>
           Cancel
         </Button>
-        <Button
-          onClick={handleSave}
-        >
-          Save
-        </Button>
+        <Button onClick={handleSave}>Save</Button>
       </div>
     </div>
   );
