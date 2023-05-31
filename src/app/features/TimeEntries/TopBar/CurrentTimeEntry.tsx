@@ -26,7 +26,7 @@ export const CurrentTimeEntry: React.FC<CurrentTimeEntryProps> = ({
   };
 
   return (
-    <>
+    <div className={`bg-white rounded-lg border ${isEditVisible ? 'shadow-lg transition-all duration-200' : 'transition-none border-transparent'}`}>
       <TopBarStyled>
         <div className="ml-4 flex-grow overflow-hidden text-ellipsis whitespace-nowrap ">
           <TimeEntryText timeEntryText={currentTimeEntry.text} />
@@ -51,12 +51,14 @@ export const CurrentTimeEntry: React.FC<CurrentTimeEntryProps> = ({
         </div>
       </TopBarStyled>
       {isEditVisible && (
+        <div className="px-2">
         <TimeEntryEdit
           timeEntry={currentTimeEntry}
           setIsEditVisible={setIsEditVisible}
         />
+          </div>
       )}
-    </>
+    </div>
   );
 };
 

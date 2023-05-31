@@ -32,7 +32,7 @@ export const TimeEntriesList = () => {
         return (
           <div
             key={date}
-            className="rounded-lg p-4 shadow-[-2px_5px_20px_0px_#0000001A]"
+            className="rounded-lg p-4 shadow-[-2px_5px_20px_0px_#0000001A] border"
           >
             <DayHeader date={date} elapsedTimePerDay={elapsedTimePerDay} />
             {combinedTimeEntriesPerDate.map((combinedTimeEntries: any) => (
