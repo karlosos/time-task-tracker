@@ -5,6 +5,7 @@ import {
   EntityId,
   PayloadAction,
 } from "@reduxjs/toolkit";
+import { clearAppState } from "../../../store/commonActions";
 import { generateId } from "../../../utils";
 import { timeEntriesFixture } from "./fixtures";
 
@@ -78,6 +79,11 @@ export const timeEntries = createSlice({
         }
       });
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(clearAppState, (state, action) => {
+      return timeEntriesInitialState;
+    });
   },
 });
 

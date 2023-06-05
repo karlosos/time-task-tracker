@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { clearAppState } from "../../store/commonActions";
 import { AppThunk } from "../../store/store";
 
 export type LinkPattern = {
@@ -39,6 +40,11 @@ export const settings = createSlice({
       state.patterns = action.payload;
       console.log(">> patternsChanged", action.payload);
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(clearAppState, (state, action) => {
+      return settingsInitialState;
+    });
   },
 });
 
