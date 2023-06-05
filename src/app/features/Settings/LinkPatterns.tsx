@@ -24,6 +24,10 @@ export const LinkPatterns = () => {
     structuredClone(storePatterns)
   );
 
+  useEffect(() => {
+    setPatterns(structuredClone(storePatterns));
+  }, [storePatterns]);
+
   const arePatternsReadyToSave =
     patterns && JSON.stringify(patterns) !== JSON.stringify(storePatterns);
 
