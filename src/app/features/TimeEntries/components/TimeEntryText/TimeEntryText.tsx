@@ -33,7 +33,7 @@ export const TimeEntryText: React.FC<{ timeEntryText: string }> = ({
         <a
           key={id}
           href={`${url}${slice}`}
-          className="text-base font-medium text-indigo-600 hover:underline"
+          className="text-indigo-600 hover:underline"
         >
           {slice}
         </a>
@@ -46,7 +46,7 @@ export const TimeEntryText: React.FC<{ timeEntryText: string }> = ({
 
   return (
     <div
-      className="overflow-hidden text-ellipsis whitespace-nowrap text-base font-medium text-neutral-800"
+      className="overflow-hidden text-ellipsis whitespace-nowrap font-medium text-neutral-800"
       title={timeEntryText}
     >
       {timeEntryTextWithLinks}

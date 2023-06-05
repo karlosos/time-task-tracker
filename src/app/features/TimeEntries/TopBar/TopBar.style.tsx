@@ -17,7 +17,6 @@ export const ElapsedTime = styled.div`
   padding: 4px;
   background-color: #17375b;
   color: #e9f2ff;
-  font-family: Poppins;
   border-radius: 4px;
   width: 103px;
   height: 32px;
