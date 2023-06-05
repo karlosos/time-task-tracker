@@ -5,7 +5,7 @@ import { TopBar } from "./features/TimeEntries/TopBar";
 
 const theme = createTheme({
   typography: {
-    fontFamily: "Poppins",
+    fontFamily: "Inter",
   },
 });
 

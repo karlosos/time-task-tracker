@@ -1,31 +1,8 @@
-import {
-  AddCircle,
-  Delete,
-  Settings as MuiSettingsIcon,
-} from "@mui/icons-material";
-import {
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  IconButton,
-  TextField,
-} from "@mui/material";
-import {
-  AlertOctagon,
-  Download,
-  FileDown,
-  FileUp,
-  HelpCircle,
-  Radiation,
-} from "lucide-react";
-import { MouseEventHandler, useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { RootState } from "../../store/store";
-import { Button } from "../../ui/Button";
+import { Settings as MuiSettingsIcon } from "@mui/icons-material";
+import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import { MouseEventHandler, useState } from "react";
 import { ImportExport } from "./ImportExport";
 import { LinkPatterns } from "./LinkPatterns";
-import { LinkPattern, patternsChanged } from "./slice";
 
 export const Settings = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
