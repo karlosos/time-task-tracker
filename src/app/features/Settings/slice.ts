@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AppThunk } from "../../store/store";
 
 export type LinkPattern = {
   regex: string;
@@ -44,3 +45,35 @@ export const settings = createSlice({
 export const { patternsChanged } = settings.actions;
 
 export default settings.reducer;
+
+export const downloadAppData = (): AppThunk => async (_dispatch, getState) => {
+  const data = getState();
+  const filename = `tracking-data-${formatDateTime(new Date())}`;
+  createAndDownloadFile(filename, data);
+};
+
+const createAndDownloadFile = (filename: string, data: any) => {
+  // Creating a blob object from non-blob data using the Blob constructor
+  // If you want to have nice formatting then use `JSON.stringify(data, undefined, 2)`
+  const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  // Create a new anchor element
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename || "download";
+  a.click();
+  a.remove();
+};
+
+const formatDateTime = (date: Date) => {
+  // Get the individual date and time components
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Month is zero-based, so we add 1
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+
+  // Format the date as a string
+  const formattedDate = `${year}-${month}-${day}-${hours}:${minutes}`;
+  return formattedDate;
+};
