@@ -9,6 +9,7 @@ import {
 import { useAppDispatch } from "../../hooks";
 import { clearAppState } from "../../store/commonActions";
 import { Button } from "../../ui/Button";
+import { HoldButton } from "../../ui/HoldButton";
 import { Support } from "../../ui/Support";
 import { downloadAppData } from "./slice";
 
@@ -101,17 +102,17 @@ export const ImportExport = () => {
           <Radiation className="mr-2 h-4 w-4 stroke-2 text-gray-500" />
           <span className="font-semibold text-gray-800">Clear data</span>
         </div>
-        <div
-          className="ml-6 flex items-center justify-between"
-          onClick={() => dispatch(clearAppState())}
-        >
+        <div className="ml-6 flex items-center justify-between">
           <div className="w-80 text-sm text-gray-700">
             Delete all data. This action cannot be undone.
           </div>
-          <Button variant="outline">
+          <HoldButton
+            onSubmit={() => dispatch(clearAppState())}
+            variant={"outline"}
+          >
             <AlertOctagon className="mr-2 h-4 w-4" />
             Clear data
-          </Button>
+          </HoldButton>
         </div>
       </div>
     </>
