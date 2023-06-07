@@ -2,6 +2,8 @@ import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../lib/utils";
 import styles from "./HoldButton.module.css";
+import { Popover, PopoverContent } from "./Popover";
+import { PopoverAnchor } from "@radix-ui/react-popover";
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -34,17 +36,33 @@ const buttonVariants = cva(
 const HoldButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, onSubmit, holdDelay = 2000, ...props }, ref) => {
     const [_percentage, setPercentage] = React.useState(0);
+    const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
     const startTime = React.useRef<number | null>(null);
-    const intervalRef = React.useRef<ReturnType<typeof setInterval> | null>(
+    const holdIntervalRef = React.useRef<ReturnType<typeof setInterval> | null>(
       null
     );
+    const popoverTimeoutRef = React.useRef<ReturnType<
+      typeof setTimeout
+    > | null>(null);
+
+    React.useEffect(() => {
+      return () => {
+        popoverTimeoutRef.current && clearTimeout(popoverTimeoutRef.current);
+        holdIntervalRef.current && clearInterval(holdIntervalRef.current);
+      };
+    }, []);
 
     const startCounter = () => {
-      if (intervalRef.current) {
+      if (popoverTimeoutRef.current) {
+        clearTimeout(popoverTimeoutRef.current);
+        popoverTimeoutRef.current = null;
+      }
+
+      if (holdIntervalRef.current) {
         return;
       }
       startTime.current = Date.now();
-      intervalRef.current = setInterval(() => {
+      holdIntervalRef.current = setInterval(() => {
         if (startTime.current) {
           setPercentage(
             Math.floor(((Date.now() - startTime.current) / holdDelay) * 100)
@@ -58,35 +76,50 @@ const HoldButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const stopCounter = () => {
-      if (startTime.current && Date.now() - startTime.current < holdDelay) {
-        // TODO: show tooltip
+      if (startTime.current && Date.now() - startTime.current < 1000) {
+        setIsPopoverOpen(true);
+        popoverTimeoutRef.current = setTimeout(() => {
+          setIsPopoverOpen(false);
+        }, 2000);
       }
 
       startTime.current = null;
       setPercentage(0);
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
+      if (holdIntervalRef.current) {
+        clearInterval(holdIntervalRef.current);
+        holdIntervalRef.current = null;
       }
     };
 
     return (
-      <button
-        className={cn(
-          buttonVariants({ variant, size, className }),
-          startTime.current ? styles.holding : styles.idle
-        )}
-        ref={ref}
-        {...props}
-        onMouseDown={startCounter}
-        onMouseUp={stopCounter}
-        onMouseLeave={stopCounter}
-        onTouchStart={startCounter}
-        onTouchCancel={stopCounter}
-        onTouchEnd={stopCounter}
-      >
-        {props.children}
-      </button>
+      <div className="relative">
+        <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+          <PopoverAnchor>
+            <button
+              className={cn(
+                buttonVariants({ variant, size, className }),
+                startTime.current ? styles.holding : styles.idle
+              )}
+              ref={ref}
+              {...props}
+              // TODO: this element is not accessible with the keyboard
+              onMouseDown={startCounter}
+              onMouseUp={stopCounter}
+              onMouseLeave={stopCounter}
+              onTouchStart={startCounter}
+              onTouchCancel={stopCounter}
+              onTouchEnd={stopCounter}
+            >
+              {props.children}
+            </button>
+          </PopoverAnchor>
+          <PopoverContent>
+            <p className="text-sm text-muted-foreground">
+              Hold button for 2 seconds to confirm.
+            </p>
+          </PopoverContent>
+        </Popover>
+      </div>
     );
   }
 );
