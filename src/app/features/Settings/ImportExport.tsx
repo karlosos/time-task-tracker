@@ -65,7 +65,7 @@ export const ImportExport: React.FC<{ closeSettingsDialog: () => void }> = ({
 
             <div className="flex items-center justify-between">
               {/* TODO: implement support for importing/exporting data */}
-              <a href="#">
+              <a href="/#">
                 <Support />
               </a>
               <div className="flex flex-row justify-end gap-[10px] pt-[10px]">
