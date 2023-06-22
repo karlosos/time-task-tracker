@@ -25,7 +25,7 @@ export const Settings = () => {
           <div>
             <LinkPatterns />
             <hr className="my-4" />
-            <ImportExport />
+            <ImportExport closeSettingsDialog={() => setIsDialogOpen(false)} />
           </div>
         </DialogContent>
       </Dialog>
