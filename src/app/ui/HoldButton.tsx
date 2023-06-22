@@ -35,6 +35,7 @@ const buttonVariants = cva(
 
 const HoldButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, onSubmit, holdDelay = 2000, ...props }, ref) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_percentage, setPercentage] = React.useState(0);
     const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
     const startTime = React.useRef<number | null>(null);

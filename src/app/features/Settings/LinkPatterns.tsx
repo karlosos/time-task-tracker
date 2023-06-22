@@ -123,7 +123,7 @@ const PatternList = ({ patterns, setPatterns }: PatternListProps) => {
       <div className="mr-2 flex flex-row justify-between gap-[10px] pt-[10px]">
         <HoverCard>
           <HoverCardTrigger>
-            <a href="#">
+            <a href="/#">
               <Support />
             </a>
           </HoverCardTrigger>
