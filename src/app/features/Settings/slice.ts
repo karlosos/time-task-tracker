@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { clearAppState } from "../../store/commonActions";
+import { clearAppState, loadBackup } from "../../store/commonActions";
 import { AppThunk } from "../../store/store";
 
 export type LinkPattern = {
@@ -7,11 +7,11 @@ export type LinkPattern = {
   url: string;
 };
 
-type State = {
+export type SettingsState = {
   patterns: LinkPattern[];
 };
 
-export const settingsInitialState: State = {
+export const settingsInitialState: SettingsState = {
   patterns: [
     {
       regex: "(DX1-\\d+)",
@@ -44,6 +44,9 @@ export const settings = createSlice({
   extraReducers: (builder) => {
     builder.addCase(clearAppState, (state, action) => {
       return settingsInitialState;
+    });
+    builder.addCase(loadBackup, (state, action) => {
+      return action.payload.settings;
     });
   },
 });

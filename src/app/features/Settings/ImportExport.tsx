@@ -3,23 +3,47 @@ import {
   AlertOctagon,
   Download,
   FileDown,
-  FileUp,
   Radiation,
   Upload,
 } from "lucide-react";
-import { useState } from "react";
-import { useAppDispatch } from "../../hooks";
-import { clearAppState } from "../../store/commonActions";
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import {
+  BackupData,
+  clearAppState,
+  loadBackup,
+} from "../../store/commonActions";
 import { Button } from "../../ui/Button";
 import { HoldButton } from "../../ui/HoldButton";
 import { Support } from "../../ui/Support";
+import { selectTimeEntriesCount } from "../TimeEntries/store";
 import { DropZone } from "./DropZone";
 import { downloadAppData } from "./slice";
 
-export const ImportExport = () => {
+export const ImportExport: React.FC<{ closeSettingsDialog: () => void }> = ({
+  closeSettingsDialog,
+}) => {
   const dispatch = useAppDispatch();
   const [file, setFile] = useState<File>();
+  const [importedData, setImportedData] = useState<BackupData>();
   const [importFileError, setImportFileError] = useState<boolean>(false);
+
+  useEffect(() => {
+    const reader = new FileReader();
+
+    reader.onabort = () => console.log("file reading was aborted");
+    reader.onerror = () => setImportFileError(true);
+    reader.onload = () => {
+      const data = JSON.parse(reader.result as string);
+      setImportedData(data);
+    };
+
+    if (file) {
+      reader.readAsText(file);
+    }
+  }, [file]);
+
+  const currentTimeEntriesCount = useAppSelector(selectTimeEntriesCount);
 
   return (
     <>
@@ -31,7 +55,12 @@ export const ImportExport = () => {
         </div>
         {file ? (
           <div className="mt-2 mb-2">
-            <ImportWarningAlert />
+            <ImportWarningAlert
+              newTimeEntriesCount={
+                importedData ? importedData.timeEntries.ids.length : 0
+              }
+              currentTimeEntriesCount={currentTimeEntriesCount}
+            />
             {importFileError && <ImportErrorAlert />}
 
             <div className="flex items-center justify-between">
@@ -44,13 +73,22 @@ export const ImportExport = () => {
                   variant="outline"
                   onClick={() => {
                     setFile(undefined);
+                    setImportedData(undefined);
                     setImportFileError(false);
                   }}
                 >
                   Discard
                 </Button>
                 {/* TODO: this button should be hold to action */}
-                <Button variant={"default"}>Import</Button>
+                <Button
+                  variant={"default"}
+                  onClick={() => {
+                    importedData && dispatch(loadBackup(importedData));
+                    closeSettingsDialog();
+                  }}
+                >
+                  Import
+                </Button>
               </div>
             </div>
           </div>
@@ -85,7 +123,10 @@ export const ImportExport = () => {
             Delete all data. This action cannot be undone.
           </div>
           <HoldButton
-            onSubmit={() => dispatch(clearAppState())}
+            onSubmit={() => {
+              dispatch(clearAppState());
+              closeSettingsDialog();
+            }}
             variant={"outline"}
           >
             <AlertOctagon className="mr-2 h-4 w-4" />
@@ -97,7 +138,13 @@ export const ImportExport = () => {
   );
 };
 
-const ImportWarningAlert = () => (
+const ImportWarningAlert = ({
+  currentTimeEntriesCount,
+  newTimeEntriesCount,
+}: {
+  currentTimeEntriesCount: number;
+  newTimeEntriesCount: number;
+}) => (
   <div
     className="flex rounded-lg bg-red-50 p-4 text-sm text-red-800 dark:bg-gray-800 dark:text-red-400"
     role="alert"
@@ -119,8 +166,8 @@ const ImportWarningAlert = () => (
     <div>
       <span className="font-medium">You are about to replace your data!</span>{" "}
       Confirm importing by clicking the "Import" button. Your existing data will
-      be lost and replaced by the new data. Existing 23 entries will be replaced
-      by new 400 entries.
+      be lost and replaced by the new data. Existing {currentTimeEntriesCount}{" "}
+      entries will be replaced by new {newTimeEntriesCount} entries.
     </div>
   </div>
 );

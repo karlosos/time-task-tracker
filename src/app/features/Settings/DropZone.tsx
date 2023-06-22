@@ -1,5 +1,5 @@
 import { FileUp } from "lucide-react";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { cn } from "../../lib/utils";
 
@@ -9,40 +9,17 @@ type Props = {
 };
 
 export const DropZone: React.FC<Props> = ({ setFile, setError }) => {
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    acceptedFiles.forEach((file) => {
-      const reader = new FileReader();
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      setFile(acceptedFiles[0]);
+    },
+    [setFile]
+  );
 
-      reader.onabort = () => console.log("file reading was aborted");
-      reader.onerror = () => setError(true);
-      reader.onload = () => {
-        setError(false);
-        setFile(file);
-        // Do whatever you want with the file contents
-
-        const binaryStr = reader.result;
-        console.log(binaryStr);
-      };
-      reader.readAsArrayBuffer(file);
-    });
-  }, []);
-
-  const {
-    acceptedFiles,
-    getRootProps,
-    getInputProps,
-    isDragActive,
-    isDragAccept,
-    isDragReject,
-  } = useDropzone({ onDrop: onDrop, maxFiles: 1 });
-
-  useEffect(() => {
-    if (acceptedFiles.length > 0) {
-      const file = acceptedFiles[0];
-      // parseFile(file, setQuotes);
-      console.log(">> file", file);
-    }
-  }, [acceptedFiles]);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: onDrop,
+    maxFiles: 1,
+  });
 
   return (
     <div
