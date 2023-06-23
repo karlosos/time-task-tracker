@@ -10,7 +10,7 @@ export const ToggleAccordionIcon = ({
   return (
     <div className="flex h-8 w-8 items-center justify-center">
       <Button
-        aria-label="Combined entry accordion"
+        aria-label="Grouped entry accordion"
         onClick={onClick}
         className="h-6 w-6 border-neutral-300 bg-neutral-50 p-0 hover:bg-neutral-200"
         variant="alternative"

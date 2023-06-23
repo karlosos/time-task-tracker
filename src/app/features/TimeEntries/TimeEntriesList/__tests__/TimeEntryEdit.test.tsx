@@ -21,7 +21,7 @@ describe("TimeEntry Edit", () => {
 
     const entryRow = screen.getAllByTitle("DX1-1: Task 1")[0].parentElement!;
     const expandButton = within(entryRow).getByLabelText(
-      "Combined entry accordion"
+      "Grouped entry accordion"
     );
     await user.click(expandButton);
     await user.click(screen.getByLabelText("Edit entry"));

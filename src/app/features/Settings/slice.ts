@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { clearAppState, loadBackup } from "../../store/commonActions";
-import { AppThunk } from "../../store/store";
+import { AppThunk, RootState } from "../../store/store";
 
 export type LinkPattern = {
   regex: string;
@@ -36,9 +36,8 @@ export const settings = createSlice({
   name: "settings",
   initialState: settingsInitialState,
   reducers: {
-    patternsChanged: (state, action: PayloadAction<any>) => {
+    patternsChanged: (state, action: PayloadAction<LinkPattern[]>) => {
       state.patterns = action.payload;
-      console.log(">> patternsChanged", action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -61,7 +60,7 @@ export const downloadAppData = (): AppThunk => async (_dispatch, getState) => {
   createAndDownloadFile(filename, data);
 };
 
-const createAndDownloadFile = (filename: string, data: any) => {
+const createAndDownloadFile = (filename: string, data: RootState) => {
   // Creating a blob object from non-blob data using the Blob constructor
   // If you want to have nice formatting then use `JSON.stringify(data, undefined, 2)`
   const blob = new Blob([JSON.stringify(data)], { type: "application/json" });

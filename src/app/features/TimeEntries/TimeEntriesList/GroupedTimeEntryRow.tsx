@@ -8,34 +8,25 @@ import { useDispatch } from "react-redux";
 import { TimeEntryText } from "../components/TimeEntryText";
 import { ToggleAccordionIcon } from "../../../ui/ToggleAccordionIcon";
 import {
+  GroupedTimeEntry,
   timeEntriesLoggedStatusChanged,
-  TimeEntry,
   timeEntryAdded,
 } from "../store";
 import { Button } from "../../../ui/Button";
 
-interface CombinedTimeEntry {
-  text: string;
-  ids: string[];
-  subEntries: TimeEntry[];
-  elapsedTime: number;
-  logged: boolean[];
-  date: string;
+interface GroupedTimeEntryRowProps {
+  groupedTimeEntry: GroupedTimeEntry;
 }
 
-interface CombinedTimeEntryRowProps {
-  combinedTimeEntry: CombinedTimeEntry;
-}
-
-export const CombinedTimeEntryRow: React.FC<CombinedTimeEntryRowProps> = ({
-  combinedTimeEntry,
+export const GroupedTimeEntryRow: React.FC<GroupedTimeEntryRowProps> = ({
+  groupedTimeEntry: groupedTimeEntry,
 }) => {
   const dispatch = useAppDispatch();
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   const handleAddTimeEntryClick = () => {
     dispatch(
-      timeEntryAdded({ text: combinedTimeEntry.text, startTime: Date.now() })
+      timeEntryAdded({ text: groupedTimeEntry.text, startTime: Date.now() })
     );
   };
 
@@ -44,19 +35,19 @@ export const CombinedTimeEntryRow: React.FC<CombinedTimeEntryRowProps> = ({
   };
 
   const { checkboxState, checkboxIsIndeterminate, handleCheckboxChange } =
-    useLoggedCheckbox(combinedTimeEntry);
+    useLoggedCheckbox(groupedTimeEntry);
 
   return (
     <div className="shadow-[0px_20px_1px_-20px_black] last:shadow-none">
       <div
         className="flex flex-row items-center"
-        aria-label="Combined entry row"
+        aria-label="Grouped entry row"
       >
         <SubEntriesCount
           onClick={handleToggleCollapse}
-          combinedTimeEntry={combinedTimeEntry}
+          groupedTimeEntry={groupedTimeEntry}
         />
-        <TimeEntryText timeEntryText={combinedTimeEntry.text} />
+        <TimeEntryText timeEntryText={groupedTimeEntry.text} />
         <div className="flex flex-grow flex-row items-center justify-end space-x-1.5">
           <Checkbox
             style={{
@@ -69,11 +60,11 @@ export const CombinedTimeEntryRow: React.FC<CombinedTimeEntryRowProps> = ({
             aria-label="is logged status"
           />
           <div className="w-[65px] text-center text-sm font-medium text-neutral-800 opacity-60">
-            {formatElapsedTime(combinedTimeEntry.elapsedTime)}
+            {formatElapsedTime(groupedTimeEntry.elapsedTime)}
           </div>
           <ToggleAccordionIcon
             onClick={handleToggleCollapse}
-            aria-label="Combined entry accordion"
+            aria-label="Grouped entry accordion"
             isCollapsed={isCollapsed}
           />
           <Button
@@ -87,7 +78,7 @@ export const CombinedTimeEntryRow: React.FC<CombinedTimeEntryRowProps> = ({
       </div>
       {!isCollapsed && (
         <div className="flex flex-col">
-          {[...combinedTimeEntry.subEntries].reverse().map((entry) => (
+          {[...groupedTimeEntry.subEntries].reverse().map((entry) => (
             <TimeEntryRow timeEntry={entry} key={entry.id} />
           ))}
         </div>
@@ -96,19 +87,19 @@ export const CombinedTimeEntryRow: React.FC<CombinedTimeEntryRowProps> = ({
   );
 };
 
-const useLoggedCheckbox = (combinedTimeEntry: CombinedTimeEntry) => {
+const useLoggedCheckbox = (groupedTimeEntry: GroupedTimeEntry) => {
   const dispatch = useDispatch();
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(timeEntriesLoggedStatusChanged(combinedTimeEntry.ids));
+    dispatch(timeEntriesLoggedStatusChanged(groupedTimeEntry.ids));
   };
 
   let checkboxState = true;
   let checkboxIsIndeterminate = false;
 
-  if (combinedTimeEntry.logged.every((a) => a === true)) {
+  if (groupedTimeEntry.logged.every((a) => a === true)) {
     checkboxState = true;
-  } else if (combinedTimeEntry.logged.every((a) => a === false)) {
+  } else if (groupedTimeEntry.logged.every((a) => a === false)) {
     checkboxState = false;
   } else {
     checkboxIsIndeterminate = true;
@@ -119,17 +110,17 @@ const useLoggedCheckbox = (combinedTimeEntry: CombinedTimeEntry) => {
 
 function SubEntriesCount({
   onClick,
-  combinedTimeEntry,
+  groupedTimeEntry,
 }: {
   onClick: () => void;
-  combinedTimeEntry: CombinedTimeEntry;
+  groupedTimeEntry: GroupedTimeEntry;
 }) {
   return (
     <div
       onClick={onClick}
       className="mr-2 flex h-6 w-6 shrink-0 select-none items-center justify-center rounded border border-neutral-300 bg-neutral-100 text-xs font-medium hover:cursor-pointer hover:bg-neutral-200"
     >
-      {combinedTimeEntry.ids.length}
+      {groupedTimeEntry.ids.length}
     </div>
   );
 }

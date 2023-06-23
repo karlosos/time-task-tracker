@@ -2,18 +2,21 @@ import { useState } from "react";
 import { EmptyState } from "./EmptyState";
 import { useAppSelector } from "../../../hooks";
 import { formatElapsedTime } from "../../../utils";
-import { CombinedTimeEntryRow } from "./CombinedTimeEntryRow";
-import { selectCombinedTimeEntries, selectTimeEntriesCount } from "../store";
+import { GroupedTimeEntryRow } from "./GroupedTimeEntryRow";
+import {
+  selectTimeEntriesGroupedByDate,
+  selectTimeEntriesCount,
+} from "../store";
 
 const TIME_ENTRIES_LIMIT = 50;
 
 export const TimeEntriesList = () => {
   const [timeEntriesLimit, setTimeEntriesLimit] = useState(TIME_ENTRIES_LIMIT);
-  const combinedTimeEntries = useAppSelector((state) =>
-    selectCombinedTimeEntries(state, timeEntriesLimit)
+  const groupedTimeEntries = useAppSelector((state) =>
+    selectTimeEntriesGroupedByDate(state, timeEntriesLimit)
   );
 
-  const sortedTimeEntries = Object.entries(combinedTimeEntries).sort((a, b) =>
+  const sortedTimeEntries = Object.entries(groupedTimeEntries).sort((a, b) =>
     a[0] > b[0] ? -1 : 1
   );
 
@@ -23,10 +26,10 @@ export const TimeEntriesList = () => {
 
   return (
     <div className="mt-4 flex flex-col space-y-6">
-      {sortedTimeEntries.map(([date, combinedTimeEntriesPerDate]: any[]) => {
-        const elapsedTimePerDay = combinedTimeEntriesPerDate.reduce(
-          (acc: number, combinedTimeEntries: any) =>
-            acc + combinedTimeEntries.elapsedTime,
+      {sortedTimeEntries.map(([date, groupedTimeEntriesPerDate]) => {
+        const elapsedTimePerDay = groupedTimeEntriesPerDate.reduce(
+          (acc: number, groupedTimeEntries) =>
+            acc + groupedTimeEntries.elapsedTime,
           0
         );
         return (
@@ -35,10 +38,10 @@ export const TimeEntriesList = () => {
             className="rounded-lg border p-4 shadow-[-2px_5px_20px_0px_#0000001A]"
           >
             <DayHeader date={date} elapsedTimePerDay={elapsedTimePerDay} />
-            {combinedTimeEntriesPerDate.map((combinedTimeEntries: any) => (
-              <CombinedTimeEntryRow
-                combinedTimeEntry={combinedTimeEntries}
-                key={combinedTimeEntries.text}
+            {groupedTimeEntriesPerDate.map((groupedTimeEntries) => (
+              <GroupedTimeEntryRow
+                groupedTimeEntry={groupedTimeEntries}
+                key={groupedTimeEntries.text}
               />
             ))}
           </div>

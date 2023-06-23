@@ -94,7 +94,7 @@ function RemoveEntryDialog({
   handleRemoveEntry,
 }: {
   removeDialogOpen: boolean;
-  setRemoveDialogOpen: any;
+  setRemoveDialogOpen: (flag: boolean) => void;
   timeEntry: TimeEntry;
   handleRemoveEntry: () => void;
 }) {
