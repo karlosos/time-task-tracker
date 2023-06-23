@@ -38,14 +38,17 @@ export const selectCombinedTimeEntries = createSelector(
   }
 );
 
-export const selectTimeEntriesByDate = createSelector([selectAllTimeEntries], (allTimeEntries) => {
-  const timeEntriesByDate = allTimeEntries 
-    .filter((entry) => entry.stopTime)
-    .sort((a, b) => b.stopTime! - a.stopTime!)
-    .reduce(groupTimeEntriesByDate, {});
+export const selectTimeEntriesByDate = createSelector(
+  [selectAllTimeEntries],
+  (allTimeEntries) => {
+    const timeEntriesByDate = allTimeEntries
+      .filter((entry) => entry.stopTime)
+      .sort((a, b) => b.stopTime! - a.stopTime!)
+      .reduce(groupTimeEntriesByDate, {});
 
-  return timeEntriesByDate;
-})
+    return timeEntriesByDate;
+  }
+);
 
 const groupTimeEntriesByText = (grouped: any[], current: TimeEntry) => {
   const found = grouped.find((el) => {

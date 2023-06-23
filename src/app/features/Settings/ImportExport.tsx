@@ -54,7 +54,7 @@ export const ImportExport: React.FC<{ closeSettingsDialog: () => void }> = ({
           <span className="font-semibold text-gray-800">Import data</span>
         </div>
         {file ? (
-          <div className="mt-2 mb-2">
+          <div className="mb-2 mt-2">
             <ImportWarningAlert
               newTimeEntriesCount={
                 importedData ? importedData.timeEntries.ids.length : 0

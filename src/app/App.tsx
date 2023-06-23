@@ -13,7 +13,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Settings />
-      <div className="mx-auto flex min-h-screen max-w-screen-sm flex-col py-4 px-2">
+      <div className="mx-auto flex min-h-screen max-w-screen-sm flex-col px-2 py-4">
         <TopBar />
         <TimeEntriesList />
       </div>
