@@ -7,8 +7,12 @@ import { TimeEntriesList } from "../TimeEntriesList";
 process.env.TZ = "UTC";
 
 describe("TimeEntry Edit", () => {
+  beforeEach(() => {
+    jest.useFakeTimers().setSystemTime(new Date('2022-08-19 14:00'));
+  })
+
   const arrange = async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       connectStore(<TimeEntriesList />, {
         timeEntries: timeEntriesFixture,
