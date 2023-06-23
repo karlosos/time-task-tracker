@@ -19,27 +19,31 @@ export const NewTimeEntry = () => {
   useKeyPress(handleAddClick, ["Enter"], ref);
 
   return (
-    <TopBarStyled className="hover:border-neutral-200" ref={ref}>
-      <div className="flex-grow">
-        <input
-          className="w-full rounded-lg bg-neutral-100 px-3 py-2 text-lg font-medium text-neutral-800 focus:outline-none"
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          aria-label="new entry text"
-        />
-      </div>
-      <div className="mr-2 text-green-400">
-        <IconButton
-          onClick={handleAddClick}
-          size="large"
-          color="inherit"
-          aria-label="add entry"
-          disabled={text === ""}
-        >
-          <AddIcon />
-        </IconButton>
-      </div>
-    </TopBarStyled>
+    <div
+      className={`rounded-lg border border-transparent bg-white transition-none`}
+    >
+      <TopBarStyled className="hover:border-neutral-200" ref={ref}>
+        <div className="flex-grow">
+          <input
+            className="w-full rounded-lg bg-neutral-100 px-3 py-2 text-lg font-medium text-neutral-800 focus:outline-none"
+            type="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            aria-label="new entry text"
+          />
+        </div>
+        <div className="mr-2 text-green-400">
+          <IconButton
+            onClick={handleAddClick}
+            size="large"
+            color="inherit"
+            aria-label="add entry"
+            disabled={text === ""}
+          >
+            <AddIcon />
+          </IconButton>
+        </div>
+      </TopBarStyled>
+    </div>
   );
 };

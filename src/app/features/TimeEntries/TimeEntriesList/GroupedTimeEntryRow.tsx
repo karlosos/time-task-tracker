@@ -19,7 +19,7 @@ interface GroupedTimeEntryRowProps {
 }
 
 export const GroupedTimeEntryRow: React.FC<GroupedTimeEntryRowProps> = ({
-  groupedTimeEntry: groupedTimeEntry,
+  groupedTimeEntry,
 }) => {
   const dispatch = useAppDispatch();
   const [isCollapsed, setIsCollapsed] = useState(true);
