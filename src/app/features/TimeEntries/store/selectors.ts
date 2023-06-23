@@ -19,7 +19,7 @@ export const selectCurrentTimeEntry = (state: RootState) => {
   return currentTimeEntry;
 };
 
-export const selectCombinedTimeEntries = createSelector(
+export const selectTimeEntriesGroupedByDate = createSelector(
   [selectAllTimeEntries, (_, limit: number) => limit],
   (allTimeEntries, limit?: number) => {
     let timeEntries = allTimeEntries
@@ -31,26 +31,26 @@ export const selectCombinedTimeEntries = createSelector(
     }
 
     return timeEntries
-      .sort((a: any, b: any) => a.startTime - b.startTime)
+      .sort((a, b) => a.startTime - b.startTime)
       .reduce(groupTimeEntriesByText, [])
       .reverse()
       .reduce(groupCombinedTimeEntriesByDate, {});
   }
 );
 
-export const selectTimeEntriesByDate = createSelector(
-  [selectAllTimeEntries],
-  (allTimeEntries) => {
-    const timeEntriesByDate = allTimeEntries
-      .filter((entry) => entry.stopTime)
-      .sort((a, b) => b.stopTime! - a.stopTime!)
-      .reduce(groupTimeEntriesByDate, {});
+export type GroupedTimeEntry = {
+  text: string;
+  ids: string[];
+  subEntries: TimeEntry[];
+  elapsedTime: number;
+  logged: boolean[];
+  date: string;
+};
 
-    return timeEntriesByDate;
-  }
-);
-
-const groupTimeEntriesByText = (grouped: any[], current: TimeEntry) => {
+const groupTimeEntriesByText = (
+  grouped: GroupedTimeEntry[],
+  current: TimeEntry
+) => {
   const found = grouped.find((el) => {
     const sameName = el.text === current.text;
     const sameDay = el.date === formatDayMonthYear(current.stopTime!);
@@ -77,22 +77,18 @@ const groupTimeEntriesByText = (grouped: any[], current: TimeEntry) => {
   return grouped;
 };
 
-const groupCombinedTimeEntriesByDate = (grouped: any, current: any) => {
+type GroupedEntriesByDate = {
+  [date: string]: GroupedTimeEntry[];
+};
+
+const groupCombinedTimeEntriesByDate = (
+  grouped: GroupedEntriesByDate,
+  current: GroupedTimeEntry
+) => {
   if (!grouped[current.date]) {
     grouped[current.date] = [];
   }
   grouped[current.date] = [...grouped[current.date], current];
-
-  return grouped;
-};
-
-const groupTimeEntriesByDate = (grouped: any, current: any) => {
-  const currentDate = formatDayMonthYear(current.stopTime!);
-
-  if (!grouped[currentDate]) {
-    grouped[currentDate] = [];
-  }
-  grouped[currentDate] = [...grouped[currentDate], current];
 
   return grouped;
 };

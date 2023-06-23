@@ -33,25 +33,25 @@ describe("TimeEntriesList", () => {
 
     // assert
     expect(screen.getByText("2022-08-19")).toBeInTheDocument();
-    expect(screen.getByText("03:46:53")).toBeInTheDocument(); // combined time per day 1
+    expect(screen.getByText("03:46:53")).toBeInTheDocument(); // grouped time per day 1
     expect(screen.getByText("2022-08-18")).toBeInTheDocument();
-    expect(screen.getByText("02:03:16")).toBeInTheDocument(); // combined time per day 2
+    expect(screen.getByText("02:03:16")).toBeInTheDocument(); // grouped time per day 2
   });
 
   it("THEN tasks are collapsed by name and time is summed", () => {
     arrange();
-    const combinedRow = screen.getByTitle(
+    const groupedRow = screen.getByTitle(
       "DX1-4444: Task 4 with some logged entries"
     ).parentElement;
 
     // assert
-    expect(within(combinedRow!).getByText("3")).toBeInTheDocument(); // number of collapsed elements
+    expect(within(groupedRow!).getByText("3")).toBeInTheDocument(); // number of collapsed elements
     expect(
-      within(combinedRow!).getByTitle(
+      within(groupedRow!).getByTitle(
         "DX1-4444: Task 4 with some logged entries"
       )
     ).toBeInTheDocument();
-    expect(within(combinedRow!).getByText("00:03:05")).toBeInTheDocument();
-    expect(within(combinedRow!).getByRole("checkbox")).toBeDisabled();
+    expect(within(groupedRow!).getByText("00:03:05")).toBeInTheDocument();
+    expect(within(groupedRow!).getByRole("checkbox")).toBeDisabled();
   });
 });

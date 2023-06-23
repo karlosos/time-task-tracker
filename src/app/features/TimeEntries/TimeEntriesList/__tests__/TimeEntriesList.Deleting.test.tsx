@@ -44,7 +44,7 @@ describe("TimeEntriesList Deleting", () => {
     expect(
       screen.queryByText("Delete entry DX1-1: Task 1?")
     ).not.toBeInTheDocument();
-    user.click(expandButton); // collapse combined entry
+    user.click(expandButton); // collapse grouped entry
     expect(screen.getAllByTitle("DX1-1: Task 1")).toHaveLength(2);
   });
 
@@ -80,7 +80,7 @@ describe("TimeEntriesList Deleting", () => {
 const getEntryWithOneChild = () => {
   const entryRow = screen.getAllByTitle("DX1-1: Task 1")[0].parentElement!;
   const expandButton = within(entryRow).getByLabelText(
-    "Combined entry accordion"
+    "Grouped entry accordion"
   );
 
   return { entryRow, expandButton };
@@ -90,7 +90,7 @@ const getEntryWithMultipleChildren = () => {
   const entryRow = screen.getByTitle("DX1-3: Task 3 with logged entries")
     .parentElement!;
   const expandButton = within(entryRow).getByLabelText(
-    "Combined entry accordion"
+    "Grouped entry accordion"
   );
 
   return { entryRow, expandButton };
