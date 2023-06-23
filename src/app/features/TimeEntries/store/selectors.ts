@@ -1,3 +1,4 @@
+import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../../../store/store";
 import { formatDayMonthYear } from "../../../utils";
 import { timeEntriesAdapter, TimeEntry } from "./slice";
@@ -18,30 +19,33 @@ export const selectCurrentTimeEntry = (state: RootState) => {
   return currentTimeEntry;
 };
 
-export const selectCombinedTimeEntries = (state: RootState, limit?: number) => {
-  let timeEntries = selectAllTimeEntries(state)
-    .filter((entry) => entry.stopTime)
-    .sort((a, b) => b.stopTime! - a.stopTime!);
+export const selectCombinedTimeEntries = createSelector(
+  [selectAllTimeEntries, (_, limit: number) => limit],
+  (allTimeEntries, limit?: number) => {
+    let timeEntries = allTimeEntries
+      .filter((entry) => entry.stopTime)
+      .sort((a, b) => b.stopTime! - a.stopTime!);
 
-  if (limit !== undefined) {
-    timeEntries = timeEntries.slice(0, limit);
+    if (limit !== undefined) {
+      timeEntries = timeEntries.slice(0, limit);
+    }
+
+    return timeEntries
+      .sort((a: any, b: any) => a.startTime - b.startTime)
+      .reduce(groupTimeEntriesByText, [])
+      .reverse()
+      .reduce(groupCombinedTimeEntriesByDate, {});
   }
+);
 
-  return timeEntries
-    .sort((a: any, b: any) => a.startTime - b.startTime)
-    .reduce(groupTimeEntriesByText, [])
-    .reverse()
-    .reduce(groupCombinedTimeEntriesByDate, {});
-};
-
-export const selectTimeEntriesByDate = (state: RootState) => {
-  const timeEntriesByDate = selectAllTimeEntries(state)
+export const selectTimeEntriesByDate = createSelector([selectAllTimeEntries], (allTimeEntries) => {
+  const timeEntriesByDate = allTimeEntries 
     .filter((entry) => entry.stopTime)
     .sort((a, b) => b.stopTime! - a.stopTime!)
     .reduce(groupTimeEntriesByDate, {});
 
   return timeEntriesByDate;
-};
+})
 
 const groupTimeEntriesByText = (grouped: any[], current: TimeEntry) => {
   const found = grouped.find((el) => {
