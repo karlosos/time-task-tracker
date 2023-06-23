@@ -23,7 +23,7 @@ export const DropZone: React.FC<Props> = ({ setFile, setError }) => {
 
   return (
     <div
-      className="mt-2 mb-2 flex w-full items-center justify-center"
+      className="mb-2 mt-2 flex w-full items-center justify-center"
       {...getRootProps()}
     >
       <label
@@ -33,7 +33,7 @@ export const DropZone: React.FC<Props> = ({ setFile, setError }) => {
           isDragActive ? "border-sky-500" : ""
         )}
       >
-        <div className="flex flex-col items-center justify-center pt-5 pb-6">
+        <div className="flex flex-col items-center justify-center pb-6 pt-5">
           <FileUp className="mb-3 h-10 w-10 text-gray-400" />
           <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
             <span className="font-semibold">Click to upload</span> or drag and

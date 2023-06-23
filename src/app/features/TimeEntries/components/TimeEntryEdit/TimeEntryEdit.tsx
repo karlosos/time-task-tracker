@@ -52,7 +52,7 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
   };
 
   return (
-    <div className="mt-4 mb-2">
+    <div className="mb-2 mt-4">
       <div className="flex flex-row gap-[10px]">
         <TextField
           label="Current entry text"
