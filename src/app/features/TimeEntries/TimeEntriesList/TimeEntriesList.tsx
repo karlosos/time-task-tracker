@@ -7,6 +7,7 @@ import {
   selectTimeEntriesGroupedByDate,
   selectTimeEntriesCount,
 } from "../store";
+import { Button } from "../../../ui/Button";
 
 const TIME_ENTRIES_LIMIT = 50;
 
@@ -99,18 +100,10 @@ const PaginationButtons = ({
 
   return (
     <div className="flex flex-row justify-end gap-[10px] pt-[10px]">
-      <button
-        onClick={handleLoadAll}
-        className="rounded border-2 border-blue-600 bg-white px-3 py-1.5 font-medium text-blue-600 hover:border-blue-800 hover:text-blue-800"
-      >
+      <Button variant={"outline"} onClick={handleLoadAll}>
         Load All
-      </button>
-      <button
-        onClick={handleLoadMore}
-        className="rounded bg-blue-600 px-3 py-1.5 font-medium text-white hover:bg-blue-800"
-      >
-        Load More
-      </button>
+      </Button>
+      <Button onClick={handleLoadMore}>Load More</Button>
     </div>
   );
 };
