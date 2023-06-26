@@ -17,8 +17,8 @@ export const TimeEntriesList = () => {
     selectTimeEntriesGroupedByDate(state, timeEntriesLimit)
   );
 
-  const sortedTimeEntries = Object.entries(groupedTimeEntries).sort((a, b) =>
-    a[0] > b[0] ? -1 : 1
+  const sortedTimeEntries = Array.from(groupedTimeEntries.entries()).sort(
+    (a, b) => (a[0] > b[0] ? -1 : 1)
   );
 
   if (sortedTimeEntries.length === 0) {

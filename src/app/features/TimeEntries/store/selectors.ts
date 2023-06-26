@@ -22,7 +22,7 @@ export const selectCurrentTimeEntry = (state: RootState) => {
 export const selectTimeEntriesGroupedByDate = createSelector(
   [selectAllTimeEntries, (_, limit: number) => limit],
   (allTimeEntries, limit?: number) => {
-    let timeEntries = allTimeEntries
+    let timeEntries: TimeEntry[] = allTimeEntries
       .filter((entry) => entry.stopTime)
       .sort((a, b) => b.stopTime! - a.stopTime!);
 
@@ -30,11 +30,25 @@ export const selectTimeEntriesGroupedByDate = createSelector(
       timeEntries = timeEntries.slice(0, limit);
     }
 
-    return timeEntries
+    const groupedByDate = timeEntries
       .sort((a, b) => a.startTime - b.startTime)
       .reduce(groupTimeEntriesByText, [])
       .reverse()
-      .reduce(groupCombinedTimeEntriesByDate, {});
+      .reduce(
+        groupCombinedTimeEntriesByDate,
+        new Map<string, GroupedTimeEntry[]>()
+      );
+
+    // remove last (incomplete) day if there are more elements remaining
+    // this way we don't have incomplete groups
+    if (timeEntries.length !== allTimeEntries.length) {
+      const lastKey = Array.from(groupedByDate.keys()).pop();
+      if (lastKey) {
+        groupedByDate.delete(lastKey);
+      }
+    }
+
+    return groupedByDate;
   }
 );
 
@@ -77,18 +91,16 @@ const groupTimeEntriesByText = (
   return grouped;
 };
 
-type GroupedEntriesByDate = {
-  [date: string]: GroupedTimeEntry[];
-};
+type EntriesByDateMap = Map<string, GroupedTimeEntry[]>;
 
 const groupCombinedTimeEntriesByDate = (
-  grouped: GroupedEntriesByDate,
+  grouped: EntriesByDateMap,
   current: GroupedTimeEntry
 ) => {
-  if (!grouped[current.date]) {
-    grouped[current.date] = [];
+  if (!grouped.has(current.date)) {
+    grouped.set(current.date, []);
   }
-  grouped[current.date] = [...grouped[current.date], current];
+  grouped.get(current.date)?.push(current);
 
   return grouped;
 };
