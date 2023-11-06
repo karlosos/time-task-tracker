@@ -41,7 +41,10 @@ export const selectTimeEntriesGroupedByDate = createSelector(
 
     // remove last (incomplete) day if there are more elements remaining
     // this way we don't have incomplete groups
-    if (timeEntries.length !== allTimeEntries.length) {
+    const allCompletedTimeEntries = allTimeEntries.filter(
+      (entry) => entry.stopTime
+    );
+    if (timeEntries.length !== allCompletedTimeEntries.length) {
       const lastKey = Array.from(groupedByDate.keys()).pop();
       if (lastKey) {
         groupedByDate.delete(lastKey);

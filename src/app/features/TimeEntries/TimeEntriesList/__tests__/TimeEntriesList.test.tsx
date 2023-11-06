@@ -1,5 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
 import connectStore from "../../../../testUtils/connectStore";
+import userEvent from "@testing-library/user-event";
 import { timeEntriesFixture } from "../../store/fixtures";
 import { TimeEntriesList } from "../TimeEntriesList";
 
@@ -53,5 +54,21 @@ describe("TimeEntriesList", () => {
     ).toBeInTheDocument();
     expect(within(groupedRow!).getByText("00:03:05")).toBeInTheDocument();
     expect(within(groupedRow!).getByRole("checkbox")).toBeDisabled();
+  });
+
+  it("WHEN time is counting THEN all items are displayer", async () => {
+    // arrange
+    arrange();
+    const user = userEvent.setup();
+
+    // act
+    const playButtons = screen.getAllByTestId("PlayCircleIcon");
+    await user.click(playButtons[0]);
+
+    // assert
+    expect(screen.getByText("2022-08-19")).toBeInTheDocument();
+    expect(screen.getByText("03:46:53")).toBeInTheDocument(); // grouped time per day 1
+    expect(screen.getByText("2022-08-18")).toBeInTheDocument();
+    expect(screen.getByText("02:03:16")).toBeInTheDocument(); // grouped time per day 2
   });
 });
