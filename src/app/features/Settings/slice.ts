@@ -29,6 +29,10 @@ export const settingsInitialState: SettingsState = {
       regex: "(PR\\d+)",
       url: "https://pronto.ext.net.nokia.com/pronto/problemReport.html?prid=",
     },
+    {
+      regex: "(FCA_TTS_[A-Z_]+-\\d+)",
+      url: "https://jiradc.ext.net.nokia.com/browse/",
+    },
   ],
 };
 
