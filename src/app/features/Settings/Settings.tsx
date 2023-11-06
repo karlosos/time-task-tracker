@@ -16,9 +16,7 @@ export const Settings = () => {
     <>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
-          <div className="absolute right-2 top-4 max-mobile:static max-mobile:mx-auto max-mobile:-mb-2 max-mobile:flex max-mobile:max-w-screen-sm max-mobile:justify-end max-mobile:px-2 max-mobile:pt-2">
-            <SettingsButton />
-          </div>
+          <SettingsButton />
         </DialogTrigger>
         <DialogContent>
           <DialogTitle>Settings</DialogTitle>
