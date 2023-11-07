@@ -15,7 +15,7 @@ export const Settings = () => {
   return (
     <>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogTrigger asChild>
+        <DialogTrigger>
           <SettingsButton />
         </DialogTrigger>
         <DialogContent>
