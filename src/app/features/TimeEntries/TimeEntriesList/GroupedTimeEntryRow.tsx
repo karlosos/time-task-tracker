@@ -1,7 +1,7 @@
 import { Checkbox } from "@mui/material";
 import { formatElapsedTime } from "../../../utils";
 import { PlayCircle } from "@mui/icons-material";
-import { useAppDispatch } from "../../../hooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { TimeEntryRow } from "./TimeEntryRow";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -13,6 +13,8 @@ import {
   timeEntryAdded,
 } from "../store";
 import { Button } from "../../../ui/Button";
+import { TimeReportingDialog } from "./TimeReportingDialog";
+import { RootState } from "../../../store/store";
 
 interface GroupedTimeEntryRowProps {
   groupedTimeEntry: GroupedTimeEntry;
@@ -23,6 +25,12 @@ export const GroupedTimeEntryRow: React.FC<GroupedTimeEntryRowProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isTimeReportingDialogVisible, setIsTimeReportingDialogVisible] =
+    useState(false);
+  const isAdjustableTimeReportingEnabled = useAppSelector(
+    (state: RootState) =>
+      state.settings.featureFlags.isAdjustableTimeReportingEnabled
+  );
 
   const handleAddTimeEntryClick = () => {
     dispatch(
@@ -56,12 +64,43 @@ export const GroupedTimeEntryRow: React.FC<GroupedTimeEntryRowProps> = ({
             checked={checkboxState}
             indeterminate={checkboxIsIndeterminate}
             disabled={checkboxIsIndeterminate}
-            onChange={handleCheckboxChange}
+            onChange={(e) => {
+              if (isAdjustableTimeReportingEnabled) {
+                setIsTimeReportingDialogVisible(true);
+              } else {
+                handleCheckboxChange(e);
+              }
+            }}
             aria-label="is logged status"
           />
-          <div className="w-[65px] text-center text-sm font-medium text-neutral-800 opacity-60">
-            {formatElapsedTime(groupedTimeEntry.elapsedTime)}
-          </div>
+          {isAdjustableTimeReportingEnabled ? (
+            <div
+              className="flex w-[65px] cursor-default flex-col items-center justify-center"
+              onClick={() => {
+                setIsTimeReportingDialogVisible(true);
+              }}
+            >
+              <div className="rounded rounded-b-none border border-b-0 px-2 text-center text-xs font-medium tabular-nums text-neutral-800 opacity-60">
+                {formatElapsedTime(groupedTimeEntry.elapsedTime)}
+              </div>
+
+              <div className="flex items-center text-xs font-medium ">
+                <span className="flex items-center  rounded rounded-t-none border bg-neutral-100 px-2 tabular-nums  text-neutral-700 opacity-50">
+                  {formatElapsedTime(
+                    groupedTimeEntry.subEntries.reduce(
+                      (sum, entry) =>
+                        sum + (entry.logged ? entry.loggedTime ?? 0 : 0),
+                      0
+                    )
+                  )}
+                </span>
+              </div>
+            </div>
+          ) : (
+            <div className="w-[65px] text-center text-sm font-medium text-neutral-800 opacity-60">
+              {formatElapsedTime(groupedTimeEntry.elapsedTime)}
+            </div>
+          )}
           <ToggleAccordionIcon
             onClick={handleToggleCollapse}
             aria-label="Grouped entry accordion"
@@ -76,6 +115,15 @@ export const GroupedTimeEntryRow: React.FC<GroupedTimeEntryRowProps> = ({
           </Button>
         </div>
       </div>
+
+      {isTimeReportingDialogVisible && (
+        <TimeReportingDialog
+          groupedTimeEntry={groupedTimeEntry}
+          setIsVisible={setIsTimeReportingDialogVisible}
+          isVisible={isTimeReportingDialogVisible}
+        />
+      )}
+
       {!isCollapsed && (
         <div className="flex flex-col">
           {[...groupedTimeEntry.subEntries].reverse().map((entry) => (

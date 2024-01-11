@@ -8,6 +8,7 @@ import {
   selectTimeEntriesCount,
 } from "../store";
 import { Button } from "../../../ui/Button";
+import { RootState } from "../../../store/store";
 
 const TIME_ENTRIES_LIMIT = 50;
 
@@ -28,17 +29,28 @@ export const TimeEntriesList = () => {
   return (
     <div className="mt-4 flex flex-col space-y-6">
       {sortedTimeEntries.map(([date, groupedTimeEntriesPerDate]) => {
-        const elapsedTimePerDay = groupedTimeEntriesPerDate.reduce(
-          (acc: number, groupedTimeEntries) =>
-            acc + groupedTimeEntries.elapsedTime,
-          0
-        );
+        const [elapsedTimePerDay, reportedTimePerDay] =
+          groupedTimeEntriesPerDate.reduce(
+            (acc: number[], groupedTimeEntries) => [
+              acc[0] + groupedTimeEntries.elapsedTime,
+              acc[1] +
+                groupedTimeEntries.subEntries.reduce(
+                  (sum, e) => sum + (e.logged ? e.loggedTime ?? 0 : 0),
+                  0
+                ),
+            ],
+            [0, 0]
+          );
         return (
           <div
             key={date}
             className="rounded-lg border p-4 shadow-[-2px_5px_20px_0px_#0000001A]"
           >
-            <DayHeader date={date} elapsedTimePerDay={elapsedTimePerDay} />
+            <DayHeader
+              date={date}
+              elapsedTimePerDay={elapsedTimePerDay}
+              reportedTimePerDay={reportedTimePerDay}
+            />
             {groupedTimeEntriesPerDate.map((groupedTimeEntries) => (
               <GroupedTimeEntryRow
                 groupedTimeEntry={groupedTimeEntries}
@@ -60,19 +72,48 @@ export const TimeEntriesList = () => {
 function DayHeader({
   date,
   elapsedTimePerDay,
+  reportedTimePerDay,
 }: {
   date: string;
   elapsedTimePerDay: number;
+  reportedTimePerDay: number;
 }) {
-  return (
-    <div>
-      <span className="text-lg font-semibold text-neutral-700">{date}</span>{" "}
-      &nbsp;
-      <span className="text-lg font-semibold text-neutral-700 opacity-50">
-        {formatElapsedTime(elapsedTimePerDay)}
-      </span>
-    </div>
+  const isAdjustableTimeReportingEnabled = useAppSelector(
+    (state: RootState) =>
+      state.settings.featureFlags.isAdjustableTimeReportingEnabled
   );
+
+  if (isAdjustableTimeReportingEnabled) {
+    return (
+      <div className="flex items-center">
+        <span className="mr-2 text-lg font-semibold text-neutral-700">
+          {date}
+        </span>
+        <span className="mr-2 text-lg font-semibold text-neutral-700 opacity-50">
+          {formatElapsedTime(elapsedTimePerDay)}
+        </span>
+
+        <div className="flex items-center text-xs font-semibold">
+          <span className="rounded rounded-r-none border border-neutral-500 bg-neutral-500 pl-2 pr-1 text-white">
+            Logged
+          </span>
+          <span className="flex  items-center rounded rounded-l-none  border bg-neutral-100 pl-1 pr-2  text-neutral-700 opacity-50">
+            {formatElapsedTime(reportedTimePerDay)}
+          </span>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <span className="text-lg font-semibold text-neutral-700">{date}</span>{" "}
+        &nbsp;
+        <span className="text-lg font-semibold text-neutral-700 opacity-50">
+          {formatElapsedTime(elapsedTimePerDay)}
+        </span>
+      </div>
+    );
+  }
 }
 
 type PaginationButtonsProps = {

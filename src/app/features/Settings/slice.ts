@@ -9,6 +9,9 @@ export type LinkPattern = {
 
 export type SettingsState = {
   patterns: LinkPattern[];
+  featureFlags: {
+    isAdjustableTimeReportingEnabled: boolean;
+  };
 };
 
 export const settingsInitialState: SettingsState = {
@@ -34,6 +37,9 @@ export const settingsInitialState: SettingsState = {
       url: "https://jiradc.ext.net.nokia.com/browse/",
     },
   ],
+  featureFlags: {
+    isAdjustableTimeReportingEnabled: false,
+  },
 };
 
 export const settings = createSlice({
@@ -42,6 +48,9 @@ export const settings = createSlice({
   reducers: {
     patternsChanged: (state, action: PayloadAction<LinkPattern[]>) => {
       state.patterns = action.payload;
+    },
+    setAdjustableTimeReporting: (state, action: PayloadAction<boolean>) => {
+      state.featureFlags.isAdjustableTimeReportingEnabled = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -54,7 +63,7 @@ export const settings = createSlice({
   },
 });
 
-export const { patternsChanged } = settings.actions;
+export const { patternsChanged, setAdjustableTimeReporting } = settings.actions;
 
 export default settings.reducer;
 

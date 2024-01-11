@@ -15,6 +15,7 @@ export interface TimeEntry {
   startTime: number;
   stopTime?: number;
   logged: boolean;
+  loggedTime?: number; // TODO: make mandatory with 0 by default?
 }
 
 export const timeEntriesAdapter = createEntityAdapter<TimeEntry>();
@@ -79,6 +80,36 @@ export const timeEntries = createSlice({
         }
       });
     },
+
+    timeEntriesTimeReported: (
+      state,
+      action: PayloadAction<
+        {
+          id: EntityId;
+          reportedTime: number;
+        }[]
+      >
+    ) => {
+      action.payload.forEach(({ id, reportedTime }) => {
+        if (state.entities[id]) {
+          state.entities[id]!.logged = true;
+          state.entities[id]!.loggedTime = reportedTime;
+        }
+      });
+    },
+
+    timeEntriesClearTimeReported: (
+      state,
+      action: PayloadAction<EntityId[]>
+    ) => {
+      const ids = action.payload;
+      ids.forEach((id) => {
+        if (state.entities[id]) {
+          state.entities[id]!.logged = false;
+          state.entities[id]!.loggedTime = undefined;
+        }
+      });
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(clearAppState, (state, action) => {
@@ -96,6 +127,8 @@ export const {
   timeEntryRemoved,
   timeEntryStopped,
   timeEntriesLoggedStatusChanged,
+  timeEntriesTimeReported,
+  timeEntriesClearTimeReported,
 } = timeEntries.actions;
 
 export default timeEntries.reducer;

@@ -8,7 +8,20 @@ export const loadState = () => {
     }
     // TODO: we need to check if its good before returning
     // because it can actually cause errors when the state schema changed before last save
-    return JSON.parse(serializedState);
+
+    // TODO: i've changed the schema (added featureFlags)
+    //       and it causing problems in migration
+    //       because when loading app it preloads the state from localStorage
+    //       and it ignores initialState from slices
+    //       maybe it would be better for populate it firstly with initialState
+    //       and then load the data from localStorage?
+    const parsed = JSON.parse(serializedState);
+    if (parsed.settings.featureFlags === undefined) {
+      parsed.settings.featureFlags = {
+        isAdjustableTimeReportingEnabled: false,
+      };
+    }
+    return parsed;
   } catch (err) {
     return undefined;
   }

@@ -6,6 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../ui/Dialog";
+import { ExperimentalFeatures } from "./ExperimentalFeatures";
 import { ImportExport } from "./ImportExport";
 import { LinkPatterns } from "./LinkPatterns";
 
@@ -22,6 +23,8 @@ export const Settings = () => {
           <DialogTitle>Settings</DialogTitle>
           <div>
             <LinkPatterns />
+            <hr className="my-4" />
+            <ExperimentalFeatures />
             <hr className="my-4" />
             <ImportExport closeSettingsDialog={() => setIsDialogOpen(false)} />
           </div>

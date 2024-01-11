@@ -15,6 +15,12 @@ export const formatElapsedTime = (timeDiff: number) => {
   )}:${addLeadingZeros(seconds, 2)}`;
 };
 
+export const parseElapsedTime = (timeString: string): number => {
+  const [hours, minutes, seconds] = timeString.split(":").map(Number);
+  const totalMilliseconds = (hours * 60 * 60 + minutes * 60 + seconds) * 1000;
+  return totalMilliseconds;
+};
+
 export const formatDayMonthYear = (datetime: number) => {
   const dateObj = new Date(datetime);
 
@@ -25,6 +31,16 @@ export const formatDatetime = (datetime: number) => {
   const dateObj = new Date(datetime);
 
   return dateObj.toLocaleString();
+};
+
+export const formatTime = (datetime: number) => {
+  const dateObj = new Date(datetime);
+
+  const hours = addLeadingZeros(dateObj.getHours(), 2);
+  const minutes = addLeadingZeros(dateObj.getMinutes(), 2);
+  const seconds = addLeadingZeros(dateObj.getSeconds(), 2);
+
+  return `${hours}:${minutes}:${seconds}`;
 };
 
 export const generateId = () => {
