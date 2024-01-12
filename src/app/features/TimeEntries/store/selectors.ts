@@ -60,6 +60,7 @@ export type GroupedTimeEntry = {
   ids: string[];
   subEntries: TimeEntry[];
   elapsedTime: number;
+  loggedTime: number;
   logged: boolean[];
   date: string;
 };
@@ -80,6 +81,7 @@ const groupTimeEntriesByText = (
     found.ids.push(current.id);
     found.subEntries.push(current);
     found.logged.push(current.logged);
+    found.loggedTime = found.loggedTime + (current.logged ? current.loggedTime ?? 0 : 0);
   } else {
     grouped.push({
       text: current.text,
@@ -88,6 +90,7 @@ const groupTimeEntriesByText = (
       elapsedTime: diff,
       date: formatDayMonthYear(current.stopTime!),
       logged: [current.logged],
+      loggedTime: current.logged ? current.loggedTime ?? 0 : 0,
     });
   }
 

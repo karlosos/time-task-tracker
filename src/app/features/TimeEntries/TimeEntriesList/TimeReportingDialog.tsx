@@ -16,8 +16,6 @@ import {
   timeEntriesTimeReported,
 } from "../store";
 
-// TODO: move reportedTime to GroupedTimeEntry
-//       this would solve some issues and overhead
 interface Props {
   isVisible: boolean;
   setIsVisible: (state: boolean) => void;
@@ -30,52 +28,12 @@ export const TimeReportingDialog = ({
   groupedTimeEntry,
 }: Props) => {
   const dispatch = useAppDispatch();
-  // TODO: move reportedTime to GroupedTimeEntry
-  //       this would solve some issues and overhead
-  const [reportedTimeString, setReportedTimeString] = useState(
-    groupedTimeEntry.subEntries.reduce(
-      (sum, entry) => sum + (entry.logged ? entry.loggedTime ?? 0 : 0),
-      0
-    ) !== 0
-      ? formatElapsedTime(
-          groupedTimeEntry.subEntries.reduce(
-            (sum, entry) => sum + (entry.logged ? entry.loggedTime ?? 0 : 0),
-            0
-          )
-        )
-      : formatElapsedTime(groupedTimeEntry.elapsedTime)
-  );
-  const [isValid, setIsValid] = useState(true);
-  const reportedTime = isValid
-    ? parseElapsedTime(reportedTimeString)
-    : groupedTimeEntry.elapsedTime;
-
-  const handleChangeReportedTime = (value: string) => {
-    setReportedTimeString(value);
-    const isValid = /^\d{2}:\d{2}:\d{2}$/.test(value);
-    setIsValid(isValid);
-  };
-
-  const reportedTimesPerEntry = useMemo(() => {
-    console.log(">> reportedTime in memo", reportedTime);
-    const result = groupedTimeEntry.subEntries.map((entry) => {
-      const elapsedTime = entry.stopTime! - entry.startTime;
-      const ratio = elapsedTime / groupedTimeEntry.elapsedTime;
-      return {
-        id: entry.id,
-        reportedTime: Math.floor(reportedTime * ratio),
-      };
-    });
-    const combinedTimes = result.reduce(
-      (sum, entry) => sum + entry.reportedTime,
-      0
-    );
-    result[0].reportedTime =
-      result[0].reportedTime + (reportedTime - combinedTimes);
-    console.log(">> reported times per entry", result);
-    console.log(">> diff", reportedTime - combinedTimes);
-    return result;
-  }, [reportedTime, groupedTimeEntry]);
+  const {
+    isValid,
+    reportedTime,
+    setReportedTimeString,
+    reportedTimesPerEntry,
+  } = useReportedTimeState(groupedTimeEntry);
 
   const handleClear = () => {
     dispatch(timeEntriesClearTimeReported(groupedTimeEntry.ids));
@@ -88,36 +46,12 @@ export const TimeReportingDialog = ({
   };
 
   const handleIncreaseTime = () => {
-    let minutes = Math.round(Math.floor(reportedTime / (60 * 1000)) % 60);
-    let hours = Math.round(Math.floor(reportedTime / (60 * 60 * 1000)));
-
-    if (minutes >= 30) {
-      minutes = 0;
-      hours = hours + 1;
-    } else {
-      minutes = 30;
-    }
-
-    const result = minutes * 60 * 1000 + hours * 60 * 60 * 1000;
-
+    const result = round30MinutesUp(reportedTime.numerical);
     setReportedTimeString(formatElapsedTime(result));
   };
 
   const handleDecreaseTime = () => {
-    let minutes = Math.round(Math.floor(reportedTime / (60 * 1000)) % 60);
-    let hours = Math.round(Math.floor(reportedTime / (60 * 60 * 1000)));
-
-    if (minutes > 30) {
-      minutes = 30;
-    } else if (minutes === 0) {
-      minutes = 30;
-      hours = Math.max(0, hours - 1);
-    } else {
-      minutes = 0;
-    }
-
-    const result = minutes * 60 * 1000 + hours * 60 * 60 * 1000;
-
+    const result = round30MinutesDown(reportedTime.numerical);
     setReportedTimeString(formatElapsedTime(result));
   };
 
@@ -163,7 +97,6 @@ export const TimeReportingDialog = ({
               />
               <TextField
                 label="Reported time"
-                // value={formatElapsedTime(groupedTimeEntry.elapsedTime)}
                 value={formatElapsedTime(
                   reportedTimesPerEntry[idx].reportedTime
                 )}
@@ -191,8 +124,8 @@ export const TimeReportingDialog = ({
             />
             <TextField
               label="Reported time"
-              value={reportedTimeString}
-              onChange={(e) => handleChangeReportedTime(e.target.value)}
+              value={reportedTime.string}
+              onChange={(e) => setReportedTimeString(e.target.value)}
               className="flex-grow"
               autoFocus={true}
               error={!isValid}
@@ -239,3 +172,76 @@ export const TimeReportingDialog = ({
     </Dialog>
   );
 };
+
+function useReportedTimeState(groupedTimeEntry: GroupedTimeEntry) {
+  const [reportedTimeString, setReportedTimeString] = useState(
+    groupedTimeEntry.loggedTime !== 0
+      ? formatElapsedTime(groupedTimeEntry.loggedTime)
+      : formatElapsedTime(groupedTimeEntry.elapsedTime)
+  );
+  const isValid = /^\d{2}:\d{2}:\d{2}$/.test(reportedTimeString);
+  const reportedTimeNumerical = isValid
+    ? parseElapsedTime(reportedTimeString)
+    : groupedTimeEntry.elapsedTime;
+
+  // Calculate reported times for each entry
+  // with correct proportions based on user inputs in combined reportedTime
+  const reportedTimesPerEntry = useMemo(() => {
+    const result = groupedTimeEntry.subEntries.map((entry) => {
+      const elapsedTime = entry.stopTime! - entry.startTime;
+      const ratio = elapsedTime / groupedTimeEntry.elapsedTime;
+      return {
+        id: entry.id,
+        reportedTime: Math.floor(reportedTimeNumerical * ratio),
+      };
+    });
+    const combinedTimes = result.reduce(
+      (sum, entry) => sum + entry.reportedTime,
+      0
+    );
+    result[0].reportedTime =
+      result[0].reportedTime + (reportedTimeNumerical - combinedTimes);
+
+    return result;
+  }, [reportedTimeNumerical, groupedTimeEntry]);
+
+  return {
+    isValid,
+    reportedTime: {
+      string: reportedTimeString,
+      numerical: reportedTimeNumerical,
+    },
+    setReportedTimeString,
+    reportedTimesPerEntry,
+  };
+}
+
+function round30MinutesUp(timeMs: number) {
+  let minutes = Math.round(Math.floor(timeMs / (60 * 1000)) % 60);
+  let hours = Math.round(Math.floor(timeMs / (60 * 60 * 1000)));
+
+  if (minutes >= 30) {
+    minutes = 0;
+    hours = hours + 1;
+  } else {
+    minutes = 30;
+  }
+
+  return minutes * 60 * 1000 + hours * 60 * 60 * 1000;
+}
+
+function round30MinutesDown(timeMs: number) {
+  let minutes = Math.round(Math.floor(timeMs / (60 * 1000)) % 60);
+  let hours = Math.round(Math.floor(timeMs / (60 * 60 * 1000)));
+
+  if (minutes > 30) {
+    minutes = 30;
+  } else if (minutes === 0 && hours !== 0) {
+    minutes = 30;
+    hours = Math.max(0, hours - 1);
+  } else {
+    minutes = 0;
+  }
+
+  return minutes * 60 * 1000 + hours * 60 * 60 * 1000;
+}

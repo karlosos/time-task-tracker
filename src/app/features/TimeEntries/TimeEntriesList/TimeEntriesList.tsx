@@ -33,11 +33,7 @@ export const TimeEntriesList = () => {
           groupedTimeEntriesPerDate.reduce(
             (acc: number[], groupedTimeEntries) => [
               acc[0] + groupedTimeEntries.elapsedTime,
-              acc[1] +
-                groupedTimeEntries.subEntries.reduce(
-                  (sum, e) => sum + (e.logged ? e.loggedTime ?? 0 : 0),
-                  0
-                ),
+              acc[1] + groupedTimeEntries.loggedTime,
             ],
             [0, 0]
           );

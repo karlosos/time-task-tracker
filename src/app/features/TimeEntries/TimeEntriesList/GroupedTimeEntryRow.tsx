@@ -86,13 +86,7 @@ export const GroupedTimeEntryRow: React.FC<GroupedTimeEntryRowProps> = ({
 
               <div className="flex items-center text-xs font-medium ">
                 <span className="flex items-center  rounded rounded-t-none border bg-neutral-100 px-2 tabular-nums  text-neutral-700 opacity-50">
-                  {formatElapsedTime(
-                    groupedTimeEntry.subEntries.reduce(
-                      (sum, entry) =>
-                        sum + (entry.logged ? entry.loggedTime ?? 0 : 0),
-                      0
-                    )
-                  )}
+                  {formatElapsedTime(groupedTimeEntry.loggedTime)}
                 </span>
               </div>
             </div>
