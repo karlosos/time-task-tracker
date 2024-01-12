@@ -60,8 +60,7 @@ export const TimeReportingDialog = ({
       <DialogContent>
         <>
           <DialogTitle>Time Reporting</DialogTitle>
-          {/* TODO: problem with styling */}
-          <div className="mb-2 flex max-w-[600px]">
+          <div className="mb-2 flex max-w-[600px] overflow-hidden">
             <TimeEntryText timeEntryText={groupedTimeEntry.text} />
           </div>
           {groupedTimeEntry.subEntries.map((entry, idx) => (
@@ -69,7 +68,7 @@ export const TimeReportingDialog = ({
               <div className="mr-2 flex h-6 w-6 shrink-0 select-none items-center justify-center rounded border border-neutral-300 bg-neutral-100 text-xs font-medium">
                 {idx + 1}
               </div>
-              <div className="flex flex-col rounded border border-[#c4c4c4] text-sm font-medium text-neutral-700">
+              <div className="flex flex-col rounded border border-[#c4c4c4] text-xs font-medium text-neutral-700 sm:text-sm">
                 <div className="flex items-center">
                   <div className="w-14 rounded rounded-r-none rounded-bl-none border-neutral-500 bg-neutral-500 pl-2 pt-1 text-white">
                     From:
@@ -110,45 +109,47 @@ export const TimeReportingDialog = ({
 
           <hr />
 
-          <div className="flex items-center gap-2">
-            <div className="flex items-center justify-end pr-2 font-semibold text-neutral-800">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+            <div className="flex items-start justify-start pb-2 font-semibold text-neutral-800 sm:justify-end sm:pb-0 sm:pr-2">
               Combined:
             </div>
-            <TextField
-              label="Elapsed time"
-              value={formatElapsedTime(groupedTimeEntry.elapsedTime)}
-              className="flex-grow"
-              autoFocus={false}
-              inputProps={{ readOnly: true }}
-              disabled={true}
-            />
-            <TextField
-              label="Reported time"
-              value={reportedTime.string}
-              onChange={(e) => setReportedTimeString(e.target.value)}
-              className="flex-grow"
-              autoFocus={true}
-              error={!isValid}
-            />
-            <div className="flex flex-col">
-              <button
-                className="flex cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg rounded-b-none border border-b-0 border-neutral-300 bg-neutral-50 px-3 py-1 text-xs font-semibold text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900"
-                onClick={handleIncreaseTime}
-              >
-                <span className="flex justify-center text-sm">
-                  <ArrowUp size={16} />
-                </span>
-                30 min
-              </button>
-              <button
-                className="flex cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg rounded-t-none border border-neutral-300 bg-neutral-50 px-3 py-1 text-xs font-semibold text-neutral-700 hover:bg-neutral-100  hover:text-neutral-900"
-                onClick={handleDecreaseTime}
-              >
-                <span className="flex justify-center text-sm">
-                  <ArrowDown size={16} />
-                </span>
-                30 min
-              </button>
+            <div className="flex items-center gap-2">
+              <TextField
+                label="Elapsed time"
+                value={formatElapsedTime(groupedTimeEntry.elapsedTime)}
+                className="flex-grow"
+                autoFocus={false}
+                inputProps={{ readOnly: true }}
+                disabled={true}
+              />
+              <TextField
+                label="Reported time"
+                value={reportedTime.string}
+                onChange={(e) => setReportedTimeString(e.target.value)}
+                className="flex-grow"
+                autoFocus={true}
+                error={!isValid}
+              />
+              <div className="flex flex-col">
+                <button
+                  className="flex cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg rounded-b-none border border-b-0 border-neutral-300 bg-neutral-50 px-3 py-1 text-xs font-semibold text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900"
+                  onClick={handleIncreaseTime}
+                >
+                  <span className="flex justify-center text-sm">
+                    <ArrowUp size={16} />
+                  </span>
+                  30 min
+                </button>
+                <button
+                  className="flex cursor-pointer items-center gap-1 whitespace-nowrap rounded-lg rounded-t-none border border-neutral-300 bg-neutral-50 px-3 py-1 text-xs font-semibold text-neutral-700 hover:bg-neutral-100  hover:text-neutral-900"
+                  onClick={handleDecreaseTime}
+                >
+                  <span className="flex justify-center text-sm">
+                    <ArrowDown size={16} />
+                  </span>
+                  30 min
+                </button>
+              </div>
             </div>
           </div>
 
