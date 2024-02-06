@@ -1,13 +1,13 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import { loadState, saveState } from "./localStorage";
-import timeEntriesReducer from "../features/TimeEntries/store/slice";
-import settingsReducer from "../features/Settings/slice";
+import { timeEntries } from "../features/TimeEntries/store/slice";
+import { settings } from "../features/Settings/slice";
 
 const preloadedState = loadState();
 
 export const storeReducers = {
-  timeEntries: timeEntriesReducer,
-  settings: settingsReducer,
+  timeEntries: timeEntries.reducer,
+  settings: settings.reducer,
 };
 
 export const store = configureStore({
@@ -28,7 +28,7 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export type AppThunk<
   ExtraArgumentsType = any,
-  ReturnThunkActionType = void
+  ReturnThunkActionType = void,
 > = ThunkAction<
   ReturnThunkActionType,
   RootState,

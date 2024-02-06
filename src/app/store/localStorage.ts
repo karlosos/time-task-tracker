@@ -1,4 +1,7 @@
+import { EntityState } from "@reduxjs/toolkit";
 import { RootState } from "./store";
+import { TimeEntry } from "../features/TimeEntries/store";
+import { SettingsState } from "../features/Settings/slice";
 
 export const loadState = () => {
   try {
@@ -21,7 +24,12 @@ export const loadState = () => {
         isAdjustableTimeReportingEnabled: false,
       };
     }
-    return parsed;
+
+    // TODO: couldn't used RootState
+    return parsed as {
+      timeEntries: EntityState<TimeEntry, string>;
+      settings: SettingsState;
+    };
   } catch (err) {
     return undefined;
   }

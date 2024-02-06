@@ -13,8 +13,9 @@ const initialState: RootState = {
 
 function connectStore(
   component: ReactElement,
-  preloadedState: RootState = initialState
+  preloadedState: RootState = initialState,
 ) {
+  // TODO: see store.ts regarding preloadedState typing
   const store = configureStore({
     reducer: storeReducers,
     preloadedState,

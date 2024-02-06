@@ -65,8 +65,6 @@ export const settings = createSlice({
 
 export const { patternsChanged, setAdjustableTimeReporting } = settings.actions;
 
-export default settings.reducer;
-
 export const downloadAppData = (): AppThunk => async (_dispatch, getState) => {
   const data = getState();
   const filename = `tracking-data-${formatDateTime(new Date())}`;

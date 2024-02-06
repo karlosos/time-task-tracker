@@ -2,7 +2,6 @@ import {
   createSlice,
   createEntityAdapter,
   EntityState,
-  EntityId,
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { clearAppState, loadBackup } from "../../../store/commonActions";
@@ -20,7 +19,7 @@ export interface TimeEntry {
 
 export const timeEntriesAdapter = createEntityAdapter<TimeEntry>();
 
-export let timeEntriesInitialState: EntityState<TimeEntry>;
+export let timeEntriesInitialState: EntityState<TimeEntry, string>;
 // Change to false for using example data
 if (true) {
   timeEntriesInitialState = {
@@ -37,11 +36,11 @@ export const timeEntries = createSlice({
   reducers: {
     timeEntryAdded: (
       state,
-      action: PayloadAction<{ text: string; startTime: number }>
+      action: PayloadAction<{ text: string; startTime: number }>,
     ) => {
       // Stop currently running entry
       const currentTimeEntry = Object.values(state.entities).find(
-        (timeEntry) => timeEntry?.stopTime === undefined
+        (timeEntry) => timeEntry?.stopTime === undefined,
       );
       if (currentTimeEntry?.id) {
         state.entities[currentTimeEntry.id]!.stopTime = Date.now();
@@ -62,7 +61,7 @@ export const timeEntries = createSlice({
 
     timeEntryRemoved: timeEntriesAdapter.removeOne,
 
-    timeEntryStopped: (state, action: PayloadAction<EntityId>) => {
+    timeEntryStopped: (state, action: PayloadAction<string>) => {
       const changes: Partial<TimeEntry> = {
         stopTime: Date.now(),
       };
@@ -71,7 +70,7 @@ export const timeEntries = createSlice({
 
     timeEntriesLoggedStatusChanged: (
       state,
-      action: PayloadAction<EntityId[]>
+      action: PayloadAction<string[]>,
     ) => {
       const ids = action.payload;
       ids.forEach((id) => {
@@ -85,10 +84,10 @@ export const timeEntries = createSlice({
       state,
       action: PayloadAction<
         {
-          id: EntityId;
+          id: string;
           reportedTime: number;
         }[]
-      >
+      >,
     ) => {
       action.payload.forEach(({ id, reportedTime }) => {
         if (state.entities[id]) {
@@ -100,7 +99,7 @@ export const timeEntries = createSlice({
 
     timeEntriesClearTimeReported: (
       state,
-      action: PayloadAction<EntityId[]>
+      action: PayloadAction<string[]>,
     ) => {
       const ids = action.payload;
       ids.forEach((id) => {
@@ -130,5 +129,3 @@ export const {
   timeEntriesTimeReported,
   timeEntriesClearTimeReported,
 } = timeEntries.actions;
-
-export default timeEntries.reducer;
