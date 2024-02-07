@@ -24,7 +24,7 @@ describe("TopBar Editing", () => {
             },
           },
         },
-      })
+      }),
     );
 
     const timer = screen.getByText("00:03:00");
@@ -73,7 +73,7 @@ describe("TopBar Editing", () => {
 
     // assert
     expect(
-      screen.queryByText("--Completely new task--")
+      screen.queryByText("--Completely new task--"),
     ).not.toBeInTheDocument();
     expect(screen.getByTitle("DX1-3213: Doing something")).toBeInTheDocument();
   });

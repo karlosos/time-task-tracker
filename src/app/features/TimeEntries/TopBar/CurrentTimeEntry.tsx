@@ -70,20 +70,20 @@ export const CurrentTimeEntry: React.FC<CurrentTimeEntryProps> = ({
 
 const useElapsedTimeForEntry = (currentTimeEntry: TimeEntry) => {
   const [elapsedTime, setElapsedTime] = useState<number>(
-    currentTimeEntry ? Date.now() - currentTimeEntry.startTime : 0
+    currentTimeEntry ? Date.now() - currentTimeEntry.startTime : 0,
   );
   const intervalRef = useRef<ReturnType<typeof setInterval>>();
 
   useEffect(() => {
     setElapsedTime(
-      currentTimeEntry ? Date.now() - currentTimeEntry.startTime : 0
+      currentTimeEntry ? Date.now() - currentTimeEntry.startTime : 0,
     );
   }, [currentTimeEntry]);
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       setElapsedTime(
-        currentTimeEntry ? Date.now() - currentTimeEntry.startTime : 0
+        currentTimeEntry ? Date.now() - currentTimeEntry.startTime : 0,
       );
     }, 500);
 

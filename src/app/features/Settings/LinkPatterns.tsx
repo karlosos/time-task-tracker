@@ -17,11 +17,11 @@ export const LinkPatterns = () => {
   const dispatch = useAppDispatch();
 
   const storePatterns = useAppSelector(
-    (state: RootState) => state.settings.patterns
+    (state: RootState) => state.settings.patterns,
   );
 
   const [patterns, setPatterns] = useState<LinkPattern[]>(
-    structuredClone(storePatterns)
+    structuredClone(storePatterns),
   );
 
   useEffect(() => {

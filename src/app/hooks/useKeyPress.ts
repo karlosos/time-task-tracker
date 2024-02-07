@@ -3,7 +3,7 @@ import { useCallback, useEffect } from "react";
 export function useKeyPress(
   callback: () => void,
   keyCodes: string[],
-  ref: React.RefObject<HTMLElement>
+  ref: React.RefObject<HTMLElement>,
 ): void {
   const handler = useCallback(
     ({ code }: KeyboardEvent) => {
@@ -11,7 +11,7 @@ export function useKeyPress(
         callback();
       }
     },
-    [callback, keyCodes]
+    [callback, keyCodes],
   );
 
   useEffect(() => {

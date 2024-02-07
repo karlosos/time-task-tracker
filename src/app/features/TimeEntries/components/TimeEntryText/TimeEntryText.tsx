@@ -5,7 +5,7 @@ export const TimeEntryText: React.FC<{ timeEntryText: string }> = ({
   timeEntryText,
 }) => {
   const patterns = useAppSelector(
-    (state: RootState) => state.settings.patterns
+    (state: RootState) => state.settings.patterns,
   );
 
   // Create a regular expression pattern that matches all the regex patterns from the input array
@@ -23,7 +23,7 @@ export const TimeEntryText: React.FC<{ timeEntryText: string }> = ({
 
     // Find the index of the regex pattern that matches the text slice
     const patternIndex = patterns.findIndex(({ regex }) =>
-      slice.match(new RegExp(regex))
+      slice.match(new RegExp(regex)),
     );
 
     if (patternIndex >= 0) {

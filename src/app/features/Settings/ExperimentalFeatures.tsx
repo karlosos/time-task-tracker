@@ -8,7 +8,7 @@ export const ExperimentalFeatures = () => {
   const dispatch = useAppDispatch();
   const isAdjustableTimeReportingEnabled = useAppSelector(
     (state: RootState) =>
-      state.settings.featureFlags.isAdjustableTimeReportingEnabled
+      state.settings.featureFlags.isAdjustableTimeReportingEnabled,
   );
 
   return (

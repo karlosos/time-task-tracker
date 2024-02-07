@@ -29,10 +29,10 @@ describe("TopBar Ongoing", () => {
 
     // assert
     expect(
-      screen.queryByRole("button", { name: "add entry" })
+      screen.queryByRole("button", { name: "add entry" }),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "stop timer" })
+      screen.getByRole("button", { name: "stop timer" }),
     ).toBeInTheDocument();
   });
 
@@ -59,17 +59,17 @@ describe("TopBar Ongoing", () => {
 
     // assert
     expect(
-      screen.queryByRole("button", { name: "stop timer" })
+      screen.queryByRole("button", { name: "stop timer" }),
     ).not.toBeInTheDocument();
     expect(screen.queryByText("--Test entry 1--")).not.toBeInTheDocument();
 
     expect(
-      screen.getByRole("button", { name: "add entry" })
+      screen.getByRole("button", { name: "add entry" }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("textbox", {
         name: "new entry text",
-      })
+      }),
     ).toBeInTheDocument();
   });
 
@@ -82,7 +82,7 @@ describe("TopBar Ongoing", () => {
 
     // assert
     expect(
-      screen.getByRole("textbox", { name: "Current entry text" })
+      screen.getByRole("textbox", { name: "Current entry text" }),
     ).toBeInTheDocument();
     expect(screen.getByTestId(testId.startTime)).toBeInTheDocument();
     expect(screen.getByTestId(testId.stopTime)).toBeInTheDocument();

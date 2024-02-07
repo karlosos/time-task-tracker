@@ -97,10 +97,7 @@ export const timeEntries = createSlice({
       });
     },
 
-    timeEntriesClearTimeReported: (
-      state,
-      action: PayloadAction<string[]>,
-    ) => {
+    timeEntriesClearTimeReported: (state, action: PayloadAction<string[]>) => {
       const ids = action.payload;
       ids.forEach((id) => {
         if (state.entities[id]) {

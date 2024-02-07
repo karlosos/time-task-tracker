@@ -34,16 +34,16 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
           stopTime: stopTimeValue,
           text: entryText,
         },
-      })
+      }),
     );
     setIsEditVisible(false);
   };
 
   const [startTimeValue, setStartTimeValue] = useState<number>(
-    timeEntry.startTime
+    timeEntry.startTime,
   );
   const [stopTimeValue, setStopTimeValue] = useState<number | undefined>(
-    timeEntry.stopTime
+    timeEntry.stopTime,
   );
   const [entryText, setEntryText] = useState<string>(timeEntry.text);
 

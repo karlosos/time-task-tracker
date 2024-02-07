@@ -29,12 +29,12 @@ export const GroupedTimeEntryRow: React.FC<GroupedTimeEntryRowProps> = ({
     useState(false);
   const isAdjustableTimeReportingEnabled = useAppSelector(
     (state: RootState) =>
-      state.settings.featureFlags.isAdjustableTimeReportingEnabled
+      state.settings.featureFlags.isAdjustableTimeReportingEnabled,
   );
 
   const handleAddTimeEntryClick = () => {
     dispatch(
-      timeEntryAdded({ text: groupedTimeEntry.text, startTime: Date.now() })
+      timeEntryAdded({ text: groupedTimeEntry.text, startTime: Date.now() }),
     );
   };
 

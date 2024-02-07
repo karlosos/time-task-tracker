@@ -9,7 +9,7 @@ describe("TimeEntriesList", () => {
     render(
       connectStore(<TimeEntriesList />, {
         timeEntries: timeEntriesFixture,
-      })
+      }),
     );
   };
 
@@ -18,14 +18,14 @@ describe("TimeEntriesList", () => {
 
     // assert
     expect(
-      screen.getByTitle("DX1-4444: Task 4 with some logged entries")
+      screen.getByTitle("DX1-4444: Task 4 with some logged entries"),
     ).toBeInTheDocument();
     expect(
-      screen.getByTitle("DX1-3: Task 3 with logged entries")
+      screen.getByTitle("DX1-3: Task 3 with logged entries"),
     ).toBeInTheDocument();
     expect(screen.getAllByTitle("DX1-1: Task 1")).toHaveLength(2);
     expect(
-      screen.getAllByTitle("DX1-2: Task 2 with multiple entries")
+      screen.getAllByTitle("DX1-2: Task 2 with multiple entries"),
     ).toHaveLength(2);
   });
 
@@ -42,15 +42,15 @@ describe("TimeEntriesList", () => {
   it("THEN tasks are collapsed by name and time is summed", () => {
     arrange();
     const groupedRow = screen.getByTitle(
-      "DX1-4444: Task 4 with some logged entries"
+      "DX1-4444: Task 4 with some logged entries",
     ).parentElement;
 
     // assert
     expect(within(groupedRow!).getByText("3")).toBeInTheDocument(); // number of collapsed elements
     expect(
       within(groupedRow!).getByTitle(
-        "DX1-4444: Task 4 with some logged entries"
-      )
+        "DX1-4444: Task 4 with some logged entries",
+      ),
     ).toBeInTheDocument();
     expect(within(groupedRow!).getByText("00:03:05")).toBeInTheDocument();
     expect(within(groupedRow!).getByRole("checkbox")).toBeDisabled();

@@ -13,7 +13,7 @@ export const DropZone: React.FC<Props> = ({ setFile, setError }) => {
     (acceptedFiles: File[]) => {
       setFile(acceptedFiles[0]);
     },
-    [setFile]
+    [setFile],
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -30,7 +30,7 @@ export const DropZone: React.FC<Props> = ({ setFile, setError }) => {
         htmlFor="dropzone-file"
         className={cn(
           "dark:hover:bg-bray-800 flex h-52 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600",
-          isDragActive ? "border-sky-500" : ""
+          isDragActive ? "border-sky-500" : "",
         )}
       >
         <div className="flex flex-col items-center justify-center pb-6 pt-5">

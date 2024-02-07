@@ -15,11 +15,11 @@ const TIME_ENTRIES_LIMIT = 50;
 export const TimeEntriesList = () => {
   const [timeEntriesLimit, setTimeEntriesLimit] = useState(TIME_ENTRIES_LIMIT);
   const groupedTimeEntries = useAppSelector((state) =>
-    selectTimeEntriesGroupedByDate(state, timeEntriesLimit)
+    selectTimeEntriesGroupedByDate(state, timeEntriesLimit),
   );
 
   const sortedTimeEntries = Array.from(groupedTimeEntries.entries()).sort(
-    (a, b) => (a[0] > b[0] ? -1 : 1)
+    (a, b) => (a[0] > b[0] ? -1 : 1),
   );
 
   if (sortedTimeEntries.length === 0) {
@@ -35,7 +35,7 @@ export const TimeEntriesList = () => {
               acc[0] + groupedTimeEntries.elapsedTime,
               acc[1] + groupedTimeEntries.loggedTime,
             ],
-            [0, 0]
+            [0, 0],
           );
         return (
           <div
@@ -76,7 +76,7 @@ function DayHeader({
 }) {
   const isAdjustableTimeReportingEnabled = useAppSelector(
     (state: RootState) =>
-      state.settings.featureFlags.isAdjustableTimeReportingEnabled
+      state.settings.featureFlags.isAdjustableTimeReportingEnabled,
   );
 
   if (isAdjustableTimeReportingEnabled) {

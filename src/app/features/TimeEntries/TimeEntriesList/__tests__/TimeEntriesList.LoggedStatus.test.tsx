@@ -11,7 +11,7 @@ describe("TimeEntriesList Logged Status", () => {
     render(
       connectStore(<TimeEntriesList />, {
         timeEntries: timeEntriesFixture,
-      })
+      }),
     );
 
     return { user };
@@ -43,7 +43,7 @@ describe("TimeEntriesList Logged Status", () => {
     expect(within(entryRow).getByRole("checkbox")).toBeDisabled();
     expect(within(entryRow).getByRole("checkbox")).toHaveAttribute(
       "data-indeterminate",
-      "true"
+      "true",
     );
   });
 
@@ -78,35 +78,36 @@ describe("TimeEntriesList Logged Status", () => {
     await user.click(within(entryRow).getByRole("checkbox"));
     await user.click(
       within(screen.getAllByLabelText("Time entry child row")[0]).getByRole(
-        "checkbox"
-      )
+        "checkbox",
+      ),
     );
 
     // assert
     expect(within(entryRow).getByRole("checkbox")).toBeDisabled();
     expect(within(entryRow).getByRole("checkbox")).toHaveAttribute(
       "data-indeterminate",
-      "true"
+      "true",
     );
   });
 });
 
 const getEntryWithUncheckedChildren = () => {
   const entryRow = screen.getAllByTitle(
-    "DX1-2: Task 2 with multiple entries"
+    "DX1-2: Task 2 with multiple entries",
   )[0].parentElement!;
   const expandButton = within(entryRow).getByLabelText(
-    "Grouped entry accordion"
+    "Grouped entry accordion",
   );
 
   return { entryRow, expandButton };
 };
 
 const getEntryWithCheckedChildren = () => {
-  const entryRow = screen.getByTitle("DX1-3: Task 3 with logged entries")
-    .parentElement!;
+  const entryRow = screen.getByTitle(
+    "DX1-3: Task 3 with logged entries",
+  ).parentElement!;
   const expandButton = within(entryRow).getByLabelText(
-    "Grouped entry accordion"
+    "Grouped entry accordion",
   );
 
   return { entryRow, expandButton };
@@ -114,10 +115,10 @@ const getEntryWithCheckedChildren = () => {
 
 const getEntryWithMixedChildren = () => {
   const entryRow = screen.getByTitle(
-    "DX1-4444: Task 4 with some logged entries"
+    "DX1-4444: Task 4 with some logged entries",
   ).parentElement!;
   const expandButton = within(entryRow).getByLabelText(
-    "Grouped entry accordion"
+    "Grouped entry accordion",
   );
 
   return { entryRow, expandButton };
@@ -126,7 +127,7 @@ const getEntryWithMixedChildren = () => {
 const assertAllChidrenCheckedStatus = async (
   user: UserEvent,
   expandRowButton: HTMLElement,
-  isChecked: boolean
+  isChecked: boolean,
 ) => {
   await user.click(expandRowButton);
 

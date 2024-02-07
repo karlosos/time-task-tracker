@@ -30,7 +30,7 @@ const buttonVariants = cva(
       variant: "outline",
       size: "default",
     },
-  }
+  },
 );
 
 const HoldButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -40,7 +40,7 @@ const HoldButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
     const startTime = React.useRef<number | null>(null);
     const holdIntervalRef = React.useRef<ReturnType<typeof setInterval> | null>(
-      null
+      null,
     );
     const popoverTimeoutRef = React.useRef<ReturnType<
       typeof setTimeout
@@ -66,7 +66,7 @@ const HoldButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
       holdIntervalRef.current = setInterval(() => {
         if (startTime.current) {
           setPercentage(
-            Math.floor(((Date.now() - startTime.current) / holdDelay) * 100)
+            Math.floor(((Date.now() - startTime.current) / holdDelay) * 100),
           );
           if (Date.now() - startTime.current > holdDelay) {
             stopCounter();
@@ -99,7 +99,7 @@ const HoldButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
             <button
               className={cn(
                 buttonVariants({ variant, size, className }),
-                startTime.current ? styles.holding : styles.idle
+                startTime.current ? styles.holding : styles.idle,
               )}
               ref={ref}
               {...props}
@@ -122,7 +122,7 @@ const HoldButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
         </Popover>
       </div>
     );
-  }
+  },
 );
 HoldButton.displayName = "Button";
 

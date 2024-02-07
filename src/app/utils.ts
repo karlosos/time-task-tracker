@@ -11,7 +11,7 @@ export const formatElapsedTime = (timeDiff: number) => {
   const hours = Math.round(timeDiff);
   return `${addLeadingZeros(hours, 2)}:${addLeadingZeros(
     minutes,
-    2
+    2,
   )}:${addLeadingZeros(seconds, 2)}`;
 };
 

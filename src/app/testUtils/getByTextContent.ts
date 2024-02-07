@@ -6,7 +6,7 @@ export const getByTextContent = (text: string) => {
       element ? element.textContent === text : false;
     const elementHasText = hasText(element);
     const childrenDontHaveText = Array.from(element?.children || []).every(
-      (child) => !hasText(child)
+      (child) => !hasText(child),
     );
     return elementHasText && childrenDontHaveText;
   });

@@ -16,12 +16,12 @@ describe("TimeEntry Edit", () => {
     render(
       connectStore(<TimeEntriesList />, {
         timeEntries: timeEntriesFixture,
-      })
+      }),
     );
 
     const entryRow = screen.getAllByTitle("DX1-1: Task 1")[0].parentElement!;
     const expandButton = within(entryRow).getByLabelText(
-      "Grouped entry accordion"
+      "Grouped entry accordion",
     );
     await user.click(expandButton);
     await user.click(screen.getByLabelText("Edit entry"));
@@ -76,7 +76,7 @@ describe("TimeEntry Edit", () => {
 
     // assert
     expect(
-      screen.queryByText("--Completely new task--")
+      screen.queryByText("--Completely new task--"),
     ).not.toBeInTheDocument();
     expect(screen.getAllByTitle("DX1-1: Task 1")).toHaveLength(2);
   });

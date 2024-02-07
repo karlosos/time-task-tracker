@@ -97,7 +97,7 @@ export const TimeReportingDialog = ({
               <TextField
                 label="Reported time"
                 value={formatElapsedTime(
-                  reportedTimesPerEntry[idx].reportedTime
+                  reportedTimesPerEntry[idx].reportedTime,
                 )}
                 className="flex-grow"
                 autoFocus={false}
@@ -178,7 +178,7 @@ function useReportedTimeState(groupedTimeEntry: GroupedTimeEntry) {
   const [reportedTimeString, setReportedTimeString] = useState(
     groupedTimeEntry.loggedTime !== 0
       ? formatElapsedTime(groupedTimeEntry.loggedTime)
-      : formatElapsedTime(groupedTimeEntry.elapsedTime)
+      : formatElapsedTime(groupedTimeEntry.elapsedTime),
   );
   const isValid = /^\d{2}:\d{2}:\d{2}$/.test(reportedTimeString);
   const reportedTimeNumerical = isValid
@@ -198,7 +198,7 @@ function useReportedTimeState(groupedTimeEntry: GroupedTimeEntry) {
     });
     const combinedTimes = result.reduce(
       (sum, entry) => sum + entry.reportedTime,
-      0
+      0,
     );
     result[0].reportedTime =
       result[0].reportedTime + (reportedTimeNumerical - combinedTimes);
