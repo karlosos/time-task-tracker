@@ -62,6 +62,7 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
         />
         <div data-testid={testId.startTime}>
           <DatePicker
+            portalId="root-portal"
             className="border-gray_border rounded border hover:border-black focus:outline-blue-500"
             selected={new Date(startTimeValue)}
             wrapperClassName={styles.date_picker}
@@ -75,6 +76,7 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
         </div>
         <div data-testid={testId.stopTime}>
           <DatePicker
+            portalId="root-portal"
             className="border-gray_border rounded border hover:border-black focus:outline-blue-500"
             disabled={!stopTimeValue}
             wrapperClassName={styles.date_picker}
