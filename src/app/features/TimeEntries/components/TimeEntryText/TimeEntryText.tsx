@@ -33,6 +33,8 @@ export const TimeEntryText: React.FC<{ timeEntryText: string }> = ({
         <a
           key={id}
           href={`${url}${slice}`}
+          target="_blank"
+          rel="noreferrer noopener"
           className="text-indigo-600 hover:underline"
         >
           {slice}
