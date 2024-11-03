@@ -66,8 +66,8 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
             className="border-gray_border rounded border hover:border-black focus:outline-blue-500"
             selected={new Date(startTimeValue)}
             wrapperClassName={styles.date_picker}
-            onChange={(date: Date) =>
-              date && setStartTimeValue(date?.getTime())
+            onChange={(date: Date | null) =>
+              date ? setStartTimeValue(date.getTime()) : null
             }
             timeInputLabel="Time:"
             dateFormat="HH:mm"
@@ -83,7 +83,9 @@ export const TimeEntryEdit: React.FC<TimeEntryEditProps> = ({
             selected={
               stopTimeValue ? new Date(stopTimeValue) : new Date(Date.now())
             }
-            onChange={(date: Date) => date && setStopTimeValue(date?.getTime())}
+            onChange={(date: Date | null) =>
+              date ? setStopTimeValue(date.getTime()) : null
+            }
             timeInputLabel="Time:"
             dateFormat="HH:mm"
             showTimeInput

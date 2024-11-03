@@ -1,6 +1,5 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
 import connectStore from "../../../../testUtils/connectStore";
 import { testId } from "../../../../testUtils/testId";
 import { TopBar } from "../TopBar";

@@ -82,7 +82,7 @@ const groupTimeEntriesByText = (
     found.subEntries.push(current);
     found.logged.push(current.logged);
     found.loggedTime =
-      found.loggedTime + (current.logged ? current.loggedTime ?? 0 : 0);
+      found.loggedTime + (current.logged ? (current.loggedTime ?? 0) : 0);
   } else {
     grouped.push({
       text: current.text,
@@ -91,7 +91,7 @@ const groupTimeEntriesByText = (
       elapsedTime: diff,
       date: formatDayMonthYear(current.stopTime!),
       logged: [current.logged],
-      loggedTime: current.logged ? current.loggedTime ?? 0 : 0,
+      loggedTime: current.logged ? (current.loggedTime ?? 0) : 0,
     });
   }
 
