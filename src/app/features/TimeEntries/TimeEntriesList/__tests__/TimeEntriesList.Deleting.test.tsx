@@ -1,7 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import connectStore from "../../../../testUtils/connectStore";
-import { timeEntriesFixture } from "../../store/fixtures";
+import { settingsFixture, timeEntriesFixture } from "../../store/fixtures";
 import { TimeEntriesList } from "../TimeEntriesList";
 
 describe("TimeEntriesList Deleting", () => {
@@ -10,6 +10,7 @@ describe("TimeEntriesList Deleting", () => {
     render(
       connectStore(<TimeEntriesList />, {
         timeEntries: timeEntriesFixture,
+        settings: settingsFixture,
       }),
     );
     return { user };

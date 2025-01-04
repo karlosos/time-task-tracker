@@ -1,5 +1,6 @@
 import { EntityState } from "@reduxjs/toolkit";
 import { TimeEntry } from "./slice";
+import { SettingsState, settingsInitialState } from "../../Settings/slice";
 
 export const timeEntriesFixture: EntityState<TimeEntry, string> = {
   ids: [
@@ -103,3 +104,5 @@ export const timeEntriesFixture: EntityState<TimeEntry, string> = {
     },
   },
 };
+
+export const settingsFixture: SettingsState = settingsInitialState;

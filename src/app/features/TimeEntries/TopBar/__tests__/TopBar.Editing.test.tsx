@@ -1,7 +1,8 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import connectStore from "../../../../testUtils/connectStore";
 import { TopBar } from "../TopBar";
+import { settingsFixture } from "../../store/fixtures";
 
 describe("TopBar Editing", () => {
   beforeEach(() => {
@@ -24,6 +25,7 @@ describe("TopBar Editing", () => {
             },
           },
         },
+        settings: settingsFixture,
       }),
     );
 
@@ -49,7 +51,9 @@ describe("TopBar Editing", () => {
     await user.clear(startTimeInput);
     await user.type(startTimeInput, "20:05");
 
-    await user.click(saveButton);
+    await act(async () => {
+      await user.click(saveButton);
+    });
 
     // assert
     expect(screen.getByText("--Completely new task--")).toBeInTheDocument();

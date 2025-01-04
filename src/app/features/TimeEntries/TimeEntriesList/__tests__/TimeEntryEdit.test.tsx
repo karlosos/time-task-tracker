@@ -1,7 +1,7 @@
-import { render, screen, within } from "@testing-library/react";
+import { act, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import connectStore from "../../../../testUtils/connectStore";
-import { timeEntriesFixture } from "../../store/fixtures";
+import { settingsFixture, timeEntriesFixture } from "../../store/fixtures";
 import { TimeEntriesList } from "../TimeEntriesList";
 
 process.env.TZ = "UTC";
@@ -16,6 +16,7 @@ describe("TimeEntry Edit", () => {
     render(
       connectStore(<TimeEntriesList />, {
         timeEntries: timeEntriesFixture,
+        settings: settingsFixture,
       }),
     );
 
@@ -50,7 +51,9 @@ describe("TimeEntry Edit", () => {
     await user.clear(stopTimeInput);
     await user.type(stopTimeInput, "20:10");
 
-    await user.click(saveButton);
+    await act(async () => {
+      await user.click(saveButton);
+    });
 
     // assert
     await user.click(collapseButton);

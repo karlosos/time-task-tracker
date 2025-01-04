@@ -2,7 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
 import connectStore from "../../../../testUtils/connectStore";
-import { timeEntriesFixture } from "../../store/fixtures";
+import { settingsFixture, timeEntriesFixture } from "../../store/fixtures";
 import { TimeEntriesList } from "../TimeEntriesList";
 
 describe("TimeEntriesList Logged Status", () => {
@@ -11,6 +11,7 @@ describe("TimeEntriesList Logged Status", () => {
     render(
       connectStore(<TimeEntriesList />, {
         timeEntries: timeEntriesFixture,
+        settings: settingsFixture,
       }),
     );
 
