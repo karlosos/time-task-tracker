@@ -1,4 +1,4 @@
-import { act, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import connectStore from "../../../../testUtils/connectStore";
 import { TopBar } from "../TopBar";
@@ -51,9 +51,7 @@ describe("TopBar Editing", () => {
     await user.clear(startTimeInput);
     await user.type(startTimeInput, "20:05");
 
-    await act(async () => {
-      await user.click(saveButton);
-    });
+    await user.click(saveButton);
 
     // assert
     expect(screen.getByText("--Completely new task--")).toBeInTheDocument();

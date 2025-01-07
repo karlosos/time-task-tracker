@@ -12,7 +12,7 @@ const initialState: RootState = {
 };
 
 function connectStore(
-  component: ReactElement,
+  component: ReactElement<any>,
   preloadedState: RootState = initialState,
 ) {
   // TODO: see store.ts regarding preloadedState typing

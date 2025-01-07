@@ -1,4 +1,4 @@
-import { act, render, screen, within } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import connectStore from "../../../../testUtils/connectStore";
 import { settingsFixture, timeEntriesFixture } from "../../store/fixtures";
@@ -51,9 +51,7 @@ describe("TimeEntry Edit", () => {
     await user.clear(stopTimeInput);
     await user.type(stopTimeInput, "20:10");
 
-    await act(async () => {
-      await user.click(saveButton);
-    });
+    await user.click(saveButton);
 
     // assert
     await user.click(collapseButton);
