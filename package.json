@@ -5,12 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "jest",
     "lint": "eslint .",
     "format": "npx prettier --write .",
     "format:check": "npx prettier --check .",
+    "typecheck": "tsc --noEmit",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -36,7 +37,7 @@
     "react-redux": "^9.2.0",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^4.9.5",
+    "typescript": "^5.7.2",
     "vite": "^6.0.7",
     "web-vitals": "^4.2.4"
   },
