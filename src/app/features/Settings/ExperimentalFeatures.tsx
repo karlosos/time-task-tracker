@@ -27,7 +27,7 @@ export const ExperimentalFeatures = () => {
           onCheckedChange={(checked) =>
             dispatch(setAdjustableTimeReporting(checked))
           }
-          className="h-5 w-9"
+          className="h-5 w-9 ml-1"
         />
       </div>
     </>
