@@ -31,6 +31,9 @@ export const GroupedTimeEntryRow: React.FC<GroupedTimeEntryRowProps> = ({
     (state: RootState) =>
       state.settings.featureFlags.isAdjustableTimeReportingEnabled,
   );
+  const areTagPillsVisible = useAppSelector(
+    (state: RootState) => state.settings.featureFlags.areTagPillsVisible,
+  );
 
   const handleAddTimeEntryClick = () => {
     dispatch(
@@ -120,6 +123,7 @@ export const GroupedTimeEntryRow: React.FC<GroupedTimeEntryRowProps> = ({
 
       {!isCollapsed && (
         <div className="flex flex-col">
+          {areTagPillsVisible && <div>Tags pills</div>}
           {[...groupedTimeEntry.subEntries].reverse().map((entry) => (
             <TimeEntryRow timeEntry={entry} key={entry.id} />
           ))}

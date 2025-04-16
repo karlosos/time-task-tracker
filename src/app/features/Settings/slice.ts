@@ -11,6 +11,7 @@ export type SettingsState = {
   patterns: LinkPattern[];
   featureFlags: {
     isAdjustableTimeReportingEnabled: boolean;
+    areTagPillsVisible: boolean;
   };
 };
 
@@ -39,6 +40,7 @@ export const settingsInitialState: SettingsState = {
   ],
   featureFlags: {
     isAdjustableTimeReportingEnabled: false,
+    areTagPillsVisible: false,
   },
 };
 
@@ -52,6 +54,9 @@ export const settings = createSlice({
     setAdjustableTimeReporting: (state, action: PayloadAction<boolean>) => {
       state.featureFlags.isAdjustableTimeReportingEnabled = action.payload;
     },
+    setTagPillsVisibility: (state, action: PayloadAction<boolean>) => {
+      state.featureFlags.areTagPillsVisible = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(clearAppState, (state, action) => {
@@ -63,7 +68,7 @@ export const settings = createSlice({
   },
 });
 
-export const { patternsChanged, setAdjustableTimeReporting } = settings.actions;
+export const { patternsChanged, setAdjustableTimeReporting, setTagPillsVisibility } = settings.actions;
 
 export const downloadAppData = (): AppThunk => async (_dispatch, getState) => {
   const data = getState();
