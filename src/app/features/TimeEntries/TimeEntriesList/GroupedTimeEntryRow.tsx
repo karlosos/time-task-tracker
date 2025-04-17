@@ -15,6 +15,7 @@ import {
 import { Button } from "../../../ui/Button";
 import { TimeReportingDialog } from "./TimeReportingDialog";
 import { RootState } from "../../../store/store";
+import { TagsPills } from "./TagsPills";
 
 interface GroupedTimeEntryRowProps {
   groupedTimeEntry: GroupedTimeEntry;
@@ -123,7 +124,7 @@ export const GroupedTimeEntryRow: React.FC<GroupedTimeEntryRowProps> = ({
 
       {!isCollapsed && (
         <div className="flex flex-col">
-          {areTagPillsVisible && <div>Tags pills</div>}
+          {areTagPillsVisible && <TagsPills text={groupedTimeEntry.text} />}
           {[...groupedTimeEntry.subEntries].reverse().map((entry) => (
             <TimeEntryRow timeEntry={entry} key={entry.id} />
           ))}
