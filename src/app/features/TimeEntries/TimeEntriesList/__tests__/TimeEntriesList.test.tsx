@@ -57,7 +57,7 @@ describe("TimeEntriesList", () => {
     expect(within(groupedRow!).getByRole("checkbox")).toBeDisabled();
   });
 
-  it("WHEN time is counting THEN all items are displayer", async () => {
+  it("WHEN time is counting THEN all items are displayed", async () => {
     // arrange
     arrange();
     const user = userEvent.setup();

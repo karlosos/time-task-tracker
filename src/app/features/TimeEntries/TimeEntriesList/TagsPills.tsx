@@ -34,7 +34,7 @@ const TagPill = ({ tag }: { tag: { url: string; text: string } }) => {
   };
 
   return (
-    <span className="flex flex-row gap-1 items-center bg-neutral-100 rounded-sm border text-indigo-600 font-medium">
+    <span className="flex flex-row gap-1 items-center bg-neutral-100 rounded-sm border text-indigo-600 font-medium" aria-label="pattern tag">
       <a
         className="pl-1.5 pr-0.5 py-0.5"
         href={tag.url}
@@ -46,6 +46,7 @@ const TagPill = ({ tag }: { tag: { url: string; text: string } }) => {
       <div
         className="bg-neutral-50 rounded-r-sm px-1 py-0.5 border-l border-l-neutral-200 h-full flex items-center duration-250"
         onClick={handleCopy}
+        aria-label="copy to clipboard"
       >
         {isCopied ? (
           <ClipboardCheckIcon className="w-3 h-3 text-neutral-600" />

@@ -5,7 +5,7 @@ import { settingsFixture, timeEntriesFixture } from "../../store/fixtures";
 import { TimeEntriesList } from "../TimeEntriesList";
 
 describe("Grouped Time Entry Tags", () => {
-  const arrange = ({areTagPillsVisible}: {areTagPillsVisible: boolean}) => {
+  const arrange = ({ areTagPillsVisible }: { areTagPillsVisible: boolean }) => {
     const user = userEvent.setup();
     render(
       connectStore(<TimeEntriesList />, {
@@ -24,25 +24,42 @@ describe("Grouped Time Entry Tags", () => {
   };
 
   it("WHEN parent row is expanded THEN tags are visible", async () => {
-    const { user } = arrange({areTagPillsVisible: true});
+    const { user } = arrange({ areTagPillsVisible: true });
     const expandButton = getExpandButton();
 
     // act
     await user.click(expandButton);
 
     // assert
-    expect(screen.getByText("Tags pills")).toBeInTheDocument();
+    screen.debug(undefined, Infinity);
+    expect(screen.getByLabelText("pattern tag")).toBeInTheDocument();
+  });
+
+  it("WHEN copy button is clicked THEN text is copied to the clipboard", async () => {
+    // arrange
+    const { user } = arrange({ areTagPillsVisible: true });
+    const expandButton = getExpandButton();
+    await user.click(expandButton);
+
+    // act
+    const pill = screen.getByLabelText("pattern tag");
+    const copyButton = within(pill).getByLabelText("copy to clipboard");
+    await user.click(copyButton);
+
+    // assert
+    const clipboardText = await navigator.clipboard.readText();
+    expect(clipboardText).toBe("DX1-4444");
   });
 
   it("GIVEN feature is disabled WHEN parent row is expanded THEN tags are visible", async () => {
-    const { user } = arrange({areTagPillsVisible: false});
+    const { user } = arrange({ areTagPillsVisible: false });
     const expandButton = getExpandButton();
 
     // act
     await user.click(expandButton);
 
     // assert
-    expect(screen.queryByText("Tags pills")).not.toBeInTheDocument();
+    expect(screen.queryByLabelText("pattern tag")).not.toBeInTheDocument();
   });
 });
 
