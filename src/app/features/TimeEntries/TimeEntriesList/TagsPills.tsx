@@ -34,7 +34,10 @@ const TagPill = ({ tag }: { tag: { url: string; text: string } }) => {
   };
 
   return (
-    <span className="flex flex-row gap-1 items-center bg-neutral-100 rounded-sm border text-indigo-600 font-medium" aria-label="pattern tag">
+    <span
+      className="flex flex-row gap-1 items-center bg-neutral-100 rounded-sm border text-indigo-600 font-medium"
+      aria-label="pattern tag"
+    >
       <a
         className="pl-1.5 pr-0.5 py-0.5"
         href={tag.url}

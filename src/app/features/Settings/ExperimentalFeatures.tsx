@@ -11,8 +11,7 @@ export const ExperimentalFeatures = () => {
       state.settings.featureFlags.isAdjustableTimeReportingEnabled,
   );
   const areTagPillsVisible = useAppSelector(
-    (state: RootState) =>
-      state.settings.featureFlags.areTagPillsVisible,
+    (state: RootState) => state.settings.featureFlags.areTagPillsVisible,
   );
 
   return (
@@ -38,7 +37,8 @@ export const ExperimentalFeatures = () => {
         <div className="space-y-0.5">
           <div className="font-medium">Tag pills</div>
           <div className="text-[#666666]">
-            Showing clickable tags based on found patterns when expanding entry. Allows copying tags to clipboard.
+            Showing clickable tags based on found patterns when expanding entry.
+            Allows copying tags to clipboard.
           </div>
         </div>
         <Switch

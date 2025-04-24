@@ -68,7 +68,11 @@ export const settings = createSlice({
   },
 });
 
-export const { patternsChanged, setAdjustableTimeReporting, setTagPillsVisibility } = settings.actions;
+export const {
+  patternsChanged,
+  setAdjustableTimeReporting,
+  setTagPillsVisibility,
+} = settings.actions;
 
 export const downloadAppData = (): AppThunk => async (_dispatch, getState) => {
   const data = getState();
