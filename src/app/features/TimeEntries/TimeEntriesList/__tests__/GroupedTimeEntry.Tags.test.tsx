@@ -31,7 +31,6 @@ describe("Grouped Time Entry Tags", () => {
     await user.click(expandButton);
 
     // assert
-    screen.debug(undefined, Infinity);
     expect(screen.getByLabelText("pattern tag")).toBeInTheDocument();
   });
 
