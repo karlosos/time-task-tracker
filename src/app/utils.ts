@@ -15,6 +15,15 @@ export const formatElapsedTime = (timeDiff: number) => {
   )}:${addLeadingZeros(seconds, 2)}`;
 };
 
+export const formatElapsedTimeHM = (timeDiff: number) => {
+  timeDiff = Math.floor(timeDiff / 1000);
+  timeDiff = Math.floor(timeDiff / 60);
+  const minutes = Math.round(timeDiff % 60);
+  timeDiff = Math.floor(timeDiff / 60);
+  const hours = Math.round(timeDiff);
+  return `${addLeadingZeros(hours, 2)}:${addLeadingZeros(minutes, 2)}`;
+};
+
 export const parseElapsedTime = (timeString: string): number => {
   const [hours, minutes, seconds] = timeString.split(":").map(Number);
   const totalMilliseconds = (hours * 60 * 60 + minutes * 60 + seconds) * 1000;
