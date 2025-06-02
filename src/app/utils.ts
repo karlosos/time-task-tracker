@@ -24,6 +24,10 @@ export const formatElapsedTimeHM = (timeDiff: number) => {
   return `${addLeadingZeros(hours, 2)}:${addLeadingZeros(minutes, 2)}`;
 };
 
+export const msToHours = (ms: number) => {
+  return ms / (1000 * 60 * 60);
+};
+
 export const parseElapsedTime = (timeString: string): number => {
   const [hours, minutes, seconds] = timeString.split(":").map(Number);
   const totalMilliseconds = (hours * 60 * 60 + minutes * 60 + seconds) * 1000;
