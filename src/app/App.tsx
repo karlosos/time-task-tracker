@@ -17,7 +17,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className="fixed bottom-0 left-0 z-10 mx-auto flex w-full items-center justify-start gap-1 border-t bg-neutral-50 px-2 py-1 mobile:bottom-auto mobile:left-auto mobile:right-0 mobile:top-4 mobile:w-auto mobile:flex-col mobile:items-end mobile:justify-center mobile:border-none mobile:bg-transparent mobile:py-0">
         <Settings />
-        <GithubButton />
+        {/* <GithubButton /> */}
         <TimeReportedStats />
       </div>
       <div className="mx-auto mb-[40px] flex min-h-screen max-w-screen-sm flex-col px-2 py-4">
