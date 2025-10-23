@@ -28,6 +28,10 @@ export const msToHours = (ms: number) => {
   return ms / (1000 * 60 * 60);
 };
 
+export const hoursToMs = (hours: number) => {
+  return hours * 60 * 60 * 1000;
+};
+
 export const parseElapsedTime = (timeString: string): number => {
   const [hours, minutes, seconds] = timeString.split(":").map(Number);
   const totalMilliseconds = (hours * 60 * 60 + minutes * 60 + seconds) * 1000;

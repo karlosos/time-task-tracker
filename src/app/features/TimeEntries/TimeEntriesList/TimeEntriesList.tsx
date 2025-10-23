@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { EmptyState } from "./EmptyState";
 import { useAppSelector } from "../../../hooks";
-import { formatElapsedTime } from "../../../utils";
+import { formatElapsedTime, hoursToMs } from "../../../utils";
 import { GroupedTimeEntryRow } from "./GroupedTimeEntryRow";
 import {
   selectTimeEntriesGroupedByDate,
@@ -88,15 +88,11 @@ function DayHeader({
         <span className="mr-2 text-lg font-semibold text-neutral-700 opacity-50">
           {formatElapsedTime(elapsedTimePerDay)}
         </span>
-
-        <div className="flex items-center text-xs font-semibold">
-          <span className="rounded rounded-r-none border border-neutral-500 bg-neutral-500 pl-2 pr-1 text-white">
-            Logged
-          </span>
-          <span className="flex  items-center rounded rounded-l-none  border bg-neutral-100 pl-1 pr-2  text-neutral-700 opacity-50">
-            {formatElapsedTime(reportedTimePerDay)}
-          </span>
-        </div>
+        <LoggedTimeBadge
+          label="Logged"
+          reportedTimePerDay={reportedTimePerDay}
+          targetHours={6}
+        />
       </div>
     );
   } else {
@@ -141,6 +137,54 @@ const PaginationButtons = ({
         Load All
       </Button>
       <Button onClick={handleLoadMore}>Load More</Button>
+    </div>
+  );
+};
+
+// TODO: move to separate file
+export const LoggedTimeBadge = ({
+  label,
+  reportedTimePerDay,
+  targetHours,
+}: {
+  label: string;
+  targetHours: number;
+  reportedTimePerDay: number;
+}) => {
+  const percentage = (reportedTimePerDay / hoursToMs(targetHours)) * 100;
+
+  const colors = {
+    low: "#ba4244",
+    medium: "#d2812c",
+    high: "#59b173",
+    beyond: "#546cc0",
+  };
+
+  return (
+    <div className="relative" title={`${percentage.toFixed(0)}% of target`}>
+      <div className="flex items-center text-xs font-semibold">
+        <span className="rounded rounded-r-none rounded-b-none border border-neutral-500 bg-neutral-500 pl-2 pr-1 text-white">
+          {label}
+        </span>
+        <span className="flex  items-center rounded rounded-l-none  rounded-b-none border bg-neutral-100 pl-1 pr-2  text-neutral-700 opacity-50">
+          {formatElapsedTime(reportedTimePerDay)}
+        </span>
+      </div>
+      <div className="absolute w-[100%] h-1 rounded-t-none rounded border-0 border-neutral-200 bg-neutral-100">
+        <div
+          className={`h-full rounded rounded-t-none`}
+          style={{
+            width: `${Math.min(percentage, 100)}%`,
+            backgroundColor:
+              percentage < 50
+                ? colors.low
+                : percentage < 80
+                  ? colors.medium
+                  : colors.high,
+            borderBottomRightRadius: percentage < 100 ? "0px" : "4px",
+          }}
+        />
+      </div>
     </div>
   );
 };
