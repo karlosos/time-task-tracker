@@ -1,7 +1,7 @@
 import { Frown, Laugh, Meh, Smile } from "lucide-react";
 import { useAppSelector } from "../../../../hooks";
 import {
-  selectLast7DaysReportedTime,
+  selectThisWeekReportedTime,
   selectTodayReportedTime,
 } from "../../store";
 import { hoursToMs } from "../../../../utils";
@@ -15,14 +15,14 @@ import {
 export const TimeReportedStats = () => {
   const todayReportedTime = useAppSelector(selectTodayReportedTime);
   // TODO: this should calculate average reported time but only for days which has entries
-  const last7DaysReportedTime = useAppSelector(selectLast7DaysReportedTime);
+  const thisWeekReportedTime = useAppSelector(selectThisWeekReportedTime);
 
   // TODO: use constant from settings
   const todayPercentage = (todayReportedTime / hoursToMs(6)) * 100;
   const todayGrade = calculateGrade(todayPercentage);
 
   // TODO: use constant from settings
-  const weekPercentage = (last7DaysReportedTime / hoursToMs(6 * 5)) * 100;
+  const weekPercentage = (thisWeekReportedTime / hoursToMs(6 * 5)) * 100;
   const weekGrade = calculateGrade(weekPercentage);
 
   const isAdjustableTimeReportingEnabled = useAppSelector(
@@ -48,7 +48,7 @@ export const TimeReportedStats = () => {
       <div className="flex gap-1 items-center">
         <LoggedTimeBadge
           label="Week"
-          reportedTimePerDay={last7DaysReportedTime}
+          reportedTimePerDay={thisWeekReportedTime}
           // TODO: use constant from settings
           targetHours={6 * 5}
         />

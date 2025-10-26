@@ -39,7 +39,7 @@ export const LoggedTimeBadge = ({
         <span className="rounded rounded-r-none rounded-b-none border border-neutral-500 bg-neutral-500 pl-2 pr-1 text-white min-w-[50px]">
           {label}
         </span>
-        <span className="flex  items-center rounded rounded-l-none  rounded-b-none border bg-neutral-100 pl-1 pr-2  text-neutral-700 opacity-50">
+        <span className="flex  items-center rounded rounded-l-none  rounded-b-none border bg-neutral-100 pl-1 pr-2  text-neutral-700 opacity-50 tabular-nums">
           {formatElapsedTime(reportedTimePerDay)}
         </span>
       </div>

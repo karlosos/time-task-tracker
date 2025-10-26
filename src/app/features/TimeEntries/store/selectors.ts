@@ -77,20 +77,17 @@ export const selectTodayReportedTime = (state: RootState) => {
   return loggedTime;
 };
 
-export const selectLast7DaysReportedTime = (state: RootState) => {
+export const selectThisWeekReportedTime = (state: RootState) => {
   const allEntries = selectAllTimeEntries(state);
 
   const now = new Date();
-  const startOfToday = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate(),
-  ).getTime();
-  const startOf7DaysAgo = startOfToday - 7 * 24 * 60 * 60 * 1000; // 7 full days ago
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const dayOfWeek = (today.getDay() + 6) % 7;
+  const startTimeOfWeek = new Date(today);
+  startTimeOfWeek.setDate(today.getDate() - dayOfWeek);
 
   const relevantEntries = allEntries.filter(
-    (entry) =>
-      entry.startTime >= startOf7DaysAgo && entry.startTime < startOfToday,
+    (entry) => entry.startTime >= startTimeOfWeek.getTime(),
   );
 
   const loggedTime = relevantEntries
