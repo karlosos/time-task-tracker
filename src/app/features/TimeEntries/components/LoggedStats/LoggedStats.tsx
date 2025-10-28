@@ -17,12 +17,16 @@ export const TimeReportedStats = () => {
   // TODO: this should calculate average reported time but only for days which has entries
   const thisWeekReportedTime = useAppSelector(selectThisWeekReportedTime);
 
+  const dayOfWeek = (new Date().getDay() + 6) % 7;
+  const weekTargetHoursToDate = 6 * (dayOfWeek + 1);
+
   // TODO: use constant from settings
   const todayPercentage = (todayReportedTime / hoursToMs(6)) * 100;
   const todayGrade = calculateGrade(todayPercentage);
 
   // TODO: use constant from settings
-  const weekPercentage = (thisWeekReportedTime / hoursToMs(6 * 5)) * 100;
+  const weekPercentage =
+    (thisWeekReportedTime / hoursToMs(weekTargetHoursToDate)) * 100;
   const weekGrade = calculateGrade(weekPercentage);
 
   const isAdjustableTimeReportingEnabled = useAppSelector(
@@ -51,6 +55,7 @@ export const TimeReportedStats = () => {
           reportedTimePerDay={thisWeekReportedTime}
           // TODO: use constant from settings
           targetHours={6 * 5}
+          targetHoursToDate={weekTargetHoursToDate}
         />
         <GradeIcon grade={weekGrade} />
       </div>

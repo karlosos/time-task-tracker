@@ -4,13 +4,18 @@ export const LoggedTimeBadge = ({
   label,
   reportedTimePerDay,
   targetHours,
+  targetHoursToDate,
 }: {
   label: string;
   targetHours: number;
   reportedTimePerDay: number;
+  targetHoursToDate?: number; // used for showing target as a marker on the progress bar
 }) => {
   const percentage = (reportedTimePerDay / hoursToMs(targetHours)) * 100;
-  const grade = calculateGrade(percentage);
+  const percentageToDate = targetHoursToDate
+    ? (reportedTimePerDay / hoursToMs(targetHoursToDate)) * 100
+    : undefined;
+  const grade = calculateGrade(percentageToDate ?? percentage);
 
   const colors = {
     bad: "#ba4244",
@@ -29,6 +34,9 @@ export const LoggedTimeBadge = ({
       backgroundColor = colors.meh;
       break;
     case "GOOD":
+      backgroundColor = colors.good;
+      break;
+    case "GREAT":
       backgroundColor = colors.good;
       break;
   }
@@ -53,6 +61,14 @@ export const LoggedTimeBadge = ({
           }}
         />
       </div>
+      {targetHoursToDate && (
+        <div
+          className="w-[2px] h-1 bg-black absolute"
+          style={{
+            left: `${(targetHoursToDate / targetHours) * 100}%`,
+          }}
+        />
+      )}
     </div>
   );
 };
