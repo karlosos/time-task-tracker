@@ -5,6 +5,7 @@ import { TopBar } from "./features/TimeEntries/TopBar";
 import { GithubButton } from "./ui/GithubButton";
 import { CircleSlash2 } from "lucide-react";
 import { TimeReportedStats } from "./features/TimeEntries/components/LoggedStats/LoggedStats";
+import { WorkTimerBadge } from "./features/Timer/WorkTimerBadge";
 
 const theme = createTheme({
   typography: {
@@ -19,6 +20,7 @@ function App() {
         <Settings />
         {/* <GithubButton /> */}
         <TimeReportedStats />
+        <WorkTimerBadge />
       </div>
       <div className="mx-auto mb-[40px] flex min-h-screen max-w-screen-sm flex-col px-2 py-4">
         <TopBar />

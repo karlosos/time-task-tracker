@@ -2,12 +2,14 @@ import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import { loadState, saveState } from "./localStorage";
 import { timeEntries } from "../features/TimeEntries/store/slice";
 import { settings } from "../features/Settings/slice";
+import { shiftTimer } from "../features/Timer/slice";
 
 const preloadedState = loadState();
 
 export const storeReducers = {
   timeEntries: timeEntries.reducer,
   settings: settings.reducer,
+  shiftTimer: shiftTimer.reducer,
 };
 
 export const store = configureStore({
@@ -19,6 +21,7 @@ store.subscribe(() => {
   saveState({
     timeEntries: store.getState().timeEntries,
     settings: store.getState().settings,
+    shiftTimer: store.getState().shiftTimer,
   });
 });
 

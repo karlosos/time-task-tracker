@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import connectStore from "../../../../testUtils/connectStore";
 import { TopBar } from "../TopBar";
 import { settingsFixture } from "../../store/fixtures";
+import { shiftTimerInitialState } from "../../../Timer/slice";
 
 describe("TopBar Editing", () => {
   beforeEach(() => {
@@ -26,6 +27,7 @@ describe("TopBar Editing", () => {
           },
         },
         settings: settingsFixture,
+        shiftTimer: shiftTimerInitialState,
       }),
     );
 

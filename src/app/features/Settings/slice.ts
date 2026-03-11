@@ -12,6 +12,7 @@ export type SettingsState = {
   featureFlags: {
     isAdjustableTimeReportingEnabled: boolean;
     areTagPillsVisible: boolean;
+    isShiftTimerEnabled: boolean;
   };
 };
 
@@ -41,6 +42,7 @@ export const settingsInitialState: SettingsState = {
   featureFlags: {
     isAdjustableTimeReportingEnabled: false,
     areTagPillsVisible: false,
+    isShiftTimerEnabled: false,
   },
 };
 
@@ -57,6 +59,9 @@ export const settings = createSlice({
     setTagPillsVisibility: (state, action: PayloadAction<boolean>) => {
       state.featureFlags.areTagPillsVisible = action.payload;
     },
+    setShiftTimerEnabled: (state, action: PayloadAction<boolean>) => {
+      state.featureFlags.isShiftTimerEnabled = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(clearAppState, (state, action) => {
@@ -72,6 +77,7 @@ export const {
   patternsChanged,
   setAdjustableTimeReporting,
   setTagPillsVisibility,
+  setShiftTimerEnabled,
 } = settings.actions;
 
 export const downloadAppData = (): AppThunk => async (_dispatch, getState) => {

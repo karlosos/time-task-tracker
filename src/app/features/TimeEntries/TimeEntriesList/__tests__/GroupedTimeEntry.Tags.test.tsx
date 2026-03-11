@@ -2,6 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import connectStore from "../../../../testUtils/connectStore";
 import { settingsFixture, timeEntriesFixture } from "../../store/fixtures";
+import { shiftTimerInitialState } from "../../../Timer/slice";
 import { TimeEntriesList } from "../TimeEntriesList";
 
 describe("Grouped Time Entry Tags", () => {
@@ -15,8 +16,10 @@ describe("Grouped Time Entry Tags", () => {
           featureFlags: {
             areTagPillsVisible: areTagPillsVisible,
             isAdjustableTimeReportingEnabled: false,
+            isShiftTimerEnabled: false,
           },
         },
+        shiftTimer: shiftTimerInitialState,
       }),
     );
 

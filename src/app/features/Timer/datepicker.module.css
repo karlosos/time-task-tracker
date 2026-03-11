@@ -1,0 +1,23 @@
+/* Date picker */
+
+.date_picker {
+  padding: 0;
+  width: 100%;
+}
+
+.date_picker :global(.react-datepicker-wrapper) {
+  width: 100%;
+}
+
+.date_picker :global(.react-datepicker__input-container) {
+  width: 100%;
+}
+
+.date_picker input {
+  width: 100%;
+  text-align: center;
+}
+
+.date_picker input:focus {
+  box-sizing: border-box;
+}

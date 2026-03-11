@@ -2,6 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 import connectStore from "../../../../testUtils/connectStore";
 import userEvent from "@testing-library/user-event";
 import { settingsFixture, timeEntriesFixture } from "../../store/fixtures";
+import { shiftTimerInitialState } from "../../../Timer/slice";
 import { TimeEntriesList } from "../TimeEntriesList";
 
 describe("TimeEntriesList", () => {
@@ -10,6 +11,7 @@ describe("TimeEntriesList", () => {
       connectStore(<TimeEntriesList />, {
         timeEntries: timeEntriesFixture,
         settings: settingsFixture,
+        shiftTimer: shiftTimerInitialState,
       }),
     );
   };

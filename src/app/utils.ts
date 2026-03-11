@@ -3,25 +3,29 @@ const addLeadingZeros = (num: number, totalLength: number) => {
 };
 
 export const formatElapsedTime = (timeDiff: number) => {
-  timeDiff = Math.floor(timeDiff / 1000);
+  const isNegative = timeDiff < 0;
+  timeDiff = Math.floor(Math.abs(timeDiff) / 1000);
   const seconds = Math.round(timeDiff % 60);
   timeDiff = Math.floor(timeDiff / 60);
   const minutes = Math.round(timeDiff % 60);
   timeDiff = Math.floor(timeDiff / 60);
   const hours = Math.round(timeDiff);
-  return `${addLeadingZeros(hours, 2)}:${addLeadingZeros(
+  const sign = isNegative ? "-" : "";
+  return `${sign}${addLeadingZeros(hours, 2)}:${addLeadingZeros(
     minutes,
     2,
   )}:${addLeadingZeros(seconds, 2)}`;
 };
 
 export const formatElapsedTimeHM = (timeDiff: number) => {
-  timeDiff = Math.floor(timeDiff / 1000);
+  const isNegative = timeDiff < 0;
+  timeDiff = Math.floor(Math.abs(timeDiff) / 1000);
   timeDiff = Math.floor(timeDiff / 60);
   const minutes = Math.round(timeDiff % 60);
   timeDiff = Math.floor(timeDiff / 60);
   const hours = Math.round(timeDiff);
-  return `${addLeadingZeros(hours, 2)}:${addLeadingZeros(minutes, 2)}`;
+  const sign = isNegative ? "-" : "";
+  return `${sign}${addLeadingZeros(hours, 2)}:${addLeadingZeros(minutes, 2)}`;
 };
 
 export const msToHours = (ms: number) => {

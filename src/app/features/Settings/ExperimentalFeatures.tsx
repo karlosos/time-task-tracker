@@ -2,7 +2,11 @@ import { DialogContentText } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { RootState } from "../../store/store";
 import { Switch } from "../../ui/Switch";
-import { setAdjustableTimeReporting, setTagPillsVisibility } from "./slice";
+import {
+  setAdjustableTimeReporting,
+  setShiftTimerEnabled,
+  setTagPillsVisibility,
+} from "./slice";
 
 export const ExperimentalFeatures = () => {
   const dispatch = useAppDispatch();
@@ -12,6 +16,9 @@ export const ExperimentalFeatures = () => {
   );
   const areTagPillsVisible = useAppSelector(
     (state: RootState) => state.settings.featureFlags.areTagPillsVisible,
+  );
+  const isShiftTimerEnabled = useAppSelector(
+    (state: RootState) => state.settings.featureFlags.isShiftTimerEnabled,
   );
 
   return (
@@ -46,6 +53,19 @@ export const ExperimentalFeatures = () => {
           onCheckedChange={(checked) =>
             dispatch(setTagPillsVisibility(checked))
           }
+          className="h-5 w-9 ml-1"
+        />
+      </div>
+      <div className="mt-2 flex flex-row items-center justify-between rounded-lg border p-4">
+        <div className="space-y-0.5">
+          <div className="font-medium">Shift Timer</div>
+          <div className="text-[#666666]">
+            8-hour countdown timer in the footer with sound notification.
+          </div>
+        </div>
+        <Switch
+          checked={isShiftTimerEnabled}
+          onCheckedChange={(checked) => dispatch(setShiftTimerEnabled(checked))}
           className="h-5 w-9 ml-1"
         />
       </div>

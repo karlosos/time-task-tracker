@@ -43,7 +43,7 @@ const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        "fixed z-50 grid max-h-full w-full gap-4 overflow-y-auto rounded-b-lg border bg-background p-6 shadow-lg  sm:max-w-2xl  sm:rounded-lg",
+        "relative z-50 grid w-[calc(100vw-2rem)] sm:w-full max-w-2xl max-h-[calc(100vh-2rem)] gap-4 overflow-y-auto rounded-xl border bg-background p-6 shadow-lg",
         className,
       )}
       {...props}
@@ -63,10 +63,7 @@ const DialogHeader = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn(
-      "flex flex-col space-y-1.5 text-center sm:text-left",
-      className,
-    )}
+    className={cn("flex flex-col space-y-1.5 text-left", className)}
     {...props}
   />
 );

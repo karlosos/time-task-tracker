@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
 import connectStore from "../../../../testUtils/connectStore";
 import { settingsFixture, timeEntriesFixture } from "../../store/fixtures";
+import { shiftTimerInitialState } from "../../../Timer/slice";
 import { TimeEntriesList } from "../TimeEntriesList";
 
 describe("TimeEntriesList Logged Status", () => {
@@ -12,6 +13,7 @@ describe("TimeEntriesList Logged Status", () => {
       connectStore(<TimeEntriesList />, {
         timeEntries: timeEntriesFixture,
         settings: settingsFixture,
+        shiftTimer: shiftTimerInitialState,
       }),
     );
 
