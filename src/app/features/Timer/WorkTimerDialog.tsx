@@ -13,12 +13,11 @@ import { startTimer, pauseTimer, resetTimer, setTimerDuration } from "./slice";
 import { formatElapsedTime } from "../../utils";
 import { Play, Pause, RotateCcw, Clock, Target } from "lucide-react";
 
-interface WorkTimerDialogProps {
+interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   remainingMs: number;
   isRunning: boolean;
-  isFinished: boolean;
 }
 
 export const WorkTimerDialog = ({
@@ -26,13 +25,12 @@ export const WorkTimerDialog = ({
   onOpenChange,
   remainingMs,
   isRunning,
-  isFinished,
-}: WorkTimerDialogProps) => {
+}: Props) => {
   const dispatch = useAppDispatch();
   const [isCustomMode, setIsCustomMode] = useState(false);
   const [targetTime, setTargetTime] = useState<Date | null>(null);
 
-  const startPresetTimer = (hours: number, minutes: number) => {
+  const startTimerUntilTime = (hours: number, minutes: number) => {
     const now = new Date();
     const target = new Date(
       now.getFullYear(),
@@ -115,7 +113,7 @@ export const WorkTimerDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md" aria-label="Work timer dialog">
         <DialogHeader>
           <DialogTitle>Work Timer</DialogTitle>
         </DialogHeader>
@@ -175,7 +173,7 @@ export const WorkTimerDialog = ({
               </button>
               <button
                 type="button"
-                onClick={() => startPresetTimer(17, 0)}
+                onClick={() => startTimerUntilTime(17, 0)}
                 className="flex items-center justify-center gap-2 rounded-lg border border-neutral-300 bg-neutral-50 px-3 py-2 text-sm font-semibold text-neutral-700 transition-all cursor-pointer hover:bg-neutral-100 hover:text-neutral-900"
               >
                 <Target size={16} />
@@ -183,7 +181,7 @@ export const WorkTimerDialog = ({
               </button>
               <button
                 type="button"
-                onClick={() => startPresetTimer(15, 0)}
+                onClick={() => startTimerUntilTime(15, 0)}
                 className="flex items-center justify-center gap-2 rounded-lg border border-neutral-300 bg-neutral-50 px-3 py-2 text-sm font-semibold text-neutral-700 transition-all cursor-pointer hover:bg-neutral-100 hover:text-neutral-900"
               >
                 <Target size={16} />

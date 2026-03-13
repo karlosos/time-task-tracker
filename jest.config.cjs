@@ -11,5 +11,6 @@ module.exports = {
   testPathIgnorePatterns: ["/node_modules/", "/dist/"], // Ignore dist and node_modules
   moduleNameMapper: {
     "\\.css$": "identity-obj-proxy", // Mock CSS files
+    "\\.mp3$": "identity-obj-proxy", // Mock mp3 files
   },
 };

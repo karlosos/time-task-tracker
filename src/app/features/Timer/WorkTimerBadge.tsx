@@ -47,7 +47,6 @@ export const WorkTimerBadge = () => {
     // Sound on crossing 0
     if (isRunning && prevRemainingMs.current > 0 && remainingMs <= 0) {
       playFinishedSound();
-      // Optional: browser notification or alert
     }
     wasRunning.current = isRunning;
     prevRemainingMs.current = remainingMs;
@@ -67,10 +66,13 @@ export const WorkTimerBadge = () => {
         title="Open Timer Settings"
       >
         <div className="flex items-center gap-1.5 text-neutral-600">
-          <TimerIcon
-            size={16}
-            className={isRunning ? "animate-pulse text-blue-500" : ""}
-          />
+          {isFinished ? (
+            <OvertimePing />
+          ) : isRunning ? (
+            <LivePing />
+          ) : (
+            <TimerIcon size={16} />
+          )}
           <span className="tabular-nums text-sm font-semibold text-neutral-800">
             {formatElapsedTime(remainingMs)}
           </span>
@@ -82,8 +84,25 @@ export const WorkTimerBadge = () => {
         onOpenChange={setIsDialogOpen}
         remainingMs={remainingMs}
         isRunning={isRunning}
-        isFinished={isFinished}
       />
     </>
+  );
+};
+
+const LivePing = () => {
+  return (
+    <span className="relative flex h-3 w-3">
+      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+      <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+    </span>
+  );
+};
+
+const OvertimePing = () => {
+  return (
+    <span className="relative flex h-3 w-3">
+      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+      <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+    </span>
   );
 };
