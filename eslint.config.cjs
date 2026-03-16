@@ -1,6 +1,9 @@
 /** @type {import('eslint').Linter.FlatConfig} */
 module.exports = [
   {
+    ignores: ["build/**", "dist/**", "coverage/**"],
+  },
+  {
     files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
     languageOptions: {
       ecmaVersion: "latest",
