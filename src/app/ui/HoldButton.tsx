@@ -1,9 +1,10 @@
-import * as React from "react";
+import { PopoverAnchor } from "@radix-ui/react-popover";
 import { cva, type VariantProps } from "class-variance-authority";
+import * as React from "react";
+
 import { cn } from "../lib/utils";
 import styles from "./HoldButton.module.css";
 import { Popover, PopoverContent } from "./Popover";
-import { PopoverAnchor } from "@radix-ui/react-popover";
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,

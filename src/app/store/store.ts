@@ -1,8 +1,9 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
-import { loadState, saveState } from "./localStorage";
-import { timeEntries } from "../features/TimeEntries/store/slice";
+
 import { settings } from "../features/Settings/slice";
+import { timeEntries } from "../features/TimeEntries/store/slice";
 import { shiftTimer } from "../features/Timer/slice";
+import { loadState, saveState } from "./localStorage";
 
 const preloadedState = loadState();
 

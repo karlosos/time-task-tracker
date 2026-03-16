@@ -1,13 +1,14 @@
+import { Timer as TimerIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import useSound from "use-sound";
+
+import xpShutdownSfx from "../../../../assets/xp-shutdown.mp3";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { RootState } from "../../store/store";
-import { tick } from "./slice";
-import { formatElapsedTime } from "../../utils";
-import { Timer as TimerIcon } from "lucide-react";
-import useSound from "use-sound";
-import { WorkTimerDialog } from "./WorkTimerDialog";
-import xpShutdownSfx from "../../../../assets/xp-shutdown.mp3";
 import { testId } from "../../testUtils/testId";
+import { formatElapsedTime } from "../../utils";
+import { tick } from "./slice";
+import { WorkTimerDialog } from "./WorkTimerDialog";
 
 const DEFAULT_TIMER_STATE = {
   remainingMs: 8 * 60 * 60 * 1000,

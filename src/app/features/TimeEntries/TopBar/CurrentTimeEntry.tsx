@@ -1,13 +1,14 @@
 import StopIcon from "@mui/icons-material/StopCircle";
-import { formatElapsedTime } from "../../../utils";
-import { useState, useEffect, useRef } from "react";
+import { IconButton } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
 import React from "react";
+
 import { useAppDispatch } from "../../../hooks";
-import { ElapsedTime, TopBarStyled } from "./TopBar.style";
+import { formatElapsedTime } from "../../../utils";
 import { TimeEntryEdit } from "../components/TimeEntryEdit";
 import { TimeEntryText } from "../components/TimeEntryText";
-import { IconButton } from "@mui/material";
 import { TimeEntry, timeEntryStopped } from "../store";
+import { ElapsedTime, TopBarStyled } from "./TopBar.style";
 
 interface CurrentTimeEntryProps {
   currentTimeEntry: TimeEntry;

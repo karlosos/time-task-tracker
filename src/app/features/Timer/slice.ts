@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { formatDayMonthYear, hoursToMs } from "../../utils";
+
 import { clearAppState, loadBackup } from "../../store/commonActions";
+import { formatDayMonthYear, hoursToMs } from "../../utils";
 
 export interface ShiftTimer {
   remainingMs: number;

@@ -1,13 +1,14 @@
 import { act, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { WorkTimerBadge } from "../WorkTimerBadge";
+
 import connectStore from "../../../testUtils/connectStore";
+import { testId } from "../../../testUtils/testId";
 import {
   settingsFixture,
   timeEntriesFixture,
 } from "../../TimeEntries/store/fixtures";
 import { shiftTimerInitialState } from "../slice";
-import { testId } from "../../../testUtils/testId";
+import { WorkTimerBadge } from "../WorkTimerBadge";
 
 describe("Work Timer", () => {
   jest.useFakeTimers();

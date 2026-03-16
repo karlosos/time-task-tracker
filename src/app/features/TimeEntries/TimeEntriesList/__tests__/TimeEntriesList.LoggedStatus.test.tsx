@@ -1,9 +1,10 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
+
 import connectStore from "../../../../testUtils/connectStore";
-import { settingsFixture, timeEntriesFixture } from "../../store/fixtures";
 import { shiftTimerInitialState } from "../../../Timer/slice";
+import { settingsFixture, timeEntriesFixture } from "../../store/fixtures";
 import { TimeEntriesList } from "../TimeEntriesList";
 
 describe("TimeEntriesList Logged Status", () => {

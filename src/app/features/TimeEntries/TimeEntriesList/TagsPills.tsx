@@ -1,7 +1,8 @@
+import { ClipboardCheckIcon, ClipboardCopyIcon } from "lucide-react";
 import { useRef, useState } from "react";
+
 import { useCopyToClipboard } from "../../../hooks/useCopyToClipboard";
 import { useFindPatternsInText } from "../components/TimeEntryText/useFindPatternsInText";
-import { ClipboardCheckIcon, ClipboardCopyIcon } from "lucide-react";
 
 export const TagsPills = ({ text }: { text: string }) => {
   const tags = useFindPatternsInText(text);

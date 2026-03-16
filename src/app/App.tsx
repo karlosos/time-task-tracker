@@ -1,10 +1,9 @@
 import { createTheme, ThemeProvider } from "@mui/material";
+
 import { Settings } from "./features/Settings/Settings";
+import { TimeReportedStats } from "./features/TimeEntries/components/LoggedStats/LoggedStats";
 import { TimeEntriesList } from "./features/TimeEntries/TimeEntriesList";
 import { TopBar } from "./features/TimeEntries/TopBar";
-import { GithubButton } from "./ui/GithubButton";
-import { CircleSlash2 } from "lucide-react";
-import { TimeReportedStats } from "./features/TimeEntries/components/LoggedStats/LoggedStats";
 import { WorkTimerBadge } from "./features/Timer/WorkTimerBadge";
 
 const theme = createTheme({

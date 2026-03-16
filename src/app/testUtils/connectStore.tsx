@@ -2,10 +2,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import { ReactElement } from "react";
 import { Provider } from "react-redux";
 
-import { RootState, storeReducers } from "../store/store";
-import { timeEntriesInitialState } from "../features/TimeEntries/store/slice";
 import { settingsInitialState } from "../features/Settings/slice";
+import { timeEntriesInitialState } from "../features/TimeEntries/store/slice";
 import { shiftTimerInitialState } from "../features/Timer/slice";
+import { RootState, storeReducers } from "../store/store";
 
 const initialState: RootState = {
   timeEntries: timeEntriesInitialState,

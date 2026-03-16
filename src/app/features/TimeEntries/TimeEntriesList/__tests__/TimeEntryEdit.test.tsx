@@ -1,8 +1,9 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+
 import connectStore from "../../../../testUtils/connectStore";
-import { settingsFixture, timeEntriesFixture } from "../../store/fixtures";
 import { shiftTimerInitialState } from "../../../Timer/slice";
+import { settingsFixture, timeEntriesFixture } from "../../store/fixtures";
 import { TimeEntriesList } from "../TimeEntriesList";
 
 process.env.TZ = "UTC";

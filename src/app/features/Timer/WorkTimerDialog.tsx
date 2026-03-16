@@ -1,19 +1,21 @@
+import "react-datepicker/dist/react-datepicker.css";
+
+import { Clock, Pause, Play, RotateCcw, Target } from "lucide-react";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import styles from "./datepicker.module.css";
+
+import { useAppDispatch } from "../../hooks";
+import { testId } from "../../testUtils/testId";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from "../../ui/Dialog";
-import { useAppDispatch } from "../../hooks";
-import { startTimer, pauseTimer, resetTimer, setTimerDuration } from "./slice";
 import { formatElapsedTime } from "../../utils";
-import { Play, Pause, RotateCcw, Clock, Target } from "lucide-react";
-import { testId } from "../../testUtils/testId";
+import styles from "./datepicker.module.css";
+import { pauseTimer, resetTimer, setTimerDuration, startTimer } from "./slice";
 
 interface Props {
   open: boolean;

@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { EmptyState } from "./EmptyState";
+
 import { useAppSelector } from "../../../hooks";
-import { formatElapsedTime, hoursToMs } from "../../../utils";
-import { GroupedTimeEntryRow } from "./GroupedTimeEntryRow";
-import {
-  selectTimeEntriesGroupedByDate,
-  selectTimeEntriesCount,
-} from "../store";
-import { Button } from "../../../ui/Button";
 import { RootState } from "../../../store/store";
+import { Button } from "../../../ui/Button";
+import { formatElapsedTime, hoursToMs } from "../../../utils";
 import { LoggedTimeBadge } from "../components/LoggedTimeBadge/LoggedTimeBadge";
+import {
+  selectTimeEntriesCount,
+  selectTimeEntriesGroupedByDate,
+} from "../store";
+import { EmptyState } from "./EmptyState";
+import { GroupedTimeEntryRow } from "./GroupedTimeEntryRow";
 
 const TIME_ENTRIES_LIMIT = 50;
 

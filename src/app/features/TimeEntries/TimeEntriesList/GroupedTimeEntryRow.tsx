@@ -1,21 +1,22 @@
-import { Checkbox } from "@mui/material";
-import { formatElapsedTime } from "../../../utils";
 import { PlayCircle } from "@mui/icons-material";
-import { useAppDispatch, useAppSelector } from "../../../hooks";
-import { TimeEntryRow } from "./TimeEntryRow";
+import { Checkbox } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { TimeEntryText } from "../components/TimeEntryText";
+
+import { useAppDispatch, useAppSelector } from "../../../hooks";
+import { RootState } from "../../../store/store";
+import { Button } from "../../../ui/Button";
 import { ToggleAccordionIcon } from "../../../ui/ToggleAccordionIcon";
+import { formatElapsedTime } from "../../../utils";
+import { TimeEntryText } from "../components/TimeEntryText";
 import {
   GroupedTimeEntry,
   timeEntriesLoggedStatusChanged,
   timeEntryAdded,
 } from "../store";
-import { Button } from "../../../ui/Button";
-import { TimeReportingDialog } from "./TimeReportingDialog";
-import { RootState } from "../../../store/store";
 import { TagsPills } from "./TagsPills";
+import { TimeEntryRow } from "./TimeEntryRow";
+import { TimeReportingDialog } from "./TimeReportingDialog";
 
 interface GroupedTimeEntryRowProps {
   groupedTimeEntry: GroupedTimeEntry;

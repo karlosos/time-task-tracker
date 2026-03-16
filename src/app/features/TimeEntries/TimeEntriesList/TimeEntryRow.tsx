@@ -5,17 +5,18 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import { formatDatetime, formatElapsedTime } from "../../../utils";
-import { useAppDispatch } from "../../../hooks";
+import { Edit2, Trash } from "lucide-react";
 import { useState } from "react";
+
+import { useAppDispatch } from "../../../hooks";
+import { Button } from "../../../ui/Button";
+import { formatDatetime, formatElapsedTime } from "../../../utils";
 import { TimeEntryEdit } from "../components/TimeEntryEdit";
 import {
   timeEntriesLoggedStatusChanged,
   TimeEntry,
   timeEntryRemoved,
 } from "../store";
-import { Edit2, Trash } from "lucide-react";
-import { Button } from "../../../ui/Button";
 
 export const TimeEntryRow = ({ timeEntry }: { timeEntry: TimeEntry }) => {
   const dispatch = useAppDispatch();

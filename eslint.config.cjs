@@ -1,7 +1,7 @@
 /** @type {import('eslint').Linter.FlatConfig} */
 module.exports = [
   {
-    files: ["*.ts", "*.tsx", "*.js", "*.jsx"],
+    files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
@@ -16,6 +16,7 @@ module.exports = [
       react: require("eslint-plugin-react"),
       "@typescript-eslint": require("@typescript-eslint/eslint-plugin"),
       import: require("eslint-plugin-import"),
+      "simple-import-sort": require("eslint-plugin-simple-import-sort"),
     },
     settings: {
       react: {
@@ -28,6 +29,8 @@ module.exports = [
       "react/react-in-jsx-scope": "off", // React 17+ no longer requires React in scope
       "react/prop-types": "off", // Disable prop-types in TypeScript projects
       "import/no-unresolved": "off", // Disable unresolved imports errors
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error",
     },
   },
 ];

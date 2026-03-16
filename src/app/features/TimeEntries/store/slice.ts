@@ -1,9 +1,10 @@
 import {
-  createSlice,
   createEntityAdapter,
+  createSlice,
   EntityState,
   PayloadAction,
 } from "@reduxjs/toolkit";
+
 import { clearAppState, loadBackup } from "../../../store/commonActions";
 import { generateId } from "../../../utils";
 import { timeEntriesFixture } from "./fixtures";
