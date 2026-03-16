@@ -7,11 +7,13 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "../../ui/Dialog";
 import { useAppDispatch } from "../../hooks";
 import { startTimer, pauseTimer, resetTimer, setTimerDuration } from "./slice";
 import { formatElapsedTime } from "../../utils";
 import { Play, Pause, RotateCcw, Clock, Target } from "lucide-react";
+import { testId } from "../../testUtils/testId";
 
 interface Props {
   open: boolean;
@@ -116,10 +118,16 @@ export const WorkTimerDialog = ({
       <DialogContent className="max-w-md" aria-label="Work timer dialog">
         <DialogHeader>
           <DialogTitle>Work Timer</DialogTitle>
+          <DialogDescription>
+            Manage your daily work timer settings and progress.
+          </DialogDescription>
         </DialogHeader>
 
         <div className="flex flex-col items-center justify-center py-4 sm:py-6 gap-4 sm:gap-6">
-          <div className="font-mono tracking-wider tabular-nums font-semibold text-neutral-800 text-[clamp(2.5rem,14vw,3.75rem)] leading-none">
+          <div
+            className="font-mono tracking-wider tabular-nums font-semibold text-neutral-800 text-[clamp(2.5rem,14vw,3.75rem)] leading-none"
+            data-testid={testId.workTimerDialogValue}
+          >
             {formatElapsedTime(remainingMs)}
           </div>
 

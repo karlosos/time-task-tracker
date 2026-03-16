@@ -7,6 +7,13 @@ import { Timer as TimerIcon } from "lucide-react";
 import useSound from "use-sound";
 import { WorkTimerDialog } from "./WorkTimerDialog";
 import xpShutdownSfx from "../../../../assets/xp-shutdown.mp3";
+import { testId } from "../../testUtils/testId";
+
+const DEFAULT_TIMER_STATE = {
+  remainingMs: 8 * 60 * 60 * 1000,
+  isRunning: false,
+  lastTickTimestamp: null,
+};
 
 export const WorkTimerBadge = () => {
   const dispatch = useAppDispatch();
@@ -18,12 +25,7 @@ export const WorkTimerBadge = () => {
 
   const today = new Date().toISOString().slice(0, 10);
   const timerState = useAppSelector(
-    (state: RootState) =>
-      state.shiftTimer.timers[today] || {
-        remainingMs: 8 * 60 * 60 * 1000,
-        isRunning: false,
-        lastTickTimestamp: null,
-      },
+    (state: RootState) => state.shiftTimer.timers[today] || DEFAULT_TIMER_STATE,
   );
 
   const { remainingMs, isRunning } = timerState;
@@ -73,7 +75,10 @@ export const WorkTimerBadge = () => {
           ) : (
             <TimerIcon size={16} />
           )}
-          <span className="tabular-nums text-sm font-semibold text-neutral-800">
+          <span
+            className="tabular-nums text-sm font-semibold text-neutral-800"
+            data-testid={testId.workTimerBadgeValue}
+          >
             {formatElapsedTime(remainingMs)}
           </span>
         </div>
